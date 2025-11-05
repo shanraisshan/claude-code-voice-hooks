@@ -1,4 +1,5 @@
-# Claude Code Voice Hooks 🔊
+# Claude Code Voice Hooks 🔊 Ding Dong
+plays #ding 🔊 on PreToolUse and #dong 🔊 on PostToolUse #claudecode
 
 Providing voice feedback to your Claude Code agent! Get instant audio notifications for tool usage, prompts, git commits, and session events.
 

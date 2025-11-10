@@ -3,6 +3,12 @@ plays #ding 🔊 on PreToolUse and #dong 🔊 on PostToolUse #claudecode
 
 Providing voice feedback to your Claude Code agent! Get instant audio notifications for tool usage, prompts, git commits, and session events.
 
+# [Demo Video](https://youtu.be/vgfdSUbz_b0)
+
+📹 Demo video available here: 👉 [Youtube](https://youtu.be/vgfdSUbz_b0)
+
+![thumbnail](!/thumbnail.png)
+
 ## Installation
 
 ### 1 ■ METHOD: Fresh Installation (No existing `.claude/settings.json`)

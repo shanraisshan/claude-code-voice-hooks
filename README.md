@@ -84,15 +84,15 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
 ```
   "disableAllHooks": false,
   "hooks": {
-    "PreToolUse": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}],
-    "PostToolUse": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}],
-    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}],
-    "Notification": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}],
-    "Stop": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}],
-    "SubagentStop": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}],
-    "PreCompact": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}],
-    "SessionStart": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}],
-    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 .claude/hooks/scripts/hooks.py"}]}]
+    "PreToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "PostToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "Notification": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "SubagentStop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "PreCompact": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}]
   }
 ```
 

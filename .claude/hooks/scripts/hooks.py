@@ -225,11 +225,64 @@ def is_hook_disabled(event_name):
         print(f"Error in is_hook_disabled: {e}", file=sys.stderr)
         return False
 
+def is_logging_disabled():
+    """
+    Check if logging is disabled in the config files.
+    Uses fallback logic: hooks-config.local.json -> hooks-config.json
+
+    Returns:
+        True if logging is disabled, False otherwise
+    """
+    try:
+        # Scripts are in .claude/hooks/scripts/, config is in .claude/hooks/config/
+        script_dir = Path(__file__).parent  # .claude/hooks/scripts/
+        hooks_dir = script_dir.parent  # .claude/hooks/
+        config_dir = hooks_dir / "config"  # .claude/hooks/config/
+
+        local_config_path = config_dir / "hooks-config.local.json"
+        default_config_path = config_dir / "hooks-config.json"
+
+        # Try to load local config first
+        local_config = None
+        if local_config_path.exists():
+            try:
+                with open(local_config_path, "r", encoding="utf-8") as config_file:
+                    local_config = json.load(config_file)
+            except Exception as e:
+                print(f"Error reading local config: {e}", file=sys.stderr)
+
+        # Try to load default config
+        default_config = None
+        if default_config_path.exists():
+            try:
+                with open(default_config_path, "r", encoding="utf-8") as config_file:
+                    default_config = json.load(config_file)
+            except Exception as e:
+                print(f"Error reading default config: {e}", file=sys.stderr)
+
+        # Apply fallback logic: local -> default -> False (logging enabled)
+        if local_config is not None and "disableLogging" in local_config:
+            return local_config["disableLogging"]
+        elif default_config is not None and "disableLogging" in default_config:
+            return default_config["disableLogging"]
+        else:
+            # If neither config has the key, assume logging is enabled
+            return False
+
+    except Exception as e:
+        # If anything goes wrong, assume logging is enabled
+        print(f"Error in is_logging_disabled: {e}", file=sys.stderr)
+        return False
+
 def log_hook_data(hook_data):
     """
     Log the full hook_data to hooks-log.jsonl for debugging/auditing.
     Log file is stored at .claude/hooks/logs/hooks-log.jsonl
     """
+    # Check if logging is disabled
+    if is_logging_disabled():
+        return
+
     try:
         # Scripts are in .claude/hooks/scripts/, logs are in .claude/hooks/logs/
         script_dir = Path(__file__).parent  # .claude/hooks/scripts/

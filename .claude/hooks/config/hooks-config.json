@@ -1,4 +1,5 @@
 {
+  "disableLogging": false,
   "disablePreToolUseHook": false,
   "disablePostToolUseHook": false,
   "disableUserPromptSubmitHook": false,

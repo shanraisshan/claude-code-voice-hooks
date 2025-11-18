@@ -81,6 +81,7 @@ Edit `.claude/hooks/config/hooks-config.json` for team-wide defaults:
 
 ```json
 {
+  "disableLogging": false,
   "disablePreToolUseHook": false,
   "disablePostToolUseHook": false,
   "disableUserPromptSubmitHook": false,
@@ -93,18 +94,22 @@ Edit `.claude/hooks/config/hooks-config.json` for team-wide defaults:
 }
 ```
 
+**Configuration Options:**
+- `disableLogging`: Set to `true` to disable logging hook events to `.claude/hooks/logs/hooks-log.jsonl` (useful to prevent log file growth)
+
 #### Local Configuration (Personal Overrides)
 
 Create or edit `.claude/hooks/config/hooks-config.local.json` for personal preferences:
 
 ```json
 {
+  "disableLogging": true,
   "disablePostToolUseHook": true,
   "disableSessionStartHook": true
 }
 ```
 
-In this example, only the PostToolUse and SessionStart hooks are overridden locally. All other hooks will use the shared configuration values.
+In this example, logging is disabled, and the PostToolUse and SessionStart hooks are overridden locally. All other hooks will use the shared configuration values.
 
 **Note:** Individual hook toggles are checked by the hook script (`.claude/hooks/scripts/hooks.py`). Local settings override shared settings, and if a hook is disabled, the script exits silently without playing any sounds or executing hook logic.
 

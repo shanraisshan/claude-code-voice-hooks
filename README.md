@@ -101,8 +101,8 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
 - 🔊 Audio feedback for all 9 Claude Code hook events
 - 🎵 Special sound for git commits
 - 🖥️ Cross-platform support (macOS, Linux, Windows)
-- ⚙️ Easy enable/disable configuration
-- 📝 Detailed logging for debugging
+- ⚙️ Easy enable/disable configuration (global and per-hook)
+- 📝 Optional detailed logging for debugging (can be disabled)
 - 🎨 Customizable per-hook settings
 
 ## Prerequisites
@@ -140,5 +140,5 @@ Claude Code
 
 - [Youtube](https://www.youtube.com/watch?v=vgfdSUbz_b0)
 - [LinkedIn](https://www.linkedin.com/posts/shanraisshan_claudecode-aicoding-voicehooks-activity-7393305703697805312-4gl0)
-- Reddit [ClaudeCode](https://www.reddit.com/r/ClaudeCode/comments/1otaf7f/i_just_made_claude_code_speak_using_hooks/) [ClaudeAI](https://www.reddit.com/r/ClaudeAI/comments/1otau6p/gave_claude_code_a_voice_realtime_sound_hooks_for/) [claude](https://www.reddit.com/r/claude/comments/1otaivx/comment/no3rztv/) [aiagents](https://www.reddit.com/r/aiagents/comments/1otcezn/made_my_ai_agent_audible_claude_code_now_talks/) 
+- Reddit [ClaudeCode](https://www.reddit.com/r/ClaudeCode/comments/1otaf7f/i_just_made_claude_code_speak_using_hooks/) [ClaudeAI](https://www.reddit.com/r/ClaudeAI/comments/1otau6p/gave_claude_code_a_voice_realtime_sound_hooks_for/) [claude](https://www.reddit.com/r/claude/comments/1otaivx/comment/no3rztv/) [aiagents](https://www.reddit.com/r/aiagents/comments/1otcezn/made_my_ai_agent_audible_claude_code_now_talks/) [claudexplorers] (https://www.reddit.com/r/claudexplorers/comments/1ovu5fq/i_gave_claude_code_a_soundtrack_realtime_sounds/) [AiBuilders](https://www.reddit.com/r/AiBuilders/comments/1ouxyr3/your_ai_doesnt_have_to_be_silent_i_made_claude/) [ChatGPTCoding](https://www.reddit.com/r/ChatGPTCoding/comments/1ou2vea/turned_claude_code_into_a_soundboard_every_action/) [vibecoding](https://www.reddit.com/r/vibecoding/comments/1otefyd/comment/noslj0e/)
 - [X](https://x.com/shanraisshan/status/1987817251966513620)

@@ -1,6 +1,7 @@
 {
   "disableLogging": false,
   "disablePreToolUseHook": false,
+  "disablePermissionRequestHook": false,
   "disablePostToolUseHook": false,
   "disableUserPromptSubmitHook": false,
   "disableNotificationHook": false,

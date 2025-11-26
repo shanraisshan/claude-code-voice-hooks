@@ -20,7 +20,7 @@ Use this method if you **don't have** a `.claude/settings.json` file in your pro
 cd your-project
 mkdir -p .claude
 git clone https://github.com/shanraisshan/claude-code-voice-hooks.git temp-hooks
-cp -r temp-hooks/.claude/* .claude/
+cp -r temp-hooks/.claude/. .claude/
 rm -rf temp-hooks
 ```
 

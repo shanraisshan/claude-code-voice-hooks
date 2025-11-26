@@ -3,7 +3,7 @@
 Claude Code Hook Handler
 =============================================
 This script handles events from Claude Code and plays sounds for different hook events.
-Supports all 10 Claude Code hooks: https://docs.claude.com/en/docs/claude-code/hooks-guide
+Supports all 11 Claude Code hooks: https://docs.claude.com/en/docs/claude-code/hooks-guide
 
 Special handling for git commits: plays pretooluse-git-committing.mp3
 """
@@ -30,6 +30,7 @@ HOOK_SOUND_MAP = {
     "UserPromptSubmit": "userpromptsubmit",
     "Notification": "notification",
     "Stop": "stop",
+    "SubagentStart": "subagentstart",
     "SubagentStop": "subagentstop",
     "PreCompact": "precompact",
     "SessionStart": "sessionstart",

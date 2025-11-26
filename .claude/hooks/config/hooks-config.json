@@ -6,6 +6,7 @@
   "disableUserPromptSubmitHook": false,
   "disableNotificationHook": false,
   "disableStopHook": false,
+  "disableSubagentStartHook": false,
   "disableSubagentStopHook": false,
   "disablePreCompactHook": false,
   "disableSessionStartHook": false,

@@ -102,6 +102,36 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
   }
 ```
 
+## Update to v2
+
+If you have an older version of the hooks installed, follow these steps to update to v2:
+
+### Step 1: Remove existing hooks
+
+**For macOS/Linux:**
+```bash
+cd your-project
+rm -rf .claude/hooks
+```
+
+**For Windows (PowerShell):**
+```powershell
+cd your-project
+Remove-Item -Recurse -Force .claude\hooks
+```
+
+**For Windows (Command Prompt):**
+```cmd
+cd your-project
+rmdir /S /Q .claude\hooks
+```
+
+### Step 2: Install the latest hooks using Method 2
+
+Follow the [Installation](#installation) instructions above to install the latest version. Use Method 2 to merge the latest hooks into your existing `.claude/settings.json`.
+
+---
+
 ## Features
 
 - 🔊 Audio feedback for all 11 Claude Code hook events

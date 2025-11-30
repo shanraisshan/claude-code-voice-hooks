@@ -1,5 +1,9 @@
 # Claude Code Voice Hooks 🔊 Ding Dong
-plays #ding 🔊 on PreToolUse and #dong 🔊 on PostToolUse #claudecode
+![mario](!/mario.png)
+
+plays #mario-start 🔊 on SessionStart and #mario-game-over 🔊 on SessionEnd
+
+plays #ding 🔊 on PreToolUse and #dong 🔊 on PostToolUse
 
 Providing voice feedback to your Claude Code agent! Get instant audio notifications for tool usage, prompts, git commits, and session events.
 

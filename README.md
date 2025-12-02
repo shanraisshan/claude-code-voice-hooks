@@ -25,6 +25,7 @@ cd your-project
 mkdir -p .claude
 git clone https://github.com/shanraisshan/claude-code-voice-hooks.git temp-hooks
 cp -r temp-hooks/.claude/. .claude/
+rm -f .claude/settings-windows.json
 rm -rf temp-hooks
 ```
 
@@ -34,6 +35,8 @@ cd your-project
 New-Item -ItemType Directory -Force -Path .claude
 git clone https://github.com/shanraisshan/claude-code-voice-hooks.git temp-hooks
 Copy-Item -Recurse -Force temp-hooks\.claude\* .claude\
+Remove-Item .claude\settings.json
+Rename-Item .claude\settings-windows.json settings.json
 Remove-Item -Recurse -Force temp-hooks
 ```
 
@@ -43,6 +46,8 @@ cd your-project
 if not exist .claude mkdir .claude
 git clone https://github.com/shanraisshan/claude-code-voice-hooks.git temp-hooks
 xcopy /E /I /Y temp-hooks\.claude\* .claude\
+del .claude\settings.json
+ren .claude\settings-windows.json settings.json
 rmdir /S /Q temp-hooks
 ```
 
@@ -85,6 +90,7 @@ rmdir /S /Q temp-hooks
 
 Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks and hooks) below
 
+**For macOS/Linux:** (use `python3`)
 ```
   "disableAllHooks": false,
   "hooks": {
@@ -99,6 +105,24 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
     "PreCompact": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
     "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
     "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}]
+  }
+```
+
+**For Windows:** (use `python` and relative path)
+```
+  "disableAllHooks": false,
+  "hooks": {
+    "PreToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "PostToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "Notification": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "SubagentStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "SubagentStop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "PreCompact": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}]
   }
 ```
 
@@ -149,7 +173,9 @@ Before using hooks, ensure you have **Python 3** installed on your system:
 
 #### All Platforms (Windows, macOS, Linux)
 - **Python 3**: Required for running the hook scripts
-- Verify installation: `python3 --version`
+- Verify installation:
+  - macOS/Linux: `python3 --version`
+  - Windows: `python --version`
 
 **Installation:**
 - **Windows**: Download from [python.org](https://www.python.org/downloads/) or install via `winget install Python.Python.3`

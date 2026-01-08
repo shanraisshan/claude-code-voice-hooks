@@ -6,7 +6,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000
           }
         ]
       }
@@ -16,7 +28,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000
           }
         ]
       }
@@ -26,7 +39,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000
           }
         ]
       }
@@ -36,7 +50,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000
           }
         ]
       }
@@ -46,7 +61,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000
           }
         ]
       }
@@ -56,7 +83,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000
           }
         ]
       }
@@ -66,7 +94,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000,
+            "once": true
           }
         ]
       }
@@ -76,7 +106,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000,
+            "once": true
           }
         ]
       }
@@ -86,7 +118,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/scripts/hooks.py"
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000,
+            "once": true
           }
         ]
       }

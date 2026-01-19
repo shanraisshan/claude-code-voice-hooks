@@ -34,7 +34,8 @@ HOOK_SOUND_MAP = {
     "SubagentStop": "subagentstop",
     "PreCompact": "precompact",
     "SessionStart": "sessionstart",
-    "SessionEnd": "sessionend"
+    "SessionEnd": "sessionend",
+    "Setup": "setup"
 }
 
 # ===== BASH COMMAND PATTERNS =====

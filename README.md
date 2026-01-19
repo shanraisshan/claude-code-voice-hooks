@@ -104,7 +104,8 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
     "SubagentStop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
     "PreCompact": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
     "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}]
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
+    "Setup": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}]
   }
 ```
 
@@ -122,7 +123,8 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
     "SubagentStop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
     "PreCompact": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
     "SessionStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "SessionEnd": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}]
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
+    "Setup": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}]
   }
 ```
 
@@ -158,7 +160,7 @@ Follow the [Installation](#installation) instructions above to install the lates
 
 ## Features
 
-- 🔊 Audio feedback for all 11 Claude Code hook events
+- 🔊 Audio feedback for all 12 Claude Code hook events
 - 🎵 Special sound for git commits
 - 🖥️ Cross-platform support (macOS, Linux, Windows)
 - ⚙️ Easy enable/disable configuration (global and per-hook)

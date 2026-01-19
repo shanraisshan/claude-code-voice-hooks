@@ -1,17 +1,20 @@
 # HOOKS-README
 contains all the details, scripts, and instructions for the hooks
 
-## Hook Events Overview - [Official 9 Hooks](https://docs.claude.com/en/docs/claude-code/hooks-guide)
+## Hook Events Overview - [Official 12 Hooks](https://docs.claude.com/en/docs/claude-code/hooks-guide)
 Claude Code provides several hook events that run at different points in the workflow:
 1. PreToolUse: Runs before tool calls (can block them)
-2. PostToolUse: Runs after tool calls complete
-3. UserPromptSubmit: Runs when the user submits a prompt, before Claude processes it
-4. Notification: Runs when Claude Code sends notifications
-5. Stop: Runs when Claude Code finishes responding
-6. SubagentStop: Runs when subagent tasks complete
-7. PreCompact: Runs before Claude Code is about to run a compact operation
-8. SessionStart: Runs when Claude Code starts a new session or resumes an existing session
-9. SessionEnd: Runs when Claude Code session ends
+2. PermissionRequest: Runs when Claude Code requests permission from the user
+3. PostToolUse: Runs after tool calls complete
+4. UserPromptSubmit: Runs when the user submits a prompt, before Claude processes it
+5. Notification: Runs when Claude Code sends notifications
+6. Stop: Runs when Claude Code finishes responding
+7. SubagentStart: Runs when subagent tasks start
+8. SubagentStop: Runs when subagent tasks complete
+9. PreCompact: Runs before Claude Code is about to run a compact operation
+10. SessionStart: Runs when Claude Code starts a new session or resumes an existing session
+11. SessionEnd: Runs when Claude Code session ends
+12. Setup: Runs when Claude Code runs the /setup command for project initialization
 
 ## Prerequisites
 
@@ -83,14 +86,17 @@ Edit `.claude/hooks/config/hooks-config.json` for team-wide defaults:
 {
   "disableLogging": false,
   "disablePreToolUseHook": false,
+  "disablePermissionRequestHook": false,
   "disablePostToolUseHook": false,
   "disableUserPromptSubmitHook": false,
   "disableNotificationHook": false,
   "disableStopHook": false,
+  "disableSubagentStartHook": false,
   "disableSubagentStopHook": false,
   "disablePreCompactHook": false,
   "disableSessionStartHook": false,
-  "disableSessionEndHook": false
+  "disableSessionEndHook": false,
+  "disableSetupHook": false
 }
 ```
 

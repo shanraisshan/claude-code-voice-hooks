@@ -10,5 +10,6 @@
   "disableSubagentStopHook": false,
   "disablePreCompactHook": false,
   "disableSessionStartHook": false,
-  "disableSessionEndHook": false
+  "disableSessionEndHook": false,
+  "disableSetupHook": false
 }

@@ -128,6 +128,46 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
   }
 ```
 
+---
+
+### 3 ■ Optional: Test Agent Hooks
+
+To test the agent-specific hooks (PreToolUse, PostToolUse, Stop), copy the demo agent file:
+
+**For macOS/Linux:**
+```bash
+cd your-project
+mkdir -p .claude/agents
+git clone https://github.com/shanraisshan/claude-code-voice-hooks.git temp-hooks
+cp temp-hooks/.claude/agents/claude-code-voice-hook-agent.md .claude/agents/
+rm -rf temp-hooks
+```
+
+**For Windows (PowerShell):**
+```powershell
+cd your-project
+New-Item -ItemType Directory -Force -Path .claude\agents
+git clone https://github.com/shanraisshan/claude-code-voice-hooks.git temp-hooks
+Copy-Item temp-hooks\.claude\agents\claude-code-voice-hook-agent.md .claude\agents\
+Remove-Item -Recurse -Force temp-hooks
+```
+
+**For Windows (Command Prompt):**
+```cmd
+cd your-project
+if not exist .claude\agents mkdir .claude\agents
+git clone https://github.com/shanraisshan/claude-code-voice-hooks.git temp-hooks
+copy temp-hooks\.claude\agents\claude-code-voice-hook-agent.md .claude\agents\
+rmdir /S /Q temp-hooks
+```
+
+After copying, run the agent in Claude Code with:
+```
+/agents claude-code-voice-hook-agent
+```
+
+This agent fetches the weather for Dubai and demonstrates the PreToolUse, PostToolUse, and Stop hooks in action.
+
 ## Update to v3
 
 If you have an older version of the hooks installed, follow these steps to update to v3:

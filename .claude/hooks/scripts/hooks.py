@@ -3,9 +3,13 @@
 Claude Code Hook Handler
 =============================================
 This script handles events from Claude Code and plays sounds for different hook events.
-Supports all 11 Claude Code hooks: https://docs.claude.com/en/docs/claude-code/hooks-guide
+Supports all 12 Claude Code hooks: https://docs.claude.com/en/docs/claude-code/hooks-guide
 
 Special handling for git commits: plays pretooluse-git-committing.mp3
+
+Agent Support:
+  Use --agent=<name> to play agent-specific sounds from agent_* folders.
+  Agent frontmatter hooks only support: PreToolUse, PostToolUse, Stop
 """
 
 import sys
@@ -13,6 +17,7 @@ import json
 import subprocess
 import re
 import platform
+import argparse
 from pathlib import Path
 
 # Windows-only module for playing WAV files
@@ -36,6 +41,15 @@ HOOK_SOUND_MAP = {
     "SessionStart": "sessionstart",
     "SessionEnd": "sessionend",
     "Setup": "setup"
+}
+
+# ===== AGENT HOOK EVENT TO SOUND FOLDER MAPPING =====
+# Maps agent hook events to agent-specific sound folders
+# Agent frontmatter hooks only support: PreToolUse, PostToolUse, Stop
+AGENT_HOOK_SOUND_MAP = {
+    "PreToolUse": "agent_pretooluse",
+    "PostToolUse": "agent_posttooluse",
+    "Stop": "agent_stop"
 }
 
 # ===== BASH COMMAND PATTERNS =====
@@ -277,10 +291,14 @@ def is_logging_disabled():
         print(f"Error in is_logging_disabled: {e}", file=sys.stderr)
         return False
 
-def log_hook_data(hook_data):
+def log_hook_data(hook_data, agent_name=None):
     """
     Log the full hook_data to hooks-log.jsonl for debugging/auditing.
     Log file is stored at .claude/hooks/logs/hooks-log.jsonl
+
+    Args:
+        hook_data: Dictionary containing event information from Claude
+        agent_name: Optional agent name if hook was invoked from a sub-agent
     """
     # Check if logging is disabled
     if is_logging_disabled():
@@ -295,9 +313,20 @@ def log_hook_data(hook_data):
         # Ensure logs directory exists
         logs_dir.mkdir(parents=True, exist_ok=True)
 
+        # Add source field to indicate if hook was called from main session or sub-agent
+        log_entry = hook_data.copy()
+
+        # Remove fields we don't need in logs
+        log_entry.pop("transcript_path", None)
+        log_entry.pop("cwd", None)
+
+        # Only add agent name if hook was invoked from a sub-agent
+        if agent_name:
+            log_entry["invoked_by_agent"] = agent_name
+
         log_path = logs_dir / "hooks-log.jsonl"
         with open(log_path, "a", encoding="utf-8") as log_file:
-            log_file.write(json.dumps(hook_data, ensure_ascii=False, indent=2) + "\n")
+            log_file.write(json.dumps(log_entry, ensure_ascii=False, indent=2) + "\n")
     except Exception as e:
         # Fail silently, but print to stderr for visibility
         print(f"Failed to log hook_data: {e}", file=sys.stderr)
@@ -323,18 +352,28 @@ def detect_bash_command_sound(command):
     return None
 
 
-def get_sound_name(hook_data):
+def get_sound_name(hook_data, agent_name=None):
     """
     Determine which sound to play based on the hook event and context.
 
     Args:
         hook_data: Dictionary containing event information from Claude
+        agent_name: Optional agent name for agent-specific sounds
 
     Returns:
         Sound name (string) or None if no sound should play
     """
     event_name = hook_data.get("hook_event_name", "")
     tool_name = hook_data.get("tool_name", "")
+
+    # If this is an agent hook, use agent-specific sounds
+    if agent_name:
+        # WORKAROUND: Claude Code bug - agent's Stop hook receives "SubagentStop"
+        # instead of "Stop" as hook_event_name. Map it back to "Stop".
+        # See: https://github.com/anthropics/claude-code/issues/19220
+        if event_name == "SubagentStop":
+            event_name = "Stop"
+        return AGENT_HOOK_SOUND_MAP.get(event_name)
 
     # Check if this is a PreToolUse event with Bash tool
     if event_name == "PreToolUse" and tool_name == "Bash":
@@ -349,20 +388,43 @@ def get_sound_name(hook_data):
     # Return the default sound for this hook event
     return HOOK_SOUND_MAP.get(event_name)
 
+def parse_arguments():
+    """
+    Parse command line arguments.
+
+    Returns:
+        Parsed arguments namespace
+    """
+    parser = argparse.ArgumentParser(
+        description="Claude Code Hook Handler - plays sounds for hook events"
+    )
+    parser.add_argument(
+        "--agent",
+        type=str,
+        default=None,
+        help="Agent name for agent-specific sounds (used by agent frontmatter hooks)"
+    )
+    return parser.parse_args()
+
+
 def main():
     """
     Main program - this runs when Claude triggers a hook.
 
     How it works:
-    1. Claude sends event data as JSON through stdin
-    2. We check if this specific hook is disabled in hooks-config.json
-    3. We parse the JSON to understand which hook event occurred
-    4. We check for special bash commands (like git commit)
-    5. We play the corresponding sound for that event
-    6. We exit successfully
+    1. Parse command line arguments (--agent for agent-specific sounds)
+    2. Claude sends event data as JSON through stdin
+    3. We check if this specific hook is disabled in hooks-config.json
+    4. We parse the JSON to understand which hook event occurred
+    5. We check for special bash commands (like git commit)
+    6. We play the corresponding sound for that event
+    7. We exit successfully
     """
     try:
-        # Step 1: Read the event data from Claude
+        # Step 1: Parse command line arguments
+        args = parse_arguments()
+
+        # Step 2: Read the event data from Claude
         stdin_content = sys.stdin.read().strip()
 
         # If stdin is empty, exit gracefully (hook was called without data)
@@ -370,22 +432,24 @@ def main():
             sys.exit(0)
 
         input_data = json.loads(stdin_content)
-        log_hook_data(input_data)
 
-        # Step 2: Check if this hook is disabled
+        # Log hook data with source information (main session vs sub-agent)
+        log_hook_data(input_data, agent_name=args.agent)
+
+        # Step 3: Check if this hook is disabled (skip for agent hooks)
         event_name = input_data.get("hook_event_name", "")
-        if is_hook_disabled(event_name):
+        if not args.agent and is_hook_disabled(event_name):
             # Hook is disabled, exit silently without playing sound
             sys.exit(0)
 
-        # Step 3: Determine which sound to play (may be special or default)
-        sound_name = get_sound_name(input_data)
+        # Step 4: Determine which sound to play (may be special, default, or agent-specific)
+        sound_name = get_sound_name(input_data, agent_name=args.agent)
 
-        # Step 4: Play the sound (if we found one)
+        # Step 5: Play the sound (if we found one)
         if sound_name:
             play_sound(sound_name)
 
-        # Step 5: Exit successfully
+        # Step 6: Exit successfully
         # Always exit with code 0 so we don't interrupt Claude's work
         sys.exit(0)
 

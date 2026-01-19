@@ -122,3 +122,97 @@ In this example, logging is disabled, and the PostToolUse and SessionStart hooks
 ### Text to Speech (TTS)
 website used to generate sounds: https://elevenlabs.io/
 voice used: Samara X
+
+## Agent Frontmatter Hooks
+
+Claude Code 2.1.0 introduced support for agent-specific hooks defined in agent frontmatter files. These hooks only run within the agent's lifecycle and support a subset of hook events.
+
+### Supported Agent Hooks
+
+Agent frontmatter hooks only support **3 hooks**:
+- `PreToolUse`: Runs before the agent uses a tool
+- `PostToolUse`: Runs after the agent completes a tool use
+- `Stop`: Runs when the agent finishes
+
+### Agent Sound Folders
+
+Agent-specific sounds are stored in separate folders:
+- `.claude/hooks/sounds/agent_pretooluse/`
+- `.claude/hooks/sounds/agent_posttooluse/`
+- `.claude/hooks/sounds/agent_stop/`
+
+### Creating an Agent with Hooks
+
+1. Create an agent definition file in `.claude/agents/`:
+
+```markdown
+---
+name: my-agent
+description: Description of what this agent does
+hooks:
+  PreToolUse:
+    - type: command
+      command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
+      timeout: 5000
+  PostToolUse:
+    - type: command
+      command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
+      timeout: 5000
+  Stop:
+    - type: command
+      command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
+      timeout: 5000
+---
+
+Your agent instructions here...
+```
+
+2. Add sound files to the agent sound folders:
+   - `agent_pretooluse/agent_pretooluse.wav`
+   - `agent_posttooluse/agent_posttooluse.wav`
+   - `agent_stop/agent_stop.wav`
+
+### Example: Weather Fetcher Agent
+
+See `.claude/agents/weather-fetcher.md` for a complete example of an agent with hooks configured.
+
+### Hook Option: `once: true`
+
+Claude Code 2.1.0 also added support for the `once: true` option, which ensures a hook only runs once per session:
+
+```json
+{
+  "type": "command",
+  "command": "python3 .claude/hooks/scripts/hooks.py",
+  "timeout": 5000,
+  "once": true
+}
+```
+
+This is useful for hooks like `SessionStart`, `SessionEnd`, and `PreCompact` that should only trigger once.
+
+## Known Issues & Workarounds
+
+### Agent Stop Hook Bug (SubagentStop vs Stop)
+
+**Bug Report:** [GitHub Issue #19220](https://github.com/anthropics/claude-code/issues/19220)
+
+**Issue:** When defining a `Stop` hook in an agent's frontmatter, the `hook_event_name` passed to the hook script is `"SubagentStop"` instead of `"Stop"`. This contradicts the official documentation and breaks consistency with other agent hooks (`PreToolUse` and `PostToolUse`), which correctly pass their configured names.
+
+| Hook | Defined As | Received As | Status |
+|------|------------|-------------|--------|
+| PreToolUse | `PreToolUse:` | `"PreToolUse"` | ✅ Correct |
+| PostToolUse | `PostToolUse:` | `"PostToolUse"` | ✅ Correct |
+| Stop | `Stop:` | `"SubagentStop"` | ❌ Inconsistent |
+
+**Workaround in `hooks.py`:**
+
+```python
+# WORKAROUND: Claude Code bug - agent's Stop hook receives "SubagentStop"
+# instead of "Stop" as hook_event_name. Map it back to "Stop".
+# See: https://github.com/anthropics/claude-code/issues/19220
+if event_name == "SubagentStop":
+    event_name = "Stop"
+```
+
+**Status:** Awaiting fix from Anthropic. This workaround will be removed once the bug is resolved.

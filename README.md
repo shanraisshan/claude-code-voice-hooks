@@ -128,9 +128,9 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
   }
 ```
 
-## Update to v2
+## Update to v3
 
-If you have an older version of the hooks installed, follow these steps to update to v2:
+If you have an older version of the hooks installed, follow these steps to update to v3:
 
 ### Step 1: Remove existing hooks
 
@@ -199,6 +199,7 @@ SessionStart:startup hook error
 
 ## Changelog
 
+- **v3** (Jan 19, 2026): Added `Setup` hook (12 hooks) — runs when Claude Code executes the /setup command for project initialization
 - **v2** (Nov 26, 2025): Added `PermissionRequest` and `SubagentStart` hooks (11 hooks) — introduced in [Claude Code v2.0.43](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2043) and [v2.0.45](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2045) ■ [Demo 2](https://youtu.be/JFPJtMNV8Qw)
 - **v1** (Nov 5, 2025): Initial release with 9 hooks ■ [Demo 1](https://youtu.be/vgfdSUbz_b0)
 

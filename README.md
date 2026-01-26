@@ -1,4 +1,6 @@
 # Claude Code Voice Hooks 🔊 Ding Dong
+[supports all 12 hooks](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-12-hooks)
+
 ![mario](!/mario.png)
 
 plays #mario-start 🔊 on SessionStart and #mario-game-over 🔊 on SessionEnd

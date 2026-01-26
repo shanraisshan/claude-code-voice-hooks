@@ -154,14 +154,17 @@ hooks:
     - type: command
       command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
       timeout: 5000
+      async: true
   PostToolUse:
     - type: command
       command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
       timeout: 5000
+      async: true
   Stop:
     - type: command
       command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
       timeout: 5000
+      async: true
 ---
 
 Your agent instructions here...
@@ -190,6 +193,26 @@ Claude Code 2.1.0 also added support for the `once: true` option, which ensures 
 ```
 
 This is useful for hooks like `SessionStart`, `SessionEnd`, and `PreCompact` that should only trigger once.
+
+### Hook Option: `async: true`
+
+Hooks can run in the background without blocking Claude Code's execution by adding `"async": true`:
+
+```json
+{
+  "type": "command",
+  "command": "python3 .claude/hooks/scripts/hooks.py",
+  "timeout": 30,
+  "async": true
+}
+```
+
+**When to use async hooks:**
+- Logging and analytics
+- Notifications and sound effects
+- Any side-effect that shouldn't slow down Claude Code
+
+This project uses `async: true` for all hooks since voice notifications are side-effects that don't need to block execution. The `timeout` specifies how long the async hook can run before being terminated.
 
 ## Known Issues & Workarounds
 

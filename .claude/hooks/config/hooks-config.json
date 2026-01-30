@@ -3,6 +3,7 @@
   "disablePreToolUseHook": false,
   "disablePermissionRequestHook": false,
   "disablePostToolUseHook": false,
+  "disablePostToolUseFailureHook": false,
   "disableUserPromptSubmitHook": false,
   "disableNotificationHook": false,
   "disableStopHook": false,

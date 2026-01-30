@@ -3,7 +3,7 @@
 Claude Code Hook Handler
 =============================================
 This script handles events from Claude Code and plays sounds for different hook events.
-Supports all 12 Claude Code hooks: https://docs.claude.com/en/docs/claude-code/hooks-guide
+Supports all 13 Claude Code hooks: https://code.claude.com/docs/en/hooks
 
 Special handling for git commits: plays pretooluse-git-committing.mp3
 
@@ -32,6 +32,7 @@ HOOK_SOUND_MAP = {
     "PreToolUse": "pretooluse",
     "PermissionRequest": "permissionrequest",
     "PostToolUse": "posttooluse",
+    "PostToolUseFailure": "posttoolusefailure",
     "UserPromptSubmit": "userpromptsubmit",
     "Notification": "notification",
     "Stop": "stop",

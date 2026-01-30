@@ -1,20 +1,21 @@
 # HOOKS-README
 contains all the details, scripts, and instructions for the hooks
 
-## Hook Events Overview - [Official 12 Hooks](https://docs.claude.com/en/docs/claude-code/hooks-guide)
+## Hook Events Overview - [Official 13 Hooks](https://code.claude.com/docs/en/hooks)
 Claude Code provides several hook events that run at different points in the workflow:
 1. PreToolUse: Runs before tool calls (can block them)
 2. PermissionRequest: Runs when Claude Code requests permission from the user
-3. PostToolUse: Runs after tool calls complete
-4. UserPromptSubmit: Runs when the user submits a prompt, before Claude processes it
-5. Notification: Runs when Claude Code sends notifications
-6. Stop: Runs when Claude Code finishes responding
-7. SubagentStart: Runs when subagent tasks start
-8. SubagentStop: Runs when subagent tasks complete
-9. PreCompact: Runs before Claude Code is about to run a compact operation
-10. SessionStart: Runs when Claude Code starts a new session or resumes an existing session
-11. SessionEnd: Runs when Claude Code session ends
-12. Setup: Runs when Claude Code runs the /setup command for project initialization
+3. PostToolUse: Runs after tool calls complete successfully
+4. PostToolUseFailure: Runs after tool calls fail
+5. UserPromptSubmit: Runs when the user submits a prompt, before Claude processes it
+6. Notification: Runs when Claude Code sends notifications
+7. Stop: Runs when Claude Code finishes responding
+8. SubagentStart: Runs when subagent tasks start
+9. SubagentStop: Runs when subagent tasks complete
+10. PreCompact: Runs before Claude Code is about to run a compact operation
+11. SessionStart: Runs when Claude Code starts a new session or resumes an existing session
+12. SessionEnd: Runs when Claude Code session ends
+13. Setup: Runs when Claude Code runs the /setup command for project initialization
 
 ## Prerequisites
 
@@ -88,6 +89,7 @@ Edit `.claude/hooks/config/hooks-config.json` for team-wide defaults:
   "disablePreToolUseHook": false,
   "disablePermissionRequestHook": false,
   "disablePostToolUseHook": false,
+  "disablePostToolUseFailureHook": false,
   "disableUserPromptSubmitHook": false,
   "disableNotificationHook": false,
   "disableStopHook": false,
@@ -181,7 +183,7 @@ See `.claude/agents/weather-fetcher.md` for a complete example of an agent with 
 
 ### Hook Option: `once: true`
 
-Claude Code 2.1.0 also added support for the `once: true` option, which ensures a hook only runs once per session:
+The `once: true` option ensures a hook only runs once per session:
 
 ```json
 {
@@ -203,6 +205,7 @@ Hooks can run in the background without blocking Claude Code's execution by addi
   "type": "command",
   "command": "python3 .claude/hooks/scripts/hooks.py",
   "timeout": 30,
+  "timeout": 5000,
   "async": true
 }
 ```

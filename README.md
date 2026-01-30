@@ -1,5 +1,5 @@
 # Claude Code Voice Hooks 🔊 Ding Dong
-[supports all 12 hooks](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-12-hooks)
+[supports all 13 hooks](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-13-hooks)
 
 ![mario](!/mario.png)
 
@@ -99,6 +99,7 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
     "PreToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "PermissionRequest": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "PostToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "PostToolUseFailure": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "Notification": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "Stop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
@@ -118,6 +119,7 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
     "PreToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "PermissionRequest": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "PostToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "PostToolUseFailure": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "Notification": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
     "Stop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
@@ -207,7 +209,7 @@ Follow the [Installation](#installation) instructions above to install the lates
 
 ## Features
 
-- 🔊 Audio feedback for all 12 Claude Code hook events
+- 🔊 Audio feedback for all 13 Claude Code hook events
 - 🎵 Special sound for git commits
 - 🖥️ Cross-platform support (macOS, Linux, Windows)
 - ⚙️ Easy enable/disable configuration (global and per-hook)

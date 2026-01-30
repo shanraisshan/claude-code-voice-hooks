@@ -204,7 +204,6 @@ Hooks can run in the background without blocking Claude Code's execution by addi
 {
   "type": "command",
   "command": "python3 .claude/hooks/scripts/hooks.py",
-  "timeout": 30,
   "timeout": 5000,
   "async": true
 }

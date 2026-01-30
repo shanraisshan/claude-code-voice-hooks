@@ -96,18 +96,18 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
 ```
   "disableAllHooks": false,
   "hooks": {
-    "PreToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "PostToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "Notification": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "Stop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "SubagentStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "SubagentStop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "PreCompact": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}],
-    "Setup": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py"}]}]
+    "PreToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "PostToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "Notification": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "SubagentStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "SubagentStop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "PreCompact": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
+    "Setup": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true}]}]
   }
 ```
 
@@ -115,20 +115,25 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
 ```
   "disableAllHooks": false,
   "hooks": {
-    "PreToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "PostToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "Notification": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "Stop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "SubagentStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "SubagentStop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "PreCompact": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "SessionStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "SessionEnd": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}],
-    "Setup": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py"}]}]
+    "PreToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "PostToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "Notification": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "SubagentStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "SubagentStop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
+    "PreCompact": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
+    "Setup": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true}]}]
   }
 ```
+
+**Hook Configuration Options:**
+- `timeout`: Maximum time in milliseconds for the hook to complete (5000ms default, 30000ms for Setup)
+- `async`: When `true`, hooks run in the background without blocking Claude Code
+- `once`: When `true`, the hook runs only once per session (used for SessionStart, SessionEnd, PreCompact)
 
 ---
 
@@ -208,6 +213,8 @@ Follow the [Installation](#installation) instructions above to install the lates
 - ⚙️ Easy enable/disable configuration (global and per-hook)
 - 📝 Optional detailed logging for debugging (can be disabled)
 - 🎨 Customizable per-hook settings
+- ⚡ Async hooks - run in background without blocking Claude Code
+- 🔂 Once-per-session hooks for session lifecycle events
 
 ## Prerequisites
 
@@ -241,6 +248,7 @@ SessionStart:startup hook error
 
 ## Changelog
 
+- **v3.1** (Jan 30, 2026): Added `async` and `once` hook options — hooks now run in background without blocking Claude Code, with `once` option for session lifecycle events
 - **v3** (Jan 19, 2026): Added `Setup` hook (12 hooks) — runs when Claude Code executes the /setup command for project initialization
 - **v2** (Nov 26, 2025): Added `PermissionRequest` and `SubagentStart` hooks (11 hooks) — introduced in [Claude Code v2.0.43](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2043) and [v2.0.45](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2045) ■ [Demo 2](https://youtu.be/JFPJtMNV8Qw)
 - **v1** (Nov 5, 2025): Initial release with 9 hooks ■ [Demo 1](https://youtu.be/vgfdSUbz_b0)

@@ -540,70 +540,122 @@
         </div>
         <h1>Claude Code Voice Hooks</h1>
         <p class="subtitle">Explaining Claude Code Voice Hooks and Subagent Hooks</p>
+        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.29 | February 2, 2026</p>
     </div>
 
-    <!-- Slide 2: Table of Contents -->
+    <!-- Slide 2: Introduction -->
     <div class="slide" data-slide="2">
+        <h1>What You'll Learn</h1>
+
+        <div class="trigger-box">
+            <h4>Why Hooks Matter</h4>
+            <p>Hooks are one of the most powerful features introduced in Claude Code — they let you run custom code at specific moments in Claude's workflow.</p>
+        </div>
+
+        <h3>In This Video</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔢</span>
+                <div class="use-case-text">
+                    <strong>13 Hooks Explained</strong>
+                    <span>Claude Code currently supports 13 hooks (as of v2.1.29)</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🎯</span>
+                <div class="use-case-text">
+                    <strong>When Each Hook Triggers</strong>
+                    <span>Learn the exact moment each hook fires in Claude's workflow</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">💡</span>
+                <div class="use-case-text">
+                    <strong>Practical Use Cases</strong>
+                    <span>Real-world examples of what you can build with each hook</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice Notifications Demo</strong>
+                    <span>This repo integrates all 13 hooks with audio feedback</span>
+                </div>
+            </div>
+        </div>
+
+        <h3>What Hooks Enable</h3>
+        <ul class="feature-list">
+            <li>🤖 Automate repetitive tasks (auto-format code, run tests)</li>
+            <li>🛡️ Add safety guardrails (block dangerous commands)</li>
+            <li>🔔 Get audio/visual feedback while Claude works</li>
+            <li>📎 Inject context dynamically based on what Claude is doing</li>
+        </ul>
+    </div>
+
+    <!-- Slide 3: Table of Contents -->
+    <div class="slide" data-slide="3">
         <h1>The 13 Hooks</h1>
+        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.29 | February 2, 2026 — More hooks may be added in future versions.</p>
 
         <div class="toc-list">
-            <div class="toc-item" onclick="goToSlide(4)">
+            <div class="toc-item" onclick="goToSlide(5)">
                 <span class="toc-number">1</span>
                 <span class="toc-name">SessionStart</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(5)">
+            <div class="toc-item" onclick="goToSlide(6)">
                 <span class="toc-number">2</span>
                 <span class="toc-name">UserPromptSubmit</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(6)">
+            <div class="toc-item" onclick="goToSlide(7)">
                 <span class="toc-number">3</span>
                 <span class="toc-name">PreToolUse</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(7)">
+            <div class="toc-item" onclick="goToSlide(8)">
                 <span class="toc-number">4</span>
                 <span class="toc-name">PostToolUse</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(8)">
+            <div class="toc-item" onclick="goToSlide(9)">
                 <span class="toc-number">5</span>
                 <span class="toc-name">PostToolUseFailure</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(9)">
+            <div class="toc-item" onclick="goToSlide(10)">
                 <span class="toc-number">6</span>
                 <span class="toc-name">PermissionRequest</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(10)">
+            <div class="toc-item" onclick="goToSlide(11)">
                 <span class="toc-number">7</span>
                 <span class="toc-name">Notification</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(11)">
+            <div class="toc-item" onclick="goToSlide(12)">
                 <span class="toc-number">8</span>
                 <span class="toc-name">SubagentStart</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(12)">
+            <div class="toc-item" onclick="goToSlide(13)">
                 <span class="toc-number">9</span>
                 <span class="toc-name">SubagentStop</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(13)">
+            <div class="toc-item" onclick="goToSlide(14)">
                 <span class="toc-number">10</span>
                 <span class="toc-name">Stop</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(14)">
+            <div class="toc-item" onclick="goToSlide(15)">
                 <span class="toc-number">11</span>
                 <span class="toc-name">PreCompact</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(15)">
+            <div class="toc-item" onclick="goToSlide(16)">
                 <span class="toc-number">12</span>
                 <span class="toc-name">SessionEnd</span>
             </div>
-            <div class="toc-item" onclick="goToSlide(16)">
+            <div class="toc-item" onclick="goToSlide(17)">
                 <span class="toc-number">13</span>
                 <span class="toc-name">Setup</span>
             </div>
         </div>
     </div>
 
-    <!-- Slide 3: Lifecycle Overview -->
-    <div class="slide" data-slide="3">
+    <!-- Slide 4: Lifecycle Overview -->
+    <div class="slide" data-slide="4">
         <h1>Hook Execution Flow</h1>
         <p>Hooks fire at specific points in Claude's workflow. Here's the execution order:</p>
 
@@ -658,8 +710,8 @@
         <p style="margin-top: 24px;"><strong>Note:</strong> Notification hooks can fire asynchronously at any time during the session.</p>
     </div>
 
-    <!-- Slide 4: SessionStart -->
-    <div class="slide" data-slide="4">
+    <!-- Slide 5: SessionStart -->
+    <div class="slide" data-slide="5">
         <div class="hook-title">
             <span class="hook-number">1</span>
             <span class="hook-name">SessionStart</span>
@@ -724,8 +776,8 @@
         </div>
     </div>
 
-    <!-- Slide 5: UserPromptSubmit -->
-    <div class="slide" data-slide="5">
+    <!-- Slide 6: UserPromptSubmit -->
+    <div class="slide" data-slide="6">
         <div class="hook-title">
             <span class="hook-number">2</span>
             <span class="hook-name">UserPromptSubmit</span>
@@ -782,8 +834,8 @@
         </div>
     </div>
 
-    <!-- Slide 6: PreToolUse -->
-    <div class="slide" data-slide="6">
+    <!-- Slide 7: PreToolUse -->
+    <div class="slide" data-slide="7">
         <div class="hook-title">
             <span class="hook-number">3</span>
             <span class="hook-name">PreToolUse</span>
@@ -840,8 +892,8 @@
         </div>
     </div>
 
-    <!-- Slide 7: PostToolUse -->
-    <div class="slide" data-slide="7">
+    <!-- Slide 8: PostToolUse -->
+    <div class="slide" data-slide="8">
         <div class="hook-title">
             <span class="hook-number">4</span>
             <span class="hook-name">PostToolUse</span>
@@ -898,8 +950,8 @@
         </div>
     </div>
 
-    <!-- Slide 8: PostToolUseFailure -->
-    <div class="slide" data-slide="8">
+    <!-- Slide 9: PostToolUseFailure -->
+    <div class="slide" data-slide="9">
         <div class="hook-title">
             <span class="hook-number">5</span>
             <span class="hook-name">PostToolUseFailure</span>
@@ -913,10 +965,10 @@
 
         <div class="how-to-trigger">
             <h4>How to Trigger</h4>
-            <p>Ask Claude to do something that will fail:</p>
-            <div class="trigger-example">&gt; Read the file nonexistent-file.txt</div>
-            <div class="trigger-example" style="margin-top: 8px;">&gt; Run the command that-does-not-exist</div>
-            <p style="margin-top: 12px;">Fires when the tool returns an error or non-zero exit code.</p>
+            <p>Ask Claude to run a Bash command that exits with non-zero status:</p>
+            <div class="trigger-example">&gt; Run the command: false</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; Run the command: ls /nonexistent/path/xyz</div>
+            <p style="margin-top: 12px;">Fires when Bash exits with non-zero code (e.g., exit code 1 or 2).</p>
         </div>
 
         <h3>Use Cases</h3>
@@ -956,8 +1008,8 @@
         </div>
     </div>
 
-    <!-- Slide 9: PermissionRequest -->
-    <div class="slide" data-slide="9">
+    <!-- Slide 10: PermissionRequest -->
+    <div class="slide" data-slide="10">
         <div class="hook-title">
             <span class="hook-number">6</span>
             <span class="hook-name">PermissionRequest</span>
@@ -972,8 +1024,8 @@
         <div class="how-to-trigger">
             <h4>How to Trigger</h4>
             <p>Ask Claude to run a command that requires permission approval:</p>
-            <div class="trigger-example">&gt; Run the build script</div>
-            <div class="trigger-example" style="margin-top: 8px;">&gt; Execute npm install</div>
+            <div class="trigger-example">&gt; Create a directory abc on root</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; Run the build script</div>
             <p style="margin-top: 12px;">Claude will show a permission dialog before running the command.</p>
         </div>
 
@@ -1014,8 +1066,8 @@
         </div>
     </div>
 
-    <!-- Slide 10: Notification -->
-    <div class="slide" data-slide="10">
+    <!-- Slide 11: Notification -->
+    <div class="slide" data-slide="11">
         <div class="hook-title">
             <span class="hook-number">7</span>
             <span class="hook-name">Notification</span>
@@ -1073,8 +1125,8 @@
         </div>
     </div>
 
-    <!-- Slide 11: SubagentStart -->
-    <div class="slide" data-slide="11">
+    <!-- Slide 12: SubagentStart -->
+    <div class="slide" data-slide="12">
         <div class="hook-title">
             <span class="hook-number">8</span>
             <span class="hook-name">SubagentStart</span>
@@ -1089,7 +1141,7 @@
         <div class="how-to-trigger">
             <h4>How to Trigger</h4>
             <p>Ask Claude to perform a task that spawns a subagent:</p>
-            <div class="trigger-example">&gt; Explore the codebase and find where authentication is handled</div>
+            <div class="trigger-example">&gt; Use Explore agent to read the README.md file</div>
             <div class="trigger-example" style="margin-top: 8px;">&gt; Search for all API endpoints in this project</div>
             <p style="margin-top: 12px;">Claude will spawn an Explore, Plan, or Bash agent to help.</p>
         </div>
@@ -1139,8 +1191,8 @@
         </div>
     </div>
 
-    <!-- Slide 12: SubagentStop -->
-    <div class="slide" data-slide="12">
+    <!-- Slide 13: SubagentStop -->
+    <div class="slide" data-slide="13">
         <div class="hook-title">
             <span class="hook-number">9</span>
             <span class="hook-name">SubagentStop</span>
@@ -1196,8 +1248,8 @@
         </div>
     </div>
 
-    <!-- Slide 13: Stop -->
-    <div class="slide" data-slide="13">
+    <!-- Slide 14: Stop -->
+    <div class="slide" data-slide="14">
         <div class="hook-title">
             <span class="hook-number">10</span>
             <span class="hook-name">Stop</span>
@@ -1254,8 +1306,8 @@
         </div>
     </div>
 
-    <!-- Slide 14: PreCompact -->
-    <div class="slide" data-slide="14">
+    <!-- Slide 15: PreCompact -->
+    <div class="slide" data-slide="15">
         <div class="hook-title">
             <span class="hook-number">11</span>
             <span class="hook-name">PreCompact</span>
@@ -1317,8 +1369,8 @@
         </div>
     </div>
 
-    <!-- Slide 15: SessionEnd -->
-    <div class="slide" data-slide="15">
+    <!-- Slide 16: SessionEnd -->
+    <div class="slide" data-slide="16">
         <div class="hook-title">
             <span class="hook-number">12</span>
             <span class="hook-name">SessionEnd</span>
@@ -1383,8 +1435,8 @@
         </div>
     </div>
 
-    <!-- Slide 16: Setup -->
-    <div class="slide" data-slide="16">
+    <!-- Slide 17: Setup -->
+    <div class="slide" data-slide="17">
         <div class="hook-title">
             <span class="hook-number">13</span>
             <span class="hook-name">Setup</span>
@@ -1398,10 +1450,9 @@
 
         <div class="how-to-trigger">
             <h4>How to Trigger</h4>
-            <p>Start Claude Code with the init flag:</p>
-            <div class="trigger-example">$ claude --init</div>
-            <p style="margin-top: 12px;">Or run setup hooks only without starting interactive mode:</p>
+            <p>Run setup hooks without starting interactive mode:</p>
             <div class="trigger-example">$ claude --init-only</div>
+            <p style="margin-top: 12px; font-size: 0.9rem; color: #2e7d32;">Note: <code>claude --init</code> does NOT trigger the Setup hook.</p>
         </div>
 
         <h3>Use Cases</h3>
@@ -1441,8 +1492,8 @@
         </div>
     </div>
 
-    <!-- Slide 17: Agent Hooks -->
-    <div class="slide" data-slide="17">
+    <!-- Slide 18: Agent Hooks -->
+    <div class="slide" data-slide="18">
         <h1>Agent Hooks (Bonus)</h1>
         <p>Claude Code 2.1.0 introduced support for agent-specific hooks defined in agent frontmatter files. These hooks only run within the agent's lifecycle.</p>
 
@@ -1511,8 +1562,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 18: Configuration -->
-    <div class="slide" data-slide="18">
+    <!-- Slide 19: Configuration -->
+    <div class="slide" data-slide="19">
         <h1>Configuration</h1>
         <p>Hooks are configured in <code>.claude/settings.json</code> and can be individually enabled/disabled.</p>
 
@@ -1553,8 +1604,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 19: Summary -->
-    <div class="slide" data-slide="19">
+    <!-- Slide 20: Summary -->
+    <div class="slide" data-slide="20">
         <h1>Summary</h1>
 
         <div class="info-grid">
@@ -1662,7 +1713,7 @@ hooks:
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 19;
+        const totalSlides = 20;
 
         function showSlide(n) {
             const slides = document.querySelectorAll('.slide');

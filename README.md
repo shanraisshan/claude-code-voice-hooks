@@ -1,9 +1,9 @@
 # Claude Code Voice Hooks 🔊 Ding Dong
 [supports all 13 hooks](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-13-hooks)
 
-![mario](!/mario.png)
-
-plays #mario-start 🔊 on SessionStart and #mario-game-over 🔊 on SessionEnd
+<p align="center">
+  <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">
+</p>
 
 plays #ding 🔊 on PreToolUse and #dong 🔊 on PostToolUse
 

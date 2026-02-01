@@ -9,9 +9,11 @@ plays #ding 🔊 on PreToolUse and #dong 🔊 on PostToolUse
 
 Providing voice feedback to your Claude Code agent! Get instant audio notifications for tool usage, prompts, git commits, and session events.
 
-# [Demo Video](https://youtu.be/vgfdSUbz_b0)
+# [Demo Video + Presentation](https://youtu.be/vgfdSUbz_b0)
 
 📹 Demo video available here: 👉 [Youtube](https://youtu.be/vgfdSUbz_b0)
+
+📊 Presentation available here: 👉 [Slides](presentation/index.html)
 
 ![thumbnail](!/thumbnail.png)
 

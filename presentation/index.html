@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Voice Hooks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .slide {
+            display: none;
+            min-height: 100vh;
+            padding: 60px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+            border-bottom: 2px solid #e5e5e5;
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #2a2a2a;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 24px 0 12px 0;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: #444;
+        }
+
+        .hook-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 600;
+            margin-right: 12px;
+            font-size: 1rem;
+        }
+
+        .hook-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .hook-name {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .trigger-box {
+            background: #f8f9fa;
+            border-left: 4px solid #1a1a1a;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .trigger-box h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .trigger-box p {
+            font-size: 1.05rem;
+            color: #333;
+            margin: 0;
+        }
+
+        .use-cases {
+            margin: 32px 0;
+        }
+
+        .use-case-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding: 16px 20px;
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        .use-case-icon {
+            font-size: 1.5rem;
+            margin-right: 16px;
+            min-width: 32px;
+        }
+
+        .use-case-text {
+            flex: 1;
+        }
+
+        .use-case-text strong {
+            display: block;
+            font-size: 1.05rem;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .use-case-text span {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #e5e5e5;
+            padding: 20px 24px;
+            border-radius: 8px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .code-block .key {
+            color: #9cdcfe;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #1a1a1a;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #1a1a1a;
+            transition: width 0.3s;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toc-item:hover {
+            background: #eee;
+        }
+
+        .toc-number {
+            width: 28px;
+            height: 28px;
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 0.85rem;
+            margin-right: 12px;
+            font-weight: 600;
+        }
+
+        .toc-name {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 1rem;
+            color: #1a1a1a;
+        }
+
+        .lifecycle-diagram {
+            background: #f8f9fa;
+            padding: 32px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .lifecycle-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .lifecycle-arrow {
+            width: 24px;
+            text-align: center;
+            color: #999;
+            margin-right: 16px;
+        }
+
+        .lifecycle-label {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .lifecycle-label.highlight {
+            background: #1a1a1a;
+            color: #fff;
+            border-color: #1a1a1a;
+        }
+
+        .sound-demo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 16px;
+        }
+
+        .can-block {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-left: 12px;
+        }
+
+        .cannot-block {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #f8d7da;
+            color: #721c24;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-left: 12px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .info-card h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .keyboard-hint {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .keyboard-hint kbd {
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+        }
+
+        .intro-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 1.05rem;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .matcher-values {
+            margin: 16px 0;
+        }
+
+        .matcher-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 4px 4px 4px 0;
+            color: #495057;
+        }
+
+        .how-to-trigger {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px 24px;
+            margin: 16px 0 24px 0;
+        }
+
+        .how-to-trigger h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+
+        .how-to-trigger p {
+            font-size: 1.05rem;
+            color: #1b5e20;
+            margin: 0;
+        }
+
+        .how-to-trigger code {
+            background: rgba(0,0,0,0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
+        .trigger-example {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 6px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .header-logo {
+            position: fixed;
+            top: 20px;
+            right: 40px;
+            width: 140px;
+            height: 90px;
+            z-index: 50;
+        }
+
+        .header-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Title Slide Styling */
+        .slide.title-slide.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .title-slide h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .title-slide .subtitle {
+            font-size: 1.4rem;
+            color: #555;
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+
+        .title-logo {
+            width: 280px;
+            height: 180px;
+            margin-bottom: 40px;
+        }
+
+        .title-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress" id="progress"></div>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active title-slide" data-slide="1">
+        <div class="title-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 90" width="280" height="180">
+                <style>
+                    .tl-claude-body { animation: tl-bob 0.8s ease-in-out infinite; transform-origin: center bottom; }
+                    .tl-shadow { animation: tl-shadow-pulse 0.8s ease-in-out infinite; }
+                    .tl-mouth { animation: tl-talk 0.3s ease-in-out infinite; transform-origin: center center; }
+                    .tl-left-ear { animation: tl-ear-tilt-left 0.8s ease-in-out infinite; transform-origin: center bottom; }
+                    .tl-right-ear { animation: tl-ear-tilt-right 0.8s ease-in-out infinite; transform-origin: center bottom; }
+                    .tl-wave-1 { animation: tl-wave-expand 0.8s ease-out infinite; transform-origin: left center; }
+                    .tl-wave-2 { animation: tl-wave-expand 0.8s ease-out infinite 0.2s; transform-origin: left center; }
+                    .tl-wave-3 { animation: tl-wave-expand 0.8s ease-out infinite 0.4s; transform-origin: left center; }
+                    .tl-note-1 { animation: tl-float-note-1 1.5s ease-out infinite; }
+                    .tl-note-2 { animation: tl-float-note-2 1.5s ease-out infinite 0.3s; }
+                    .tl-note-3 { animation: tl-float-note-3 1.5s ease-out infinite 0.6s; }
+                    @keyframes tl-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+                    @keyframes tl-shadow-pulse { 0%, 100% { transform: scaleX(1); opacity: 0.25; } 50% { transform: scaleX(0.9); opacity: 0.2; } }
+                    @keyframes tl-talk { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.5); } }
+                    @keyframes tl-ear-tilt-left { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-5deg); } }
+                    @keyframes tl-ear-tilt-right { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
+                    @keyframes tl-wave-expand { 0% { opacity: 0.8; transform: scaleX(0.3) scaleY(0.8); } 100% { opacity: 0; transform: scaleX(1.2) scaleY(1); } }
+                    @keyframes tl-float-note-1 { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(15px, -25px) rotate(15deg); } }
+                    @keyframes tl-float-note-2 { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(20px, -30px) rotate(-10deg); } }
+                    @keyframes tl-float-note-3 { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(10px, -35px) rotate(20deg); } }
+                </style>
+                <ellipse class="tl-shadow" cx="50" cy="82" rx="22" ry="5" fill="#000"/>
+                <g class="tl-wave-1"><path d="M 92 44 Q 100 44, 100 52 Q 100 60, 92 60" fill="none" stroke="#E07C4C" stroke-width="3" stroke-linecap="round"/></g>
+                <g class="tl-wave-2"><path d="M 96 38 Q 108 38, 108 52 Q 108 66, 96 66" fill="none" stroke="#E07C4C" stroke-width="3" stroke-linecap="round"/></g>
+                <g class="tl-wave-3"><path d="M 100 32 Q 116 32, 116 52 Q 116 72, 100 72" fill="none" stroke="#E07C4C" stroke-width="3" stroke-linecap="round"/></g>
+                <g class="tl-note-1"><ellipse cx="108" cy="28" rx="4" ry="3" fill="#E07C4C" transform="rotate(-20, 108, 28)"/><rect x="111" y="12" width="2" height="16" fill="#E07C4C"/><path d="M 113 12 Q 118 14, 118 18 Q 118 22, 113 20" fill="#E07C4C"/></g>
+                <g class="tl-note-2"><ellipse cx="122" cy="22" rx="4" ry="3" fill="#E07C4C" transform="rotate(-20, 122, 22)"/><rect x="125" y="6" width="2" height="16" fill="#E07C4C"/></g>
+                <g class="tl-note-3"><ellipse cx="115" cy="42" rx="3" ry="2.5" fill="#E07C4C" transform="rotate(-20, 115, 42)"/><ellipse cx="125" cy="40" rx="3" ry="2.5" fill="#E07C4C" transform="rotate(-20, 125, 40)"/><rect x="117" y="26" width="2" height="16" fill="#E07C4C"/><rect x="127" y="24" width="2" height="16" fill="#E07C4C"/><rect x="117" y="26" width="12" height="2" fill="#E07C4C"/></g>
+                <g class="tl-claude-body">
+                    <rect class="tl-left-ear" x="22" y="10" width="8" height="14" fill="#E07C4C"/>
+                    <rect class="tl-right-ear" x="70" y="10" width="8" height="14" fill="#E07C4C"/>
+                    <rect x="18" y="24" width="64" height="4" fill="#E07C4C"/>
+                    <rect x="14" y="28" width="72" height="32" fill="#E07C4C"/>
+                    <rect x="30" y="34" width="8" height="10" fill="#000000"/>
+                    <rect x="62" y="34" width="8" height="10" fill="#000000"/>
+                    <rect class="tl-mouth" x="44" y="50" width="12" height="6" fill="#000000"/>
+                    <rect x="2" y="40" width="12" height="8" fill="#E07C4C"/>
+                    <rect x="86" y="40" width="12" height="8" fill="#E07C4C"/>
+                    <rect x="24" y="60" width="12" height="14" fill="#E07C4C"/>
+                    <rect x="64" y="60" width="12" height="14" fill="#E07C4C"/>
+                </g>
+            </svg>
+        </div>
+        <h1>Claude Code Voice Hooks</h1>
+        <p class="subtitle">Explaining Claude Code Voice Hooks and Subagent Hooks</p>
+    </div>
+
+    <!-- Slide 2: Table of Contents -->
+    <div class="slide" data-slide="2">
+        <h1>The 13 Hooks</h1>
+
+        <div class="toc-list">
+            <div class="toc-item" onclick="goToSlide(4)">
+                <span class="toc-number">1</span>
+                <span class="toc-name">SessionStart</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(5)">
+                <span class="toc-number">2</span>
+                <span class="toc-name">UserPromptSubmit</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(6)">
+                <span class="toc-number">3</span>
+                <span class="toc-name">PreToolUse</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(7)">
+                <span class="toc-number">4</span>
+                <span class="toc-name">PostToolUse</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(8)">
+                <span class="toc-number">5</span>
+                <span class="toc-name">PostToolUseFailure</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(9)">
+                <span class="toc-number">6</span>
+                <span class="toc-name">PermissionRequest</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(10)">
+                <span class="toc-number">7</span>
+                <span class="toc-name">Notification</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(11)">
+                <span class="toc-number">8</span>
+                <span class="toc-name">SubagentStart</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(12)">
+                <span class="toc-number">9</span>
+                <span class="toc-name">SubagentStop</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(13)">
+                <span class="toc-number">10</span>
+                <span class="toc-name">Stop</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(14)">
+                <span class="toc-number">11</span>
+                <span class="toc-name">PreCompact</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(15)">
+                <span class="toc-number">12</span>
+                <span class="toc-name">SessionEnd</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(16)">
+                <span class="toc-number">13</span>
+                <span class="toc-name">Setup</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Lifecycle Overview -->
+    <div class="slide" data-slide="3">
+        <h1>Hook Execution Flow</h1>
+        <p>Hooks fire at specific points in Claude's workflow. Here's the execution order:</p>
+
+        <div class="lifecycle-diagram">
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">→</span>
+                <span class="lifecycle-label highlight">SessionStart</span>
+                <span style="margin-left: 16px; color: #666;">Session begins or resumes</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label highlight">UserPromptSubmit</span>
+                <span style="margin-left: 16px; color: #666;">User sends a message</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label">PreToolUse</span>
+                <span style="margin-left: 16px; color: #666;">Before each tool runs</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label">PermissionRequest</span>
+                <span style="margin-left: 16px; color: #666;">If permission needed</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label">PostToolUse / PostToolUseFailure</span>
+                <span style="margin-left: 16px; color: #666;">After tool completes</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label">SubagentStart → SubagentStop</span>
+                <span style="margin-left: 16px; color: #666;">If subagent spawned</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label highlight">Stop</span>
+                <span style="margin-left: 16px; color: #666;">Claude finishes responding</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label">PreCompact</span>
+                <span style="margin-left: 16px; color: #666;">If context needs compaction</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">→</span>
+                <span class="lifecycle-label highlight">SessionEnd</span>
+                <span style="margin-left: 16px; color: #666;">Session terminates</span>
+            </div>
+        </div>
+
+        <p style="margin-top: 24px;"><strong>Note:</strong> Notification hooks can fire asynchronously at any time during the session.</p>
+    </div>
+
+    <!-- Slide 4: SessionStart -->
+    <div class="slide" data-slide="4">
+        <div class="hook-title">
+            <span class="hook-number">1</span>
+            <span class="hook-name">SessionStart</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When you start Claude Code or resume an existing session. This is the <strong>first hook</strong> to fire.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Run Claude Code from your terminal to start a new session:</p>
+            <div class="trigger-example">$ claude</div>
+            <p style="margin-top: 12px;">Or resume an existing session:</p>
+            <div class="trigger-example">$ claude --resume</div>
+        </div>
+
+        <div class="matcher-values">
+            <strong>Trigger Sources:</strong>
+            <span class="matcher-tag">startup</span>
+            <span class="matcher-tag">resume</span>
+            <span class="matcher-tag">clear</span>
+            <span class="matcher-tag">compact</span>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Claude session started"</strong>
+                    <span>Audio notification when Claude Code is ready</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📊</span>
+                <div class="use-case-text">
+                    <strong>Load Git Status</strong>
+                    <span>Inject current branch, uncommitted changes into Claude's context</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔧</span>
+                <div class="use-case-text">
+                    <strong>Set Environment Variables</strong>
+                    <span>Configure API keys, paths, or project-specific settings</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📝</span>
+                <div class="use-case-text">
+                    <strong>Load Project Memory</strong>
+                    <span>Restore previous context or project-specific instructions</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: sessionstart.wav — "Claude session started"
+        </div>
+    </div>
+
+    <!-- Slide 5: UserPromptSubmit -->
+    <div class="slide" data-slide="5">
+        <div class="hook-title">
+            <span class="hook-number">2</span>
+            <span class="hook-name">UserPromptSubmit</span>
+            <span class="can-block">Can Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When you submit a prompt, <strong>before</strong> Claude processes it. Fires once per user message.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Type any prompt and press <code>Enter</code>:</p>
+            <div class="trigger-example">&gt; What is the weather in Karachi?</div>
+            <p style="margin-top: 12px;">Or any other message to Claude:</p>
+            <div class="trigger-example">&gt; Help me fix the bug in my code</div>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Processing your request"</strong>
+                    <span>Audio confirmation that your prompt was received</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">✅</span>
+                <div class="use-case-text">
+                    <strong>Validate Prompt Content</strong>
+                    <span>Block harmful, spam, or unauthorized requests</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📎</span>
+                <div class="use-case-text">
+                    <strong>Inject Dynamic Context</strong>
+                    <span>Add relevant docs, git history, or environment info based on keywords</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📈</span>
+                <div class="use-case-text">
+                    <strong>Usage Tracking</strong>
+                    <span>Log prompts for analytics or rate limiting</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: userpromptsubmit.wav — "Processing your request"
+        </div>
+    </div>
+
+    <!-- Slide 6: PreToolUse -->
+    <div class="slide" data-slide="6">
+        <div class="hook-title">
+            <span class="hook-number">3</span>
+            <span class="hook-name">PreToolUse</span>
+            <span class="can-block">Can Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>After Claude creates tool parameters but <strong>before</strong> the tool executes. Fires for every tool call (Bash, Edit, Write, Read, etc.).</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Ask Claude to do anything that requires a tool:</p>
+            <div class="trigger-example">&gt; Read the README.md file</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; Run npm test</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; Create a commit with message "fix bug"</div>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Ding" (tool starting)</strong>
+                    <span>Short audio cue when Claude is about to use a tool</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🛡️</span>
+                <div class="use-case-text">
+                    <strong>Block Dangerous Commands</strong>
+                    <span>Prevent <code>rm -rf /</code>, <code>DROP TABLE</code>, or other destructive operations</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">✏️</span>
+                <div class="use-case-text">
+                    <strong>Modify Tool Inputs</strong>
+                    <span>Sanitize paths, normalize commands, add default flags</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🎵</span>
+                <div class="use-case-text">
+                    <strong>Special Sound for Git Commits</strong>
+                    <span>Play different sound when <code>git commit</code> is detected</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: pretooluse.wav — "Ding" | pretooluse-git-committing.wav for commits
+        </div>
+    </div>
+
+    <!-- Slide 7: PostToolUse -->
+    <div class="slide" data-slide="7">
+        <div class="hook-title">
+            <span class="hook-number">4</span>
+            <span class="hook-name">PostToolUse</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>Immediately <strong>after</strong> a tool completes successfully. Does NOT fire if the tool fails.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Ask Claude to perform any successful tool operation:</p>
+            <div class="trigger-example">&gt; Read the package.json file</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; List all files in the src folder</div>
+            <p style="margin-top: 12px;">Fires after the tool completes without errors.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Dong" (tool completed)</strong>
+                    <span>Short audio cue confirming tool execution succeeded</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🎨</span>
+                <div class="use-case-text">
+                    <strong>Auto-Format Code</strong>
+                    <span>Run Prettier, Black, or gofmt after file edits</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🧪</span>
+                <div class="use-case-text">
+                    <strong>Run Tests Automatically</strong>
+                    <span>Execute test suite after code changes</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📊</span>
+                <div class="use-case-text">
+                    <strong>Log Successful Operations</strong>
+                    <span>Track what tools were used and their results</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: posttooluse.wav — "Dong"
+        </div>
+    </div>
+
+    <!-- Slide 8: PostToolUseFailure -->
+    <div class="slide" data-slide="8">
+        <div class="hook-title">
+            <span class="hook-number">5</span>
+            <span class="hook-name">PostToolUseFailure</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>Immediately <strong>after</strong> a tool call fails (error or non-zero exit code). Does NOT fire if the tool succeeds.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Ask Claude to do something that will fail:</p>
+            <div class="trigger-example">&gt; Read the file nonexistent-file.txt</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; Run the command that-does-not-exist</div>
+            <p style="margin-top: 12px;">Fires when the tool returns an error or non-zero exit code.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Tool failed"</strong>
+                    <span>Audio alert when something goes wrong</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🚨</span>
+                <div class="use-case-text">
+                    <strong>Send Failure Alerts</strong>
+                    <span>Notify via Slack, email, or desktop notification on errors</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔍</span>
+                <div class="use-case-text">
+                    <strong>Analyze Error Patterns</strong>
+                    <span>Log failures for debugging and monitoring</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">💡</span>
+                <div class="use-case-text">
+                    <strong>Provide Recovery Context</strong>
+                    <span>Inject helpful information to help Claude recover</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: posttoolusefailure.wav — "Tool failed"
+        </div>
+    </div>
+
+    <!-- Slide 9: PermissionRequest -->
+    <div class="slide" data-slide="9">
+        <div class="hook-title">
+            <span class="hook-number">6</span>
+            <span class="hook-name">PermissionRequest</span>
+            <span class="can-block">Can Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When a permission dialog is about to be shown. Fires once per permission prompt, allowing you to auto-approve or auto-deny.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Ask Claude to run a command that requires permission approval:</p>
+            <div class="trigger-example">&gt; Run the build script</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; Execute npm install</div>
+            <p style="margin-top: 12px;">Claude will show a permission dialog before running the command.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Permission required"</strong>
+                    <span>Alert when Claude needs your approval for an action</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">✅</span>
+                <div class="use-case-text">
+                    <strong>Auto-Approve Safe Commands</strong>
+                    <span>Skip permission dialog for trusted operations like <code>npm test</code></span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🚫</span>
+                <div class="use-case-text">
+                    <strong>Auto-Deny Dangerous Operations</strong>
+                    <span>Block sensitive actions without showing dialog</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📋</span>
+                <div class="use-case-text">
+                    <strong>Audit Permission Requests</strong>
+                    <span>Log all permission requests for compliance</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: permissionrequest.wav — "Permission required"
+        </div>
+    </div>
+
+    <!-- Slide 10: Notification -->
+    <div class="slide" data-slide="10">
+        <div class="hook-title">
+            <span class="hook-number">7</span>
+            <span class="hook-name">Notification</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When Claude Code sends system notifications (permission prompts, idle alerts, auth success). Fires asynchronously, outside the main agentic loop.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Triggered automatically by system events:</p>
+            <div class="trigger-example">• Leave Claude idle for a while → idle_prompt</div>
+            <div class="trigger-example" style="margin-top: 8px;">• Claude asks for permission → permission_prompt</div>
+            <div class="trigger-example" style="margin-top: 8px;">• Successfully authenticate → auth_success</div>
+        </div>
+
+        <div class="matcher-values">
+            <strong>Notification Types:</strong>
+            <span class="matcher-tag">permission_prompt</span>
+            <span class="matcher-tag">idle_prompt</span>
+            <span class="matcher-tag">auth_success</span>
+            <span class="matcher-tag">elicitation_dialog</span>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Notification"</strong>
+                    <span>Audio cue for system notifications</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🖥️</span>
+                <div class="use-case-text">
+                    <strong>Desktop Notifications</strong>
+                    <span>Route notifications to macOS/Windows notification center</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">💬</span>
+                <div class="use-case-text">
+                    <strong>External Integrations</strong>
+                    <span>Send to Slack, Discord, or webhook endpoints</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: notification.wav — System notification sound
+        </div>
+    </div>
+
+    <!-- Slide 11: SubagentStart -->
+    <div class="slide" data-slide="11">
+        <div class="hook-title">
+            <span class="hook-number">8</span>
+            <span class="hook-name">SubagentStart</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When a subagent is spawned via the Task tool. Can happen multiple times per session (subagents can spawn subagents).</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Ask Claude to perform a task that spawns a subagent:</p>
+            <div class="trigger-example">&gt; Explore the codebase and find where authentication is handled</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; Search for all API endpoints in this project</div>
+            <p style="margin-top: 12px;">Claude will spawn an Explore, Plan, or Bash agent to help.</p>
+        </div>
+
+        <div class="matcher-values">
+            <strong>Agent Types:</strong>
+            <span class="matcher-tag">Bash</span>
+            <span class="matcher-tag">Explore</span>
+            <span class="matcher-tag">Plan</span>
+            <span class="matcher-tag">CustomAgentName</span>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Subagent started"</strong>
+                    <span>Audio notification when a subagent begins work</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🛡️</span>
+                <div class="use-case-text">
+                    <strong>Inject Security Guidelines</strong>
+                    <span>Add security rules to subagent context</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📊</span>
+                <div class="use-case-text">
+                    <strong>Monitor Subagent Spawning</strong>
+                    <span>Track which agents are created and when</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📝</span>
+                <div class="use-case-text">
+                    <strong>Add Project Context</strong>
+                    <span>Inject project-specific instructions into subagents</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: subagentstart.wav — "Subagent started"
+        </div>
+    </div>
+
+    <!-- Slide 12: SubagentStop -->
+    <div class="slide" data-slide="12">
+        <div class="hook-title">
+            <span class="hook-number">9</span>
+            <span class="hook-name">SubagentStop</span>
+            <span class="can-block">Can Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When a subagent finishes responding. Can be blocked to force the subagent to continue working.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Fires automatically when a subagent completes its task:</p>
+            <div class="trigger-example">&gt; Explore the codebase and find where authentication is handled</div>
+            <p style="margin-top: 12px;">After the Explore agent finishes searching, SubagentStop fires.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Subagent completed"</strong>
+                    <span>Audio notification when subagent finishes</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">✅</span>
+                <div class="use-case-text">
+                    <strong>Verify Task Completion</strong>
+                    <span>Check if subagent actually completed its assigned task</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔄</span>
+                <div class="use-case-text">
+                    <strong>Force Continuation</strong>
+                    <span>Block stopping if quality checks fail</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📈</span>
+                <div class="use-case-text">
+                    <strong>Log Completion Metrics</strong>
+                    <span>Track subagent performance and duration</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: subagentstop.wav — "Subagent completed"
+        </div>
+    </div>
+
+    <!-- Slide 13: Stop -->
+    <div class="slide" data-slide="13">
+        <div class="hook-title">
+            <span class="hook-number">10</span>
+            <span class="hook-name">Stop</span>
+            <span class="can-block">Can Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When Claude finishes responding and is ready to stop. Does NOT fire on user interrupts (Ctrl+C).</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Simply wait for Claude to finish responding to any prompt:</p>
+            <div class="trigger-example">&gt; Explain how this function works</div>
+            <p style="margin-top: 12px;">When Claude completes its response and returns to the prompt, Stop fires.</p>
+            <p style="margin-top: 8px; font-size: 0.9rem; color: #666;">Note: Does NOT fire if you press Ctrl+C to interrupt.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Task completed"</strong>
+                    <span>Audio confirmation that Claude finished responding</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🧪</span>
+                <div class="use-case-text">
+                    <strong>Verify Tests Pass</strong>
+                    <span>Block stopping until all tests pass</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📋</span>
+                <div class="use-case-text">
+                    <strong>Check Task List</strong>
+                    <span>Prevent stopping if there are unfinished tasks</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔄</span>
+                <div class="use-case-text">
+                    <strong>Force Continuation</strong>
+                    <span>Make Claude continue if conditions aren't met</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: stop.wav — "Task completed"
+        </div>
+    </div>
+
+    <!-- Slide 14: PreCompact -->
+    <div class="slide" data-slide="14">
+        <div class="hook-title">
+            <span class="hook-number">11</span>
+            <span class="hook-name">PreCompact</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>Before context compaction occurs — either automatically when context window fills up, or when user runs <code>/compact</code>.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Manually run the compact command:</p>
+            <div class="trigger-example">&gt; /compact</div>
+            <p style="margin-top: 12px;">Or automatically when context window fills up after a long conversation.</p>
+        </div>
+
+        <div class="matcher-values">
+            <strong>Trigger Types:</strong>
+            <span class="matcher-tag">manual</span>
+            <span class="matcher-tag">auto</span>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Compacting context"</strong>
+                    <span>Audio alert before context is compressed</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">💾</span>
+                <div class="use-case-text">
+                    <strong>Preserve Critical Context</strong>
+                    <span>Save important information before it's compacted</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📊</span>
+                <div class="use-case-text">
+                    <strong>Monitor Context Usage</strong>
+                    <span>Track how often context fills up</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📝</span>
+                <div class="use-case-text">
+                    <strong>Re-Inject Guidelines</strong>
+                    <span>Add project rules to be included after compaction</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: precompact.wav — "Compacting context"
+        </div>
+    </div>
+
+    <!-- Slide 15: SessionEnd -->
+    <div class="slide" data-slide="15">
+        <div class="hook-title">
+            <span class="hook-number">12</span>
+            <span class="hook-name">SessionEnd</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When a session terminates. This is the <strong>last hook</strong> to fire — cannot prevent session from ending.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>End the session in any of these ways:</p>
+            <div class="trigger-example">&gt; /clear &nbsp;&nbsp;&nbsp;← Clears conversation and ends session</div>
+            <div class="trigger-example" style="margin-top: 8px;">&gt; exit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Type exit at the prompt</div>
+            <div class="trigger-example" style="margin-top: 8px;">Press Ctrl+D or Ctrl+C to exit</div>
+        </div>
+
+        <div class="matcher-values">
+            <strong>End Reasons:</strong>
+            <span class="matcher-tag">clear</span>
+            <span class="matcher-tag">logout</span>
+            <span class="matcher-tag">prompt_input_exit</span>
+            <span class="matcher-tag">other</span>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Session ended"</strong>
+                    <span>Audio farewell when closing Claude Code</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🧹</span>
+                <div class="use-case-text">
+                    <strong>Cleanup Operations</strong>
+                    <span>Delete temporary files, close connections</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📊</span>
+                <div class="use-case-text">
+                    <strong>Log Session Statistics</strong>
+                    <span>Record session duration, tools used, etc.</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">💾</span>
+                <div class="use-case-text">
+                    <strong>Save Session State</strong>
+                    <span>Archive transcript or project state</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: sessionend.wav — "Session ended"
+        </div>
+    </div>
+
+    <!-- Slide 16: Setup -->
+    <div class="slide" data-slide="16">
+        <div class="hook-title">
+            <span class="hook-number">13</span>
+            <span class="hook-name">Setup</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When Claude Code runs the <code>/setup</code> command for project initialization. Rarely used compared to other hooks.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Start Claude Code with the init flag:</p>
+            <div class="trigger-example">$ claude --init</div>
+            <p style="margin-top: 12px;">Or run setup hooks only without starting interactive mode:</p>
+            <div class="trigger-example">$ claude --init-only</div>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Setup initiated"</strong>
+                    <span>Audio notification when project setup begins</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📦</span>
+                <div class="use-case-text">
+                    <strong>Install Dependencies</strong>
+                    <span>Run npm install, pip install, etc.</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">⚙️</span>
+                <div class="use-case-text">
+                    <strong>Configure Project</strong>
+                    <span>Set up MCP servers, linters, formatters</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">✅</span>
+                <div class="use-case-text">
+                    <strong>Validate Environment</strong>
+                    <span>Check required tools and versions are installed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: setup.wav — "Setup initiated"
+        </div>
+    </div>
+
+    <!-- Slide 17: Agent Hooks -->
+    <div class="slide" data-slide="17">
+        <h1>Agent Hooks (Bonus)</h1>
+        <p>Claude Code 2.1.0 introduced support for agent-specific hooks defined in agent frontmatter files. These hooks only run within the agent's lifecycle.</p>
+
+        <div class="trigger-box">
+            <h4>Supported Agent Hooks</h4>
+            <p>Agent frontmatter hooks support only <strong>3 hooks</strong>: PreToolUse, PostToolUse, and Stop.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Run the demo agent included in this repository:</p>
+            <div class="trigger-example">&gt; /agents claude-code-voice-hook-agent</div>
+            <p style="margin-top: 12px;">This agent fetches Dubai weather and triggers all 3 agent hooks.</p>
+        </div>
+
+        <h3>The 3 Agent Hooks</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔔</span>
+                <div class="use-case-text">
+                    <strong>PreToolUse</strong>
+                    <span>Fires before the agent uses any tool (Read, Bash, WebFetch, etc.)</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">✅</span>
+                <div class="use-case-text">
+                    <strong>PostToolUse</strong>
+                    <span>Fires after the agent's tool call completes successfully</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🏁</span>
+                <div class="use-case-text">
+                    <strong>Stop</strong>
+                    <span>Fires when the agent finishes its task and returns control</span>
+                </div>
+            </div>
+        </div>
+
+        <h3>Agent Configuration Example</h3>
+        <div class="code-block">
+<span class="comment"># .claude/agents/my-agent.md</span>
+---
+name: my-agent
+hooks:
+  <span class="key">PreToolUse</span>:
+    - matcher: ".*"
+      hooks:
+        - type: command
+          command: <span class="string">python3 .claude/hooks/scripts/hooks.py --agent=my-agent</span>
+  <span class="key">PostToolUse</span>:
+    - matcher: ".*"
+      hooks:
+        - type: command
+          command: <span class="string">python3 .claude/hooks/scripts/hooks.py --agent=my-agent</span>
+  <span class="key">Stop</span>:
+    - hooks:
+        - type: command
+          command: <span class="string">python3 .claude/hooks/scripts/hooks.py --agent=my-agent</span>
+---
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sounds: agent_pretooluse.wav, agent_posttooluse.wav, agent_stop.wav
+        </div>
+    </div>
+
+    <!-- Slide 18: Configuration -->
+    <div class="slide" data-slide="18">
+        <h1>Configuration</h1>
+        <p>Hooks are configured in <code>.claude/settings.json</code> and can be individually enabled/disabled.</p>
+
+        <h3>Hook Configuration in settings.json</h3>
+        <div class="code-block">
+<span class="comment">// .claude/settings.json</span>
+{
+  <span class="key">"hooks"</span>: {
+    <span class="key">"SessionStart"</span>: [{
+      <span class="key">"hooks"</span>: [{
+        <span class="key">"type"</span>: <span class="string">"command"</span>,
+        <span class="key">"command"</span>: <span class="string">"python3 .claude/hooks/scripts/hooks.py"</span>,
+        <span class="key">"timeout"</span>: 5000,
+        <span class="key">"async"</span>: true,
+        <span class="key">"once"</span>: true
+      }]
+    }]
+  }
+}
+        </div>
+
+        <h3>Disable All Hooks</h3>
+        <div class="code-block">
+<span class="comment">// .claude/settings.local.json (git-ignored)</span>
+{
+  <span class="key">"disableAllHooks"</span>: true
+}
+        </div>
+
+        <h3>Disable Individual Hooks</h3>
+        <div class="code-block">
+<span class="comment">// .claude/hooks/config/hooks-config.local.json</span>
+{
+  <span class="key">"disablePreToolUseHook"</span>: true,
+  <span class="key">"disablePostToolUseHook"</span>: true,
+  <span class="key">"disableLogging"</span>: true
+}
+        </div>
+    </div>
+
+    <!-- Slide 19: Summary -->
+    <div class="slide" data-slide="19">
+        <h1>Summary</h1>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h4>Session Lifecycle</h4>
+                <p><strong>SessionStart</strong> — First hook, loads context</p>
+                <p><strong>SessionEnd</strong> — Last hook, cleanup</p>
+                <p><strong>PreCompact</strong> — Before context compression</p>
+                <p><strong>Setup</strong> — Project initialization</p>
+            </div>
+            <div class="info-card">
+                <h4>User Interaction</h4>
+                <p><strong>UserPromptSubmit</strong> — Before processing prompt</p>
+                <p><strong>Notification</strong> — System alerts</p>
+                <p><strong>PermissionRequest</strong> — Permission dialogs</p>
+            </div>
+            <div class="info-card">
+                <h4>Tool Execution</h4>
+                <p><strong>PreToolUse</strong> — Before tool runs</p>
+                <p><strong>PostToolUse</strong> — After success</p>
+                <p><strong>PostToolUseFailure</strong> — After failure</p>
+            </div>
+            <div class="info-card">
+                <h4>Agents & Completion</h4>
+                <p><strong>SubagentStart</strong> — Subagent spawned</p>
+                <p><strong>SubagentStop</strong> — Subagent finished</p>
+                <p><strong>Stop</strong> — Claude ready to stop</p>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 40px;">Hooks That Can Block Execution</h3>
+        <p style="margin-bottom: 24px;">These hooks can prevent actions from proceeding:</p>
+        <div class="matcher-values">
+            <span class="matcher-tag">UserPromptSubmit</span>
+            <span class="matcher-tag">PreToolUse</span>
+            <span class="matcher-tag">PermissionRequest</span>
+            <span class="matcher-tag">SubagentStop</span>
+            <span class="matcher-tag">Stop</span>
+        </div>
+
+        <div style="margin-top: 40px; padding: 24px; background: #f8f9fa; border-radius: 8px;">
+            <p><strong>Repository:</strong> github.com/shanraisshan/claude-code-voice-hooks</p>
+            <p><strong>Documentation:</strong> code.claude.com/docs/en/hooks</p>
+        </div>
+    </div>
+
+    <!-- Animated Claude Speaking Logo -->
+    <div class="header-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 90">
+            <style>
+                .claude-body { animation: bob 0.8s ease-in-out infinite; transform-origin: center bottom; }
+                .shadow { animation: shadow-pulse 0.8s ease-in-out infinite; }
+                .mouth { animation: talk 0.3s ease-in-out infinite; transform-origin: center center; }
+                .left-ear { animation: ear-tilt-left 0.8s ease-in-out infinite; transform-origin: center bottom; }
+                .right-ear { animation: ear-tilt-right 0.8s ease-in-out infinite; transform-origin: center bottom; }
+                .wave-1 { animation: wave-expand 0.8s ease-out infinite; transform-origin: left center; }
+                .wave-2 { animation: wave-expand 0.8s ease-out infinite 0.2s; transform-origin: left center; }
+                .wave-3 { animation: wave-expand 0.8s ease-out infinite 0.4s; transform-origin: left center; }
+                .note-1 { animation: float-note-1 1.5s ease-out infinite; }
+                .note-2 { animation: float-note-2 1.5s ease-out infinite 0.3s; }
+                .note-3 { animation: float-note-3 1.5s ease-out infinite 0.6s; }
+                @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+                @keyframes shadow-pulse { 0%, 100% { transform: scaleX(1); opacity: 0.25; } 50% { transform: scaleX(0.9); opacity: 0.2; } }
+                @keyframes talk { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.5); } }
+                @keyframes ear-tilt-left { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-5deg); } }
+                @keyframes ear-tilt-right { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
+                @keyframes wave-expand { 0% { opacity: 0.8; transform: scaleX(0.3) scaleY(0.8); } 100% { opacity: 0; transform: scaleX(1.2) scaleY(1); } }
+                @keyframes float-note-1 { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(15px, -25px) rotate(15deg); } }
+                @keyframes float-note-2 { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(20px, -30px) rotate(-10deg); } }
+                @keyframes float-note-3 { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(10px, -35px) rotate(20deg); } }
+            </style>
+            <ellipse class="shadow" cx="50" cy="82" rx="22" ry="5" fill="#000"/>
+            <g class="wave-1"><path d="M 92 44 Q 100 44, 100 52 Q 100 60, 92 60" fill="none" stroke="#E07C4C" stroke-width="3" stroke-linecap="round"/></g>
+            <g class="wave-2"><path d="M 96 38 Q 108 38, 108 52 Q 108 66, 96 66" fill="none" stroke="#E07C4C" stroke-width="3" stroke-linecap="round"/></g>
+            <g class="wave-3"><path d="M 100 32 Q 116 32, 116 52 Q 116 72, 100 72" fill="none" stroke="#E07C4C" stroke-width="3" stroke-linecap="round"/></g>
+            <g class="note-1"><ellipse cx="108" cy="28" rx="4" ry="3" fill="#E07C4C" transform="rotate(-20, 108, 28)"/><rect x="111" y="12" width="2" height="16" fill="#E07C4C"/><path d="M 113 12 Q 118 14, 118 18 Q 118 22, 113 20" fill="#E07C4C"/></g>
+            <g class="note-2"><ellipse cx="122" cy="22" rx="4" ry="3" fill="#E07C4C" transform="rotate(-20, 122, 22)"/><rect x="125" y="6" width="2" height="16" fill="#E07C4C"/></g>
+            <g class="note-3"><ellipse cx="115" cy="42" rx="3" ry="2.5" fill="#E07C4C" transform="rotate(-20, 115, 42)"/><ellipse cx="125" cy="40" rx="3" ry="2.5" fill="#E07C4C" transform="rotate(-20, 125, 40)"/><rect x="117" y="26" width="2" height="16" fill="#E07C4C"/><rect x="127" y="24" width="2" height="16" fill="#E07C4C"/><rect x="117" y="26" width="12" height="2" fill="#E07C4C"/></g>
+            <g class="claude-body">
+                <rect class="left-ear" x="22" y="10" width="8" height="14" fill="#E07C4C"/>
+                <rect class="right-ear" x="70" y="10" width="8" height="14" fill="#E07C4C"/>
+                <rect x="18" y="24" width="64" height="4" fill="#E07C4C"/>
+                <rect x="14" y="28" width="72" height="32" fill="#E07C4C"/>
+                <rect x="30" y="34" width="8" height="10" fill="#000000"/>
+                <rect x="62" y="34" width="8" height="10" fill="#000000"/>
+                <rect class="mouth" x="44" y="50" width="12" height="6" fill="#000000"/>
+                <rect x="2" y="40" width="12" height="8" fill="#E07C4C"/>
+                <rect x="86" y="40" width="12" height="8" fill="#E07C4C"/>
+                <rect x="24" y="60" width="12" height="14" fill="#E07C4C"/>
+                <rect x="64" y="60" width="12" height="14" fill="#E07C4C"/>
+            </g>
+        </svg>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()">←</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">→</button>
+    </div>
+
+    <div class="slide-counter" id="slideCounter">1 / 18</div>
+
+    <div class="keyboard-hint">
+        <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> to navigate
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 19;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+
+            document.querySelector(`[data-slide="${currentSlide}"]`).classList.add('active');
+
+            document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('progress').style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
+            }
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

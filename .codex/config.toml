@@ -1,0 +1,4 @@
+# Codex CLI project-level configuration
+# Plays notification sound when Codex triggers notifications
+
+notify = ["bash", "-lc", "afplay .codex/hooks/sounds/notification/codex-notification.wav"]

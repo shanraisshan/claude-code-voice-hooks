@@ -1,16 +1,16 @@
 {
-  "disableLogging": false,
+  "disableSessionStartHook": false,
+  "disableUserPromptSubmitHook": false,
   "disablePreToolUseHook": false,
-  "disablePermissionRequestHook": false,
   "disablePostToolUseHook": false,
   "disablePostToolUseFailureHook": false,
-  "disableUserPromptSubmitHook": false,
+  "disablePermissionRequestHook": false,
   "disableNotificationHook": false,
-  "disableStopHook": false,
-  "disableSubagentStartHook": false,
-  "disableSubagentStopHook": false,
-  "disablePreCompactHook": false,
-  "disableSessionStartHook": false,
-  "disableSessionEndHook": false,
-  "disableSetupHook": false
+  "disableSubagentStartHook": true,
+  "disableSubagentStopHook": true,
+  "disableStopHook": true,
+  "disablePreCompactHook": true,
+  "disableSessionEndHook": true,
+  "disableSetupHook": true,
+  "disableLogging": true
 }

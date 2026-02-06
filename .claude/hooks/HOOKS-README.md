@@ -157,16 +157,19 @@ hooks:
       command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
       timeout: 5000
       async: true
+      statusMessage: PreToolUse
   PostToolUse:
     - type: command
       command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
       timeout: 5000
       async: true
+      statusMessage: PostToolUse
   Stop:
     - type: command
       command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=my-agent
       timeout: 5000
       async: true
+      statusMessage: Stop
 ---
 
 Your agent instructions here...
@@ -215,6 +218,22 @@ Hooks can run in the background without blocking Claude Code's execution by addi
 - Any side-effect that shouldn't slow down Claude Code
 
 This project uses `async: true` for all hooks since voice notifications are side-effects that don't need to block execution. The `timeout` specifies how long the async hook can run before being terminated.
+
+### Hook Option: `statusMessage`
+
+The `statusMessage` field sets a custom spinner message displayed to the user while the hook is running:
+
+```json
+{
+  "type": "command",
+  "command": "python3 .claude/hooks/scripts/hooks.py",
+  "timeout": 5000,
+  "async": true,
+  "statusMessage": "PreToolUse"
+}
+```
+
+This project sets `statusMessage` to the hook event name on all hooks, so the spinner briefly shows which hook is firing (e.g., "PreToolUse", "SessionStart", "Stop"). This is most visible for synchronous hooks; for async hooks the message flashes briefly before the hook runs in the background.
 
 ## Known Issues & Workarounds
 

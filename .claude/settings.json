@@ -8,7 +8,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "PreToolUse"
           }
         ]
       }
@@ -20,7 +21,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "PermissionRequest"
           }
         ]
       }
@@ -32,7 +34,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "PostToolUse"
           }
         ]
       }
@@ -44,7 +47,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "PostToolUseFailure"
           }
         ]
       }
@@ -56,7 +60,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "UserPromptSubmit"
           }
         ]
       }
@@ -68,7 +73,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "Notification"
           }
         ]
       }
@@ -80,7 +86,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "Stop"
           }
         ]
       }
@@ -92,7 +99,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "SubagentStart"
           }
         ]
       }
@@ -104,7 +112,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
-            "async": true
+            "async": true,
+            "statusMessage": "SubagentStop"
           }
         ]
       }
@@ -117,7 +126,8 @@
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
             "async": true,
-            "once": true
+            "once": true,
+            "statusMessage": "PreCompact"
           }
         ]
       }
@@ -130,7 +140,8 @@
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
             "async": true,
-            "once": true
+            "once": true,
+            "statusMessage": "SessionStart"
           }
         ]
       }
@@ -143,7 +154,8 @@
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 5000,
             "async": true,
-            "once": true
+            "once": true,
+            "statusMessage": "SessionEnd"
           }
         ]
       }
@@ -155,7 +167,8 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py",
             "timeout": 30000,
-            "async": true
+            "async": true,
+            "statusMessage": "Setup"
           }
         ]
       }

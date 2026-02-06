@@ -98,19 +98,19 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
 ```
   "disableAllHooks": false,
   "hooks": {
-    "PreToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "PostToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "PostToolUseFailure": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "Notification": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "Stop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "SubagentStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "SubagentStop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "PreCompact": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
-    "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
-    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
-    "Setup": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true}]}]
+    "PreToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "PreToolUse"}]}],
+    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "PermissionRequest"}]}],
+    "PostToolUse": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "PostToolUse"}]}],
+    "PostToolUseFailure": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "PostToolUseFailure"}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "UserPromptSubmit"}]}],
+    "Notification": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "Notification"}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "Stop"}]}],
+    "SubagentStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "SubagentStart"}]}],
+    "SubagentStop": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "SubagentStop"}]}],
+    "PreCompact": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "PreCompact"}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "SessionStart"}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "SessionEnd"}]}],
+    "Setup": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true, "statusMessage": "Setup"}]}]
   }
 ```
 
@@ -118,19 +118,19 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
 ```
   "disableAllHooks": false,
   "hooks": {
-    "PreToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "PostToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "PostToolUseFailure": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "Notification": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "Stop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "SubagentStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "SubagentStop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true}]}],
-    "PreCompact": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
-    "SessionStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
-    "SessionEnd": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true}]}],
-    "Setup": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true}]}]
+    "PreToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "PreToolUse"}]}],
+    "PermissionRequest": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "PermissionRequest"}]}],
+    "PostToolUse": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "PostToolUse"}]}],
+    "PostToolUseFailure": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "PostToolUseFailure"}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "UserPromptSubmit"}]}],
+    "Notification": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "Notification"}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "Stop"}]}],
+    "SubagentStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "SubagentStart"}]}],
+    "SubagentStop": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "SubagentStop"}]}],
+    "PreCompact": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "PreCompact"}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "SessionStart"}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "SessionEnd"}]}],
+    "Setup": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true, "statusMessage": "Setup"}]}]
   }
 ```
 
@@ -138,6 +138,7 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
 - `timeout`: Maximum time in milliseconds for the hook to complete (5000ms default, 30000ms for Setup)
 - `async`: When `true`, hooks run in the background without blocking Claude Code
 - `once`: When `true`, the hook runs only once per session (used for SessionStart, SessionEnd, PreCompact)
+- `statusMessage`: Custom spinner message shown while the hook runs (set to the hook event name)
 
 ---
 

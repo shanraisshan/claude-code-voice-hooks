@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="36">
+  <rect width="120" height="36" rx="18" fill="#0078D6"/>
+  <g transform="translate(16,10) scale(0.667)">
+    <path d="M3 12V6.75L9 5.43v6.48L3 12m7.95-6.6L20 3v8.75H10.95M3 13l6 .09v6.81L3 18.75V13m7.95.25H20V22l-9.05-1.8v-6.95z" fill="white"/>
+  </g>
+  <text x="40" y="23.5" fill="white" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="13" font-weight="600">Windows</text>
+</svg>

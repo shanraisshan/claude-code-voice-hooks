@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="68" height="36">
+  <rect width="68" height="36" rx="18" fill="#888"/>
+  <g transform="translate(16,10) scale(0.667)">
+    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932zM17.61 20.644h2.039L6.486 3.24H4.298z" fill="white"/>
+  </g>
+  <text x="40" y="23.5" fill="white" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="13" font-weight="600">X</text>
+</svg>

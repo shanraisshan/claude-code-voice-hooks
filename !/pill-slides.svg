@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="105" height="36">
+  <rect width="105" height="36" rx="18" fill="#4285F4"/>
+  <g transform="translate(16,10) scale(0.667)">
+    <path d="M4 2C2.9 2 2 2.9 2 4v12c0 1.1.9 2 2 2h6v2H7v2h10v-2h-3v-2h6c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4zm0 2h16v12H4V4z" fill="white"/>
+  </g>
+  <text x="40" y="23.5" fill="white" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="13" font-weight="600">Slides</text>
+</svg>

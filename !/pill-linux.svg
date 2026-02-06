@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="102" height="36">
+  <rect width="102" height="36" rx="18" fill="#E95420"/>
+  <g transform="translate(16,10) scale(0.667)">
+    <path d="M20 19V7H4v12h16m0-16a2 2 0 012 2v14a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h16m-7 14v-2h5v2h-5m-3.58-4L5.57 9 7 7.59 12.42 13 7 18.41 5.58 17l4-4z" fill="white"/>
+  </g>
+  <text x="38" y="23.5" fill="white" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="13" font-weight="600">Linux</text>
+</svg>

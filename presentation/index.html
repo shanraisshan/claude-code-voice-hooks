@@ -540,7 +540,7 @@
         </div>
         <h1>Claude Code Voice Hooks</h1>
         <p class="subtitle">Explaining Claude Code Voice Hooks and Subagent Hooks</p>
-        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.31 | February 5, 2026</p>
+        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.33 | February 6, 2026</p>
     </div>
 
     <!-- Slide 2: Introduction -->
@@ -557,8 +557,8 @@
             <div class="use-case-item">
                 <span class="use-case-icon">🔢</span>
                 <div class="use-case-text">
-                    <strong>13 Hooks Explained</strong>
-                    <span>Claude Code currently supports 13 hooks (as of v2.1.31)</span>
+                    <strong>15 Hooks Explained</strong>
+                    <span>Claude Code currently supports 15 hooks (as of v2.1.33)</span>
                 </div>
             </div>
             <div class="use-case-item">
@@ -579,7 +579,7 @@
                 <span class="use-case-icon">🔊</span>
                 <div class="use-case-text">
                     <strong>Voice Notifications Demo</strong>
-                    <span>This repo integrates all 13 hooks with audio feedback</span>
+                    <span>This repo integrates all 15 hooks with audio feedback</span>
                 </div>
             </div>
         </div>
@@ -595,8 +595,8 @@
 
     <!-- Slide 3: Table of Contents -->
     <div class="slide" data-slide="3">
-        <h1>The 13 Hooks</h1>
-        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.31 | February 5, 2026 — More hooks may be added in future versions.</p>
+        <h1>The 15 Hooks</h1>
+        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.33 | February 6, 2026 — More hooks may be added in future versions.</p>
 
         <div class="toc-list">
             <div class="toc-item" onclick="goToSlide(5)">
@@ -651,6 +651,14 @@
                 <span class="toc-number">13</span>
                 <span class="toc-name">Setup</span>
             </div>
+            <div class="toc-item" onclick="goToSlide(18)">
+                <span class="toc-number">14</span>
+                <span class="toc-name">TeammateIdle</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(19)">
+                <span class="toc-number">15</span>
+                <span class="toc-name">TaskCompleted</span>
+            </div>
         </div>
     </div>
 
@@ -701,13 +709,23 @@
                 <span style="margin-left: 16px; color: #666;">If context needs compaction</span>
             </div>
             <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label">TeammateIdle</span>
+                <span style="margin-left: 16px; color: #666;">If teammate agent becomes idle</span>
+            </div>
+            <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label">TaskCompleted</span>
+                <span style="margin-left: 16px; color: #666;">If background task completes</span>
+            </div>
+            <div class="lifecycle-step">
                 <span class="lifecycle-arrow">→</span>
                 <span class="lifecycle-label highlight">SessionEnd</span>
                 <span style="margin-left: 16px; color: #666;">Session terminates</span>
             </div>
         </div>
 
-        <p style="margin-top: 24px;"><strong>Note:</strong> Notification hooks can fire asynchronously at any time during the session.</p>
+        <p style="margin-top: 24px;"><strong>Note:</strong> Notification, TeammateIdle, and TaskCompleted hooks can fire asynchronously at any time during the session.</p>
     </div>
 
     <!-- Slide 5: SessionStart -->
@@ -1492,8 +1510,122 @@
         </div>
     </div>
 
-    <!-- Slide 18: Agent Hooks -->
+    <!-- Slide 18: TeammateIdle -->
     <div class="slide" data-slide="18">
+        <div class="hook-title">
+            <span class="hook-number">14</span>
+            <span class="hook-name">TeammateIdle</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When a teammate agent becomes idle in an experimental agent teams session. Requires the agent teams feature to be enabled.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Enable agent teams and start a multi-agent session:</p>
+            <div class="trigger-example">$ CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude</div>
+            <p style="margin-top: 12px;">When a teammate agent finishes its current work and becomes idle, this hook fires.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Teammate idle"</strong>
+                    <span>Audio notification when a teammate agent is waiting for work</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📋</span>
+                <div class="use-case-text">
+                    <strong>Auto-Assign Tasks</strong>
+                    <span>Automatically queue the next task for the idle teammate</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📊</span>
+                <div class="use-case-text">
+                    <strong>Monitor Team Utilization</strong>
+                    <span>Track idle time across agents for workload balancing</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔔</span>
+                <div class="use-case-text">
+                    <strong>Notify Orchestrator</strong>
+                    <span>Alert the main agent that a teammate is available</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: teammateidle.wav — "Teammate idle"
+        </div>
+    </div>
+
+    <!-- Slide 19: TaskCompleted -->
+    <div class="slide" data-slide="19">
+        <div class="hook-title">
+            <span class="hook-number">15</span>
+            <span class="hook-name">TaskCompleted</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When a background task completes in an experimental agent teams session. Requires the agent teams feature to be enabled.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Enable agent teams and run background tasks:</p>
+            <div class="trigger-example">$ CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude</div>
+            <p style="margin-top: 12px;">When a background task finishes execution, this hook fires.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Task completed"</strong>
+                    <span>Audio notification when a background task finishes</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">✅</span>
+                <div class="use-case-text">
+                    <strong>Verify Task Results</strong>
+                    <span>Run validation checks on the completed task output</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔄</span>
+                <div class="use-case-text">
+                    <strong>Trigger Follow-Up Tasks</strong>
+                    <span>Automatically start dependent tasks in a pipeline</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📈</span>
+                <div class="use-case-text">
+                    <strong>Log Completion Metrics</strong>
+                    <span>Track task duration, success rate, and throughput</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: taskcompleted.wav — "Task completed"
+        </div>
+    </div>
+
+    <!-- Slide 20: Agent Hooks -->
+    <div class="slide" data-slide="20">
         <h1>Agent Hooks (Bonus)</h1>
         <p>Claude Code 2.1.0 introduced support for agent-specific hooks defined in agent frontmatter files. These hooks only run within the agent's lifecycle.</p>
 
@@ -1562,8 +1694,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 19: Configuration -->
-    <div class="slide" data-slide="19">
+    <!-- Slide 21: Configuration -->
+    <div class="slide" data-slide="21">
         <h1>Configuration</h1>
         <p>Hooks are configured in <code>.claude/settings.json</code> and can be individually enabled/disabled.</p>
 
@@ -1604,8 +1736,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 20: Summary -->
-    <div class="slide" data-slide="20">
+    <!-- Slide 22: Summary -->
+    <div class="slide" data-slide="22">
         <h1>Summary</h1>
 
         <div class="info-grid">
@@ -1633,6 +1765,8 @@ hooks:
                 <p><strong>SubagentStart</strong> — Subagent spawned</p>
                 <p><strong>SubagentStop</strong> — Subagent finished</p>
                 <p><strong>Stop</strong> — Claude ready to stop</p>
+                <p><strong>TeammateIdle</strong> — Teammate agent idle</p>
+                <p><strong>TaskCompleted</strong> — Background task done</p>
             </div>
         </div>
 
@@ -1705,7 +1839,7 @@ hooks:
         <button class="nav-btn" id="nextBtn" onclick="nextSlide()">→</button>
     </div>
 
-    <div class="slide-counter" id="slideCounter">1 / 18</div>
+    <div class="slide-counter" id="slideCounter">1 / 22</div>
 
     <div class="keyboard-hint">
         <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> to navigate
@@ -1713,7 +1847,7 @@ hooks:
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 20;
+        const totalSlides = 22;
 
         function showSlide(n) {
             const slides = document.querySelectorAll('.slide');

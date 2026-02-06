@@ -188,7 +188,7 @@ Your agent instructions here...
 
 ### Example: Weather Fetcher Agent
 
-See `.claude/agents/weather-fetcher.md` for a complete example of an agent with hooks configured.
+See `.claude/agents/claude-code-voice-hook-agent.md` for a complete example of an agent with hooks configured.
 
 ### Hook Option: `once: true`
 

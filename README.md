@@ -1,5 +1,5 @@
 # Claude Code Voice Hooks 🔊 Ding Dong
-[supports all 13 hooks](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-13-hooks)
+[supports all 15 hooks](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-15-hooks)
 
 <p align="center">
   <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">
@@ -9,13 +9,13 @@ plays #ding 🔊 on PreToolUse and #dong 🔊 on PostToolUse
 
 Providing voice feedback to your Claude Code agent! Get instant audio notifications for tool usage, prompts, git commits, and session events.
 
-# [Demo Video + Presentation](https://youtu.be/vgfdSUbz_b0)
+# [Demo Video + Presentation](https://youtu.be/6_y3AtkgjqA)
 
-📹 Demo video available here: 👉 [Youtube](https://youtu.be/vgfdSUbz_b0)
+📹 Demo video available here: 👉 [Youtube](https://youtu.be/6_y3AtkgjqA)
 
 📊 Presentation available here: 👉 [Slides](presentation/index.html)
 
-![thumbnail](!/thumbnail.png)
+![thumbnail](!/thumbnail3.jpg)
 
 ## Installation
 
@@ -110,7 +110,9 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
     "PreCompact": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "PreCompact"}]}],
     "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "SessionStart"}]}],
     "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "SessionEnd"}]}],
-    "Setup": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true, "statusMessage": "Setup"}]}]
+    "Setup": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true, "statusMessage": "Setup"}]}],
+    "TeammateIdle": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "TeammateIdle"}]}],
+    "TaskCompleted": [{"hooks": [{"type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "TaskCompleted"}]}]
   }
 ```
 
@@ -130,7 +132,9 @@ Open your existing `.claude/settings.json` and add the 2 keys (disableAllHooks a
     "PreCompact": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "PreCompact"}]}],
     "SessionStart": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "SessionStart"}]}],
     "SessionEnd": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "once": true, "statusMessage": "SessionEnd"}]}],
-    "Setup": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true, "statusMessage": "Setup"}]}]
+    "Setup": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 30000, "async": true, "statusMessage": "Setup"}]}],
+    "TeammateIdle": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "TeammateIdle"}]}],
+    "TaskCompleted": [{"hooks": [{"type": "command", "command": "python .claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true, "statusMessage": "TaskCompleted"}]}]
   }
 ```
 
@@ -212,7 +216,7 @@ Follow the [Installation](#installation) instructions above to install the lates
 
 ## Features
 
-- 🔊 Audio feedback for all 13 Claude Code hook events
+- 🔊 Audio feedback for all 15 Claude Code hook events
 - 🎵 Special sound for git commits
 - 🖥️ Cross-platform support (macOS, Linux, Windows)
 - ⚙️ Easy enable/disable configuration (global and per-hook)

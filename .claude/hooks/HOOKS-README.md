@@ -1,7 +1,7 @@
 # HOOKS-README
 contains all the details, scripts, and instructions for the hooks
 
-## Hook Events Overview - [Official 13 Hooks](https://code.claude.com/docs/en/hooks)
+## Hook Events Overview - [Official 15 Hooks](https://code.claude.com/docs/en/hooks)
 Claude Code provides several hook events that run at different points in the workflow:
 1. PreToolUse: Runs before tool calls (can block them)
 2. PermissionRequest: Runs when Claude Code requests permission from the user
@@ -16,6 +16,10 @@ Claude Code provides several hook events that run at different points in the wor
 11. SessionStart: Runs when Claude Code starts a new session or resumes an existing session
 12. SessionEnd: Runs when Claude Code session ends
 13. Setup: Runs when Claude Code runs the /setup command for project initialization
+14. TeammateIdle: Runs when a teammate agent becomes idle (experimental agent teams)
+15. TaskCompleted: Runs when a background task completes (experimental agent teams)
+
+> **Note:** Hooks 14-15 (`TeammateIdle` and `TaskCompleted`) require the experimental agent teams feature. Set `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` when launching Claude Code to enable them.
 
 ## Prerequisites
 
@@ -98,7 +102,9 @@ Edit `.claude/hooks/config/hooks-config.json` for team-wide defaults:
   "disablePreCompactHook": false,
   "disableSessionStartHook": false,
   "disableSessionEndHook": false,
-  "disableSetupHook": false
+  "disableSetupHook": false,
+  "disableTeammateIdleHook": false,
+  "disableTaskCompletedHook": false
 }
 ```
 

@@ -5,9 +5,13 @@
   <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">
 </p>
 
-plays #ding 🔊 on PreToolUse and #dong 🔊 on PostToolUse
+<p align="center">
+  <img src="!/ding-dong.svg" alt="Ding on PreToolUse, Dong on PostToolUse" height="72">
+</p>
 
-Providing voice feedback to your Claude Code agent! Get instant audio notifications for tool usage, prompts, git commits, and session events.
+<p align="center">
+  <img src="!/tagline.svg" alt="Voice feedback for tools, prompts, commits & session events" height="40">
+</p>
 
 # [Demo Video + Presentation](https://youtu.be/6_y3AtkgjqA)
 
@@ -36,11 +40,12 @@ SessionStart:startup hook error
 
 ## Changelog
 
-- **v3.2** (Feb 6, 2026): Added `TeammateIdle` and `TaskCompleted` hooks (15 hooks total)
-- **v3.1** (Jan 30, 2026): Added `async` and `once` hook options — hooks now run in background without blocking Claude Code, with `once` option for session lifecycle events
-- **v3** (Jan 19, 2026): Added `Setup` hook (13 hooks) — runs when Claude Code executes the /setup command for project initialization
-- **v2** (Nov 26, 2025): Added `PermissionRequest` and `SubagentStart` hooks (12 hooks) — introduced in [Claude Code v2.0.43](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2043) and [v2.0.45](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2045) ■ [Demo 2](https://youtu.be/JFPJtMNV8Qw)
-- **v1** (Nov 5, 2025): Initial release with 10 hooks ■ [Demo 1](https://youtu.be/vgfdSUbz_b0)
+| Version | Date | Hooks | Changes |
+|---------|------|:-----:|---------|
+| **v4** | Feb 6, 2026 | 15 | Added `TeammateIdle` and `TaskCompleted` hooks — introduced in [Claude Code v2.1.33](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2133) ■ [Demo 3](https://youtu.be/6_y3AtkgjqA) |
+| **v3** | Jan 19, 2026 | 13 | Added `Setup` hook — runs when Claude Code executes the /setup command for project initialization |
+| **v2** | Nov 26, 2025 | 12 | Added `PermissionRequest` and `SubagentStart` hooks — introduced in [Claude Code v2.0.43](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2043) and [v2.0.45](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2045) ■ [Demo 2](https://youtu.be/JFPJtMNV8Qw) |
+| **v1** | Nov 5, 2025 | 10 | Initial release with 10 hooks ■ [Demo 1](https://youtu.be/vgfdSUbz_b0) |
 
 ## Links
 

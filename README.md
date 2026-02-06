@@ -40,14 +40,20 @@ SessionStart:startup hook error
 
 ## Changelog
 
-| Version | Date | Hooks | Changes | Claude Code Version | Demo |
-|---------|------|:-----:|---------|:-------------------:|:----:|
-| **v6** | Feb 6, 2026 | 15 | Added `TeammateIdle` and `TaskCompleted` | [v2.1.33](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2133) | |
-| **v5** | Jan 30, 2026 | 13 | Added `PostToolUseFailure` | | [Demo 3](https://youtu.be/6_y3AtkgjqA) |
-| **v4** | Jan 19, 2026 | 12 | Added `Setup` | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | |
-| **v3** | Nov 26, 2025 | 11 | Added `PermissionRequest` | [v2.0.45](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2045) | [Demo 2](https://youtu.be/JFPJtMNV8Qw) |
-| **v2** | Nov 26, 2025 | 10 | Added `SubagentStart` | [v2.0.43](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2043) | |
-| **v1** | Nov 5, 2025 | 9 | Initial release with 9 hooks | [v1.0.38](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1038) | [Demo 1](https://youtu.be/vgfdSUbz_b0) |
+| Date | Hooks | Changes | Claude Code Version | Demo |
+|------|:-----:|---------|:-------------------:|:----:|
+| Feb 6, 2026 | 15 | Added `TeammateIdle` and `TaskCompleted` | [v2.1.33](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2133) | |
+| — | 13 | Added `PostToolUseFailure` | — | [Demo 3](https://youtu.be/6_y3AtkgjqA) |
+| Jan 17, 2026 | 12 | Added `Setup` | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | |
+| Jan 7, 2026 | 12 | Added subagent hooks: `PreToolUse`, `PostToolUse`, `Stop` | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | |
+| Nov 18, 2025 | 11 | Added `PermissionRequest` | [v2.0.45](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2045) | [Demo 2](https://youtu.be/JFPJtMNV8Qw) |
+| Nov 17, 2025 | 10 | Added `SubagentStart` | [v2.0.43](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2043) | |
+| Nov 10, 2025 | 9 | Added `Notification` | [v2.0.37](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2037) | [Demo 1](https://youtu.be/vgfdSUbz_b0) |
+| Jul 28, 2025 | 8 | Added `SessionStart` | [v1.0.62](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1062) | |
+| Jul 16, 2025 | 7 | Added `UserPromptSubmit` | [v1.0.54](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1054) | |
+| Jul 10, 2025 | 6 | Added `PreCompact` | [v1.0.48](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1048) | |
+| Jul 2, 2025 | 5 | Split `Stop` into `Stop` and `SubagentStop` | [v1.0.41](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1041) | |
+| Jun 30, 2025 | 4 | Initial release: `PreToolUse`, `PostToolUse`, `Stop`, `SessionEnd` | [v1.0.38](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1038) | |
 
 ## Links
 

@@ -1,9 +1,0 @@
-Dubai Weather Report - February 20, 2026
-==========================================
-
-Current Temperature: 84F (29C), sunny
-Today's High: 87F / Low: 67F
-Tomorrow: Fair to partly cloudy, high 29C, low 17C
-Wind: Light to moderate SE to NE at 10-20 kmph
-
-Report generated as part of hook trigger test.

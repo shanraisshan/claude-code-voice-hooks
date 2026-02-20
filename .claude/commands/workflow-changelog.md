@@ -3,7 +3,7 @@ description: Track Claude Code changelog and find what needs updating in this re
 argument-hint: [number of versions to check, default 10]
 ---
 
-# Changelog Tracker
+# Workflow Changelog
 
 You are a coordinator for the claude-code-voice-hooks project. Your job is to launch two research agents in parallel, wait for their results, merge findings, and present a unified report.
 
@@ -17,9 +17,9 @@ This is a **read-then-report** workflow. Launch agents, merge results, and produ
 
 **Immediately** spawn both agents using the Task tool **in the same message** (parallel launch):
 
-### Agent 1: changelog-tracker-agent
+### Agent 1: workflow-changelog-agent
 
-Spawn using `subagent_type: "changelog-tracker-agent"`. Give it this prompt:
+Spawn using `subagent_type: "workflow-changelog-agent"`. Give it this prompt:
 
 > Research the claude-code-voice-hooks project for changelog drift. Check the last $ARGUMENTS versions (default: 10).
 >
@@ -61,10 +61,10 @@ Both agents run independently and will return their findings.
 ## Phase 2: Merge Findings & Generate Report
 
 **Wait for both agents to complete.** Once you have:
-- **changelog-tracker-agent findings** — detailed repo analysis with local file reads, external doc fetches, and drift detection
+- **workflow-changelog-agent findings** — detailed repo analysis with local file reads, external doc fetches, and drift detection
 - **claude-code-guide findings** — independent research on latest Claude Code hooks, features, and changes
 
-Cross-reference the two. The changelog-tracker-agent provides repo-specific drift analysis, while the claude-code-guide agent may surface things it missed (e.g. very recent changes, undocumented features, or context from web searches). Flag any contradictions between the two for the user to resolve.
+Cross-reference the two. The workflow-changelog-agent provides repo-specific drift analysis, while the claude-code-guide agent may surface things it missed (e.g. very recent changes, undocumented features, or context from web searches). Flag any contradictions between the two for the user to resolve.
 
 Also compare the current findings against the previous changelog entries (from Phase 1). For each priority action, mark it as:
 - `NEW` — first time this issue appears
@@ -85,7 +85,7 @@ Produce a structured report with these sections:
 10. **Presentation Updates** — Staleness across all presentation elements
 11. **Hook Options Table** — Per-hook Options column accuracy
 12. **Agent Frontmatter Hooks** — 3-hook assumption verification
-13. **claude-code-guide Agent Findings** — Unique insights from the agent that weren't captured by the changelog-tracker-agent. Only include findings that add new information. If there are contradictions between the two agents, flag them for the user to resolve. Do NOT list "confirmed agreements" — if both agents found the same thing, that's expected and not worth reporting.
+13. **claude-code-guide Agent Findings** — Unique insights from the agent that weren't captured by the workflow-changelog-agent. Only include findings that add new information. If there are contradictions between the two agents, flag them for the user to resolve. Do NOT list "confirmed agreements" — if both agents found the same thing, that's expected and not worth reporting.
 
 End with a prioritized **Action Items** summary table. Each item must include a `Status` column showing `NEW`, `RECURRING (first seen: <date>)`, or `RESOLVED`:
 
@@ -130,7 +130,7 @@ Read the existing `workflow-changelog/workflow-changelog.md` file, then **append
 **Rules for appending:**
 - Always append — never overwrite or replace previous entries
 - The date and time is when the command is executed in Pakistan Standard Time (PKT, UTC+5); get it by running `TZ=Asia/Karachi date "+%Y-%m-%d %I:%M %p PKT"`. The version comes from agent findings
-- If `workflow-changelog/workflow-changelog.md` doesn't exist or is empty, create it with `# Changelog Tracker History` then the first entry
+- If `workflow-changelog/workflow-changelog.md` doesn't exist or is empty, create it with `# Workflow Changelog History` then the first entry
 - Each entry is separated by `---`
 - **Only include items with HIGH, MEDIUM, or LOW priority** — omit NONE priority items (things that need no action)
 

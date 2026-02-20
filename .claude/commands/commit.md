@@ -1,6 +1,6 @@
 ---
 description: Commit changes with auto-generated message showing command context, timestamp, and change count
-argument-hint: [command name that produced these changes, e.g. changelog-tracker]
+argument-hint: [command name that produced these changes, e.g. workflow-changelog]
 ---
 
 # Commit
@@ -17,7 +17,7 @@ Create a git commit with an auto-generated message. The first line is a summary,
 ...
 ```
 
-**"N changes" refers to the number of actions/changes that were executed during the session** — NOT the number of git file changes. Look back through the conversation to find the actions that were taken (e.g., from a changelog-tracker report's action items, or from an add-new-hook workflow's steps).
+**"N changes" refers to the number of actions/changes that were executed during the session** — NOT the number of git file changes. Look back through the conversation to find the actions that were taken (e.g., from a workflow-changelog report's action items, or from an add-new-hook workflow's steps).
 
 ## Steps
 
@@ -28,7 +28,7 @@ Create a git commit with an auto-generated message. The first line is a summary,
    date "+%d-%b-%y %I:%M %p"
    ```
 
-3. **Read `workflow-changelog/workflow-changelog.md`** to get the latest entry's priority actions table. Use the items in that table as the list of changes. If the command name is not `changelog-tracker`, fall back to reviewing the conversation to identify actions.
+3. **Read `workflow-changelog/workflow-changelog.md`** to get the latest entry's priority actions table. Use the items in that table as the list of changes. If the command name is not `workflow-changelog`, fall back to reviewing the conversation to identify actions.
 
 4. **Run `git status --short`** to see which files were changed.
 
@@ -40,10 +40,10 @@ Create a git commit with an auto-generated message. The first line is a summary,
 
 ## Example
 
-If `/commit changelog-tracker` is run after a session that executed 10 actions:
+If `/commit workflow-changelog` is run after a session that executed 10 actions:
 
 ```
-[/changelog-tracker][20-Feb-26 08:14 PM] 10 changes
+[/workflow-changelog][20-Feb-26 08:14 PM] 10 changes
 
 1. Added stop_hook_active to Stop & SubagentStop Options
 2. Added source to ConfigChange & SessionStart Options

@@ -1538,7 +1538,7 @@
 
         <div class="trigger-box">
             <h4>When It Triggers</h4>
-            <p>When a teammate agent becomes idle in an experimental agent teams session. Requires the agent teams feature to be enabled.</p>
+            <p>When a teammate agent becomes idle in an experimental agent teams session. Requires the agent teams feature to be enabled. Includes <code>teammate_name</code> and <code>team_name</code> input fields (since v2.1.33).</p>
         </div>
 
         <div class="how-to-trigger">
@@ -1595,7 +1595,7 @@
 
         <div class="trigger-box">
             <h4>When It Triggers</h4>
-            <p>When a background task completes in an experimental agent teams session. Requires the agent teams feature to be enabled.</p>
+            <p>When a background task completes in an experimental agent teams session. Requires the agent teams feature to be enabled. Includes <code>task_id</code>, <code>task_subject</code>, and <code>task_description</code> input fields (since v2.1.33).</p>
         </div>
 
         <div class="how-to-trigger">
@@ -1652,7 +1652,7 @@
 
         <div class="trigger-box">
             <h4>When It Triggers</h4>
-            <p>When a configuration file changes during a session. Detects changes to user settings, project settings, local settings, policy settings, and skills.</p>
+            <p>When a configuration file changes during a session. Detects changes to user settings, project settings, local settings, policy settings, and skills. Includes optional <code>file_path</code> input field with the path to the modified config file (since v2.1.49).</p>
         </div>
 
         <div class="how-to-trigger">

@@ -42,7 +42,8 @@ SessionStart:startup hook error
 
 | Date | Hooks | Changes | Claude Code Version | Demo |
 |------|:-----:|---------|:-------------------:|:----:|
-| Feb 20, 2026 | 16 | Added `ConfigChange` | [v2.1.49](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2149) | |
+| Feb 20, 2026 | 16 | Added `ConfigChange` hook, `file_path` input field | [v2.1.49](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2149) | |
+| Feb 13, 2026 | 15 | Added `last_assistant_message` input field to `Stop` and `SubagentStop` | [v2.1.47](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2147) | |
 | Feb 6, 2026 | 15 | Added `TeammateIdle` and `TaskCompleted` | [v2.1.33](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2133) | |
 | — | 13 | Added `PostToolUseFailure` | — | [Demo 3](https://youtu.be/6_y3AtkgjqA) |
 | Jan 17, 2026 | 12 | Added `Setup` | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | |

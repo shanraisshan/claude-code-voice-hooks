@@ -1788,7 +1788,7 @@
             </div>
         </div>
 
-        <h3>Agent Configuration Example</h3>
+        <h3>Agent Configuration Example (all 6 hooks)</h3>
         <div class="code-block">
 <span class="comment"># .claude/agents/my-agent.md</span>
 ---
@@ -1804,7 +1804,21 @@ hooks:
       hooks:
         - type: command
           command: <span class="string">python3 .claude/hooks/scripts/hooks.py --agent=my-agent</span>
+  <span class="key">PermissionRequest</span>:
+    - matcher: ".*"
+      hooks:
+        - type: command
+          command: <span class="string">python3 .claude/hooks/scripts/hooks.py --agent=my-agent</span>
+  <span class="key">PostToolUseFailure</span>:
+    - matcher: ".*"
+      hooks:
+        - type: command
+          command: <span class="string">python3 .claude/hooks/scripts/hooks.py --agent=my-agent</span>
   <span class="key">Stop</span>:
+    - hooks:
+        - type: command
+          command: <span class="string">python3 .claude/hooks/scripts/hooks.py --agent=my-agent</span>
+  <span class="key">SubagentStop</span>:
     - hooks:
         - type: command
           command: <span class="string">python3 .claude/hooks/scripts/hooks.py --agent=my-agent</span>
@@ -1812,7 +1826,7 @@ hooks:
         </div>
 
         <div class="sound-demo">
-            🔊 Sounds: agent_pretooluse.wav, agent_posttooluse.wav, agent_stop.wav
+            🔊 Sounds: agent_pretooluse.wav, agent_posttooluse.wav, agent_permissionrequest.wav, agent_posttoolusefailure.wav, agent_stop.wav, agent_subagentstop.wav
         </div>
     </div>
 

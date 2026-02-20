@@ -71,7 +71,7 @@ Produce a structured report with these sections:
 10. **Presentation Updates** — Staleness across all presentation elements
 11. **Hook Options Table** — Per-hook Options column accuracy
 12. **Agent Frontmatter Hooks** — 3-hook assumption verification
-13. **claude-code-guide Agent Findings** — Unique insights from the agent that weren't captured by the changelog-tracker-agent. If the agent found something the tracker missed, add it here. If the agent confirms findings, note the agreement. If there are contradictions, flag them for the user to resolve.
+13. **claude-code-guide Agent Findings** — Unique insights from the agent that weren't captured by the changelog-tracker-agent. Only include findings that add new information. If there are contradictions between the two agents, flag them for the user to resolve. Do NOT list "confirmed agreements" — if both agents found the same thing, that's expected and not worth reporting.
 
 End with a prioritized **Action Items** summary table:
 

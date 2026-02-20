@@ -20,3 +20,11 @@
 |---|----------|------|--------|--------|
 | 1 | LOW | Hook Options Table | UserPromptSubmit Options column missing `prompt` input field in HOOKS-README | ✅ added `prompt` to Options column |
 | 2 | LOW | Agent Hook Docs | Agent frontmatter hooks — official docs say "all supported" vs repo's tested 6; needs re-testing | ✅ reported upstream [#27153](https://github.com/anthropics/claude-code/issues/27153) |
+
+---
+
+## [2026-02-20 11:57 PM PKT] Claude Code v2.1.49
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — already reported upstream [#27153](https://github.com/anthropics/claude-code/issues/27153); pending response |

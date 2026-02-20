@@ -49,13 +49,27 @@ Both agents run independently and will return their findings.
 
 ---
 
-## Phase 1: Merge Findings & Generate Report
+## Phase 1: Read Previous Changelog Entries
+
+**Before merging findings**, read the file `workflow-changelog/workflow-changelog.md` to get the last 10 changelog entries. Each entry is separated by `---`. Parse the priority actions from those previous entries so you can compare them against the current findings. This lets you identify:
+- **Recurring items** — issues that appeared before and are still unresolved
+- **Newly resolved items** — issues from previous runs that are now fixed
+- **New items** — issues that appear for the first time in this run
+
+---
+
+## Phase 2: Merge Findings & Generate Report
 
 **Wait for both agents to complete.** Once you have:
 - **changelog-tracker-agent findings** — detailed repo analysis with local file reads, external doc fetches, and drift detection
 - **claude-code-guide findings** — independent research on latest Claude Code hooks, features, and changes
 
 Cross-reference the two. The changelog-tracker-agent provides repo-specific drift analysis, while the claude-code-guide agent may surface things it missed (e.g. very recent changes, undocumented features, or context from web searches). Flag any contradictions between the two for the user to resolve.
+
+Also compare the current findings against the previous changelog entries (from Phase 1). For each priority action, mark it as:
+- `NEW` — first time this issue appears
+- `RECURRING` — appeared in a previous run and is still unresolved (include which run date it first appeared)
+- `RESOLVED` — appeared in a previous run but is now fixed (include resolution date)
 
 Produce a structured report with these sections:
 
@@ -73,30 +87,58 @@ Produce a structured report with these sections:
 12. **Agent Frontmatter Hooks** — 3-hook assumption verification
 13. **claude-code-guide Agent Findings** — Unique insights from the agent that weren't captured by the changelog-tracker-agent. Only include findings that add new information. If there are contradictions between the two agents, flag them for the user to resolve. Do NOT list "confirmed agreements" — if both agents found the same thing, that's expected and not worth reporting.
 
-End with a prioritized **Action Items** summary table:
+End with a prioritized **Action Items** summary table. Each item must include a `Status` column showing `NEW`, `RECURRING (first seen: <date>)`, or `RESOLVED`:
 
 ```
 Priority Actions:
-#  | Type              | Action
-1  | New Hook          | /add-new-hook <Name>
-2  | New Input Field   | Document <field> added to <Hook> in v<X>
-3  | Hook Options Table| Update Options column for <Hook>
-4  | Removed Hook      | Investigate <Name> removal
-5  | Config Drift      | Fix <description>
-6  | Version Update    | Update badges to vX.X.X
-7  | Can-Block Fix     | Fix can-block status for <Hook>
-8  | Matcher/Schema    | Update documentation for <Hook>
-9  | Hook Types/Env    | Document missing items
-10 | Presentation      | Update to <version>
-11 | Agent Hook Docs   | Update frontmatter hook support
-12 | Bug Fix           | Remove <workaround>
+#  | Type              | Action                                    | Status
+1  | New Hook          | /add-new-hook <Name>                      | NEW
+2  | New Input Field   | Document <field> added to <Hook> in v<X>  | NEW
+3  | Hook Options Table| Update Options column for <Hook>          | RECURRING (first seen: 2026-02-20)
+4  | Removed Hook      | Investigate <Name> removal                | NEW
+5  | Config Drift      | Fix <description>                         | NEW
+6  | Version Update    | Update badges to vX.X.X                   | NEW
+7  | Can-Block Fix     | Fix can-block status for <Hook>           | NEW
+8  | Matcher/Schema    | Update documentation for <Hook>           | NEW
+9  | Hook Types/Env    | Document missing items                    | RECURRING (first seen: 2026-02-15)
+10 | Presentation      | Update to <version>                       | NEW
+11 | Agent Hook Docs   | Update frontmatter hook support           | NEW
+12 | Bug Fix           | Remove <workaround>                       | RESOLVED
 ```
+
+Also include a **Resolved Since Last Run** section listing any items from the previous run that are no longer issues.
 
 ---
 
-## Phase 2: Offer to Take Action
+## Phase 2.5: Append Summary to workflow-changelog/workflow-changelog.md
 
-After presenting the report, ask the user:
+**This phase is MANDATORY — always execute it before presenting the report to the user.**
+
+Read the existing `workflow-changelog/workflow-changelog.md` file, then **append** (do NOT overwrite) a new entry at the end. The entry format must be exactly:
+
+```markdown
+---
+
+## [<YYYY-MM-DD HH:MM AM/PM PKT>] Claude Code v<VERSION>
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | HIGH/MED/LOW | <type> | <action description> | NEW/RECURRING/RESOLVED |
+| ... | ... | ... | ... | ... |
+```
+
+**Rules for appending:**
+- Always append — never overwrite or replace previous entries
+- The date and time is when the command is executed in Pakistan Standard Time (PKT, UTC+5); get it by running `TZ=Asia/Karachi date "+%Y-%m-%d %I:%M %p PKT"`. The version comes from agent findings
+- If `workflow-changelog/workflow-changelog.md` doesn't exist or is empty, create it with `# Changelog Tracker History` then the first entry
+- Each entry is separated by `---`
+- **Only include items with HIGH, MEDIUM, or LOW priority** — omit NONE priority items (things that need no action)
+
+---
+
+## Phase 3: Offer to Take Action
+
+After presenting the report (and confirming the workflow-changelog/workflow-changelog.md was updated), ask the user:
 
 1. **Execute all actions** — Handle everything (new hooks via `/add-new-hook`, fixes, updates)
 2. **Execute specific actions** — User picks which numbers to execute
@@ -122,3 +164,5 @@ When executing:
 6. **Cross-reference counts** — the same hook count must appear in: settings (x4), hooks.py, hooks-config.json, HOOKS-README.md, README.md badge, and presentation
 7. **Don't auto-execute** — always present the report first
 8. **Agent hooks** — this project supports 6 agent hooks (PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop). Not all 16 hooks fire in agent sessions.
+9. **ALWAYS append to workflow-changelog/workflow-changelog.md** — Phase 2.5 is mandatory. Never skip it. Never overwrite previous entries.
+10. **Compare with previous runs** — read the last 10 entries from workflow-changelog/workflow-changelog.md and mark each action item as NEW, RECURRING, or RESOLVED.

@@ -56,13 +56,13 @@ Read the file `.claude/agents/claude-code-voice-hook-agent.md` to confirm the ho
 Search the web for "current weather in Dubai UAE today" to get live weather data.
 
 ### Step 3: Write a file (triggers PreToolUse + PostToolUse, may trigger PermissionRequest)
-Write the weather results to `hook_test/dubai-weather-report.txt`.
+Write the weather results to `tests-agents-hook/dubai-weather-report.txt`.
 
 ### Step 4: Run a bash command (triggers PreToolUse + PostToolUse, may trigger PermissionRequest)
 Run: `echo "Voice hook agent executed at $(date)"`
 
 ### Step 5: Intentionally read a non-existent file (triggers PostToolUseFailure)
-Try to read `hook_test/this-file-does-not-exist-12345.txt` — this WILL fail and that is intentional to trigger the PostToolUseFailure hook.
+Try to read `tests-agents-hook/this-file-does-not-exist-12345.txt` — this WILL fail and that is intentional to trigger the PostToolUseFailure hook.
 
 ### Step 6: Fetch a URL (triggers PreToolUse + PostToolUse)
 Fetch https://wttr.in/Dubai?format=3 to get a compact weather summary.

@@ -44,7 +44,7 @@ SessionStart:startup hook error
 |------|:-----:|---------|:-------------------:|:----:|
 | Feb 20, 2026 | 16 | Added `ConfigChange` hook, `file_path` input field | [v2.1.49](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2149) | |
 | Feb 13, 2026 | 15 | Added `last_assistant_message` input field to `Stop` and `SubagentStop` | [v2.1.47](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2147) | |
-| Feb 10, 2026 | 15 | Added `agent_type` input field to `SessionStart` (when `--agent` flag used) | [v2.1.43](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2143) | |
+| Feb 10, 2026 | 15 | Added `agent_type` input field to `SessionStart` (when `--agent` flag used) | ~v2.1.43 (unconfirmed) | |
 | Feb 6, 2026 | 15 | Added `TeammateIdle` and `TaskCompleted` | [v2.1.33](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2133) | |
 | — | 13 | Added `PostToolUseFailure` | — | [Demo 3](https://youtu.be/6_y3AtkgjqA) |
 | Jan 17, 2026 | 12 | Added `Setup` | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | |
@@ -65,7 +65,7 @@ These items exist in the [Claude Code Changelog](https://github.com/anthropics/c
 | Item | Changelog | What the changelog says | What the official docs say |
 |------|:---------:|------------------------|---------------------------|
 | `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | Added new `Setup` hook event triggered via `--init`, `--init-only`, or `--maintenance` CLI flags | Not mentioned — official docs list 15 hooks, `Setup` excluded |
-| Agent frontmatter hooks | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | Changelog mentions `PreToolUse`, `PostToolUse`, and `Stop` in frontmatter | Testing confirms **6 hooks** actually fire: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop (not all 16) |
+| Agent frontmatter hooks | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | Changelog mentions `PreToolUse`, `PostToolUse`, and `Stop` in frontmatter | Testing confirms **6 hooks** actually fire: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. Official docs now say "all supported" — re-testing recommended. |
 
 ## Links
 

@@ -1164,7 +1164,7 @@
 
         <div class="trigger-box">
             <h4>When It Triggers</h4>
-            <p>When a subagent is spawned via the Task tool. Can happen multiple times per session (subagents can spawn subagents).</p>
+            <p>When a subagent is spawned via the Task tool. Can happen multiple times per session (subagents can spawn subagents). Includes <code>agent_id</code> (unique identifier) and <code>agent_type</code> (agent name).</p>
         </div>
 
         <div class="how-to-trigger">
@@ -1176,6 +1176,12 @@
         </div>
 
         <div class="matcher-values">
+            <strong>Input Fields:</strong>
+            <span class="matcher-tag">agent_id</span>
+            <span class="matcher-tag">agent_type</span>
+        </div>
+
+        <div class="matcher-values" style="margin-top: 8px;">
             <strong>Agent Types:</strong>
             <span class="matcher-tag">Bash</span>
             <span class="matcher-tag">Explore</span>
@@ -1230,7 +1236,7 @@
 
         <div class="trigger-box">
             <h4>When It Triggers</h4>
-            <p>When a subagent finishes responding. Can be blocked to force the subagent to continue working. Includes <code>last_assistant_message</code> field with the subagent's final response text (since v2.1.47) and <code>agent_transcript_path</code> with the subagent's own transcript path.</p>
+            <p>When a subagent finishes responding. Can be blocked to force the subagent to continue working. Includes <code>agent_id</code>, <code>agent_type</code>, <code>last_assistant_message</code> (since v2.1.47), and <code>agent_transcript_path</code>.</p>
         </div>
 
         <div class="how-to-trigger">
@@ -1241,6 +1247,14 @@
         </div>
 
         <div class="matcher-values">
+            <strong>Input Fields:</strong>
+            <span class="matcher-tag">agent_id</span>
+            <span class="matcher-tag">agent_type</span>
+            <span class="matcher-tag">last_assistant_message</span>
+            <span class="matcher-tag">agent_transcript_path</span>
+        </div>
+
+        <div class="matcher-values" style="margin-top: 8px;">
             <strong>Agent Types:</strong>
             <span class="matcher-tag">Bash</span>
             <span class="matcher-tag">Explore</span>

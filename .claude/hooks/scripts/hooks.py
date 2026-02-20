@@ -9,7 +9,7 @@ Special handling for git commits: plays pretooluse-git-committing.mp3
 
 Agent Support:
   Use --agent=<name> to play agent-specific sounds from agent_* folders.
-  Agent frontmatter hooks only support: PreToolUse, PostToolUse, Stop
+  Agent frontmatter hooks support 6 hooks: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop
 """
 
 import sys

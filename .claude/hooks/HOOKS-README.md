@@ -13,8 +13,8 @@ Claude Code provides several hook events that run at different points in the wor
 | 5 | `UserPromptSubmit` | Runs when the user submits a prompt, before Claude processes it | `async`, `timeout: 5000` |
 | 6 | `Notification` | Runs when Claude Code sends notifications | `async`, `timeout: 5000` |
 | 7 | `Stop` | Runs when Claude Code finishes responding | `async`, `timeout: 5000`, `last_assistant_message` |
-| 8 | `SubagentStart` | Runs when subagent tasks start | `async`, `timeout: 5000` |
-| 9 | `SubagentStop` | Runs when subagent tasks complete | `async`, `timeout: 5000`, `last_assistant_message`, `agent_transcript_path` |
+| 8 | `SubagentStart` | Runs when subagent tasks start | `async`, `timeout: 5000`, `agent_id`, `agent_type` |
+| 9 | `SubagentStop` | Runs when subagent tasks complete | `async`, `timeout: 5000`, `agent_id`, `agent_type`, `last_assistant_message`, `agent_transcript_path` |
 | 10 | `PreCompact` | Runs before Claude Code is about to run a compact operation | `async`, `timeout: 5000`, `once` |
 | 11 | `SessionStart` | Runs when Claude Code starts a new session or resumes an existing session | `async`, `timeout: 5000`, `once`, `agent_type`, `model` |
 | 12 | `SessionEnd` | Runs when Claude Code session ends | `async`, `timeout: 5000`, `once` |

@@ -1,22 +1,154 @@
---- Hook Test Started Fri Feb 20 18:06:42 PKT 2026 ---
-PostToolUse 18:06:42
-PreToolUse 18:06:45
-PostToolUse 18:06:45
-PreToolUse 18:06:49
-PostToolUse 18:07:04
-PreToolUse 18:07:15
-PostToolUse 18:07:17
-PreToolUse 18:07:21
-Hook test bash command executed at Fri Feb 20 18:07:22 PKT 2026
-PostToolUse 18:07:22
-PreToolUse 18:07:25
-PostToolUseFailure 18:07:25
-PreToolUse 18:07:29
-PermissionRequest 18:07:29
-PostToolUse 18:08:55
-PreToolUse 18:09:00
-PostToolUse 18:09:01
-PreToolUse 18:09:04
-PostToolUse 18:09:04
-Stop 18:09:28
-SubagentStop 18:09:28
+--- Hook Test Started Fri Feb 20 19:32:43 PKT 2026 ---
+[main session] PostToolUse 19:32:43
+PostToolUse 19:32:43
+[main session] PreToolUse 19:32:47
+PreToolUse 19:32:47
+[main session] PostToolUse 19:32:47
+PostToolUse 19:32:47
+[main session] PreToolUse 19:32:51
+PreToolUse 19:32:51
+[main session] PostToolUse 19:33:06
+PostToolUse 19:33:06
+[main session] PreToolUse 19:33:17
+PreToolUse 19:33:17
+[main session] PostToolUse 19:33:19
+PostToolUse 19:33:19
+[main session] PreToolUse 19:33:24
+PreToolUse 19:33:24
+Hook test bash command executed at Fri Feb 20 19:33:25 PKT 2026
+[main session] PostToolUse 19:33:25
+PostToolUse 19:33:25
+[main session] PreToolUse 19:33:29
+PreToolUse 19:33:29
+[main session] PostToolUseFailure 19:33:29
+PostToolUseFailure 19:33:29
+[main session] PreToolUse 19:33:33
+PreToolUse 19:33:33
+[main session] PermissionRequest 19:33:33
+PermissionRequest 19:33:33
+[main session] PostToolUseFailure 19:34:36
+PostToolUseFailure 19:34:36
+[main session] PreToolUse 19:34:40
+PreToolUse 19:34:40
+[main session] PermissionRequest 19:34:40
+PermissionRequest 19:34:40
+[main session] PostToolUse 19:34:56
+PostToolUse 19:34:56
+[main session] PreToolUse 19:35:02
+PreToolUse 19:35:02
+[main session] PostToolUse 19:35:03
+PostToolUse 19:35:03
+[main session] PreToolUse 19:35:07
+PreToolUse 19:35:07
+[main session] PostToolUse 19:35:07
+PostToolUse 19:35:07
+[main session] SubagentStop 19:35:34
+Stop 19:35:34
+SubagentStop 19:35:34
+[main session] PostToolUse 19:35:34
+[main session] Stop 19:35:40
+[main session] SubagentStop 19:35:42
+[main session] Notification 19:36:40
+[main session] UserPromptSubmit 19:36:46
+[main session] PreToolUse 19:36:56
+[main session] SubagentStart 19:36:56
+[main session] PreToolUse 19:37:00
+[main session] PreToolUse 19:37:00
+[main session] PreToolUse 19:37:01
+[main session] PreToolUse 19:37:01
+[main session] PostToolUse 19:37:16
+[main session] PostToolUse 19:37:16
+[main session] PostToolUse 19:37:23
+[main session] PostToolUse 19:37:24
+[main session] PreToolUse 19:37:30
+[main session] PostToolUse 19:37:31
+[main session] PreToolUse 19:37:32
+[main session] PostToolUse 19:37:32
+[main session] PreToolUse 19:37:34
+[main session] PostToolUse 19:37:35
+[main session] PreToolUse 19:37:39
+[main session] PostToolUse 19:37:40
+[main session] PreToolUse 19:37:40
+[main session] PostToolUse 19:37:41
+[main session] PreToolUse 19:37:41
+[main session] PostToolUse 19:37:41
+[main session] PreToolUse 19:37:42
+[main session] PostToolUse 19:37:42
+[main session] PreToolUse 19:37:42
+[main session] PostToolUse 19:37:42
+[main session] PreToolUse 19:37:43
+[main session] PostToolUse 19:37:43
+[main session] PreToolUse 19:37:43
+[main session] PostToolUse 19:37:44
+[main session] PreToolUse 19:37:44
+[main session] PostToolUse 19:37:44
+[main session] PreToolUse 19:37:50
+[main session] PreToolUse 19:37:52
+[main session] PreToolUse 19:37:53
+[main session] PreToolUse 19:37:55
+[main session] PostToolUse 19:37:55
+[main session] PreToolUse 19:37:55
+[main session] PostToolUse 19:37:55
+[main session] PostToolUse 19:38:05
+[main session] PostToolUse 19:38:10
+[main session] PostToolUse 19:38:12
+[main session] PreToolUse 19:38:19
+[main session] PermissionRequest 19:38:19
+[main session] PreToolUse 19:38:22
+[main session] PermissionRequest 19:38:22
+[main session] Notification 19:38:25
+[main session] Notification 19:38:36
+[main session] PostToolUse 19:38:43
+[main session] PostToolUse 19:41:43
+[main session] SubagentStop 19:43:11
+[main session] PostToolUse 19:43:11
+[main session] Stop 19:43:23
+[main session] SubagentStop 19:43:25
+[main session] UserPromptSubmit 19:44:06
+[main session] PreToolUse 19:44:13
+[main session] SubagentStart 19:44:13
+[main session] PreToolUse 19:44:20
+[main session] PreToolUse 19:44:22
+[main session] PostToolUse 19:44:22
+[main session] PreToolUse 19:44:24
+[main session] PostToolUse 19:44:24
+[main session] PostToolUse 19:44:34
+[main session] PreToolUse 19:44:41
+[main session] PostToolUse 19:44:41
+[main session] PreToolUse 19:44:41
+[main session] PostToolUse 19:44:41
+[main session] PreToolUse 19:44:42
+[main session] PostToolUse 19:44:42
+[main session] PreToolUse 19:44:49
+[main session] PreToolUse 19:44:50
+[main session] PostToolUse 19:44:50
+[main session] PostToolUse 19:44:50
+[main session] PreToolUse 19:44:55
+[main session] PostToolUse 19:44:56
+[main session] PreToolUse 19:45:01
+[main session] PostToolUse 19:45:01
+[main session] SubagentStop 19:45:44
+[main session] PostToolUse 19:45:44
+[main session] Stop 19:45:56
+[main session] SubagentStop 19:45:59
+[main session] UserPromptSubmit 19:46:36
+[main session] PreToolUse 19:46:40
+[main session] PostToolUse 19:46:40
+[main session] PreToolUse 19:46:41
+[main session] PostToolUse 19:46:41
+[main session] PreToolUse 19:46:41
+[main session] PostToolUseFailure 19:46:42
+[main session] PreToolUse 19:46:48
+[main session] PostToolUse 19:46:49
+[main session] PreToolUse 19:46:52
+[main session] PostToolUse 19:46:52
+[main session] PreToolUse 19:46:59
+[main session] PostToolUse 19:46:59
+[main session] PreToolUse 19:47:00
+[main session] PostToolUse 19:47:00
+[main session] PreToolUse 19:47:06
+[main session] PostToolUse 19:47:06
+[main session] PreToolUse 19:47:12
+[main session] PostToolUse 19:47:12
+[main session] Stop 19:47:19
+[main session] SubagentStop 19:47:24

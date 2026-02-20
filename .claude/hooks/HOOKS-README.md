@@ -9,7 +9,7 @@ Claude Code provides several hook events that run at different points in the wor
 | 1 | `PreToolUse` | Runs before tool calls (can block them) | `async`, `timeout: 5000` |
 | 2 | `PermissionRequest` | Runs when Claude Code requests permission from the user | `async`, `timeout: 5000`, `permission_suggestions` |
 | 3 | `PostToolUse` | Runs after tool calls complete successfully | `async`, `timeout: 5000` |
-| 4 | `PostToolUseFailure` | Runs after tool calls fail | `async`, `timeout: 5000` |
+| 4 | `PostToolUseFailure` | Runs after tool calls fail | `async`, `timeout: 5000`, `error`, `is_interrupt` |
 | 5 | `UserPromptSubmit` | Runs when the user submits a prompt, before Claude processes it | `async`, `timeout: 5000` |
 | 6 | `Notification` | Runs when Claude Code sends notifications | `async`, `timeout: 5000` |
 | 7 | `Stop` | Runs when Claude Code finishes responding | `async`, `timeout: 5000`, `last_assistant_message` |

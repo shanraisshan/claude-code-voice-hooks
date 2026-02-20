@@ -5,19 +5,34 @@ argument-hint: [number of versions to check, default 10]
 
 # Changelog Tracker
 
-You are a tracker agent for the claude-code-voice-hooks project. Analyze the last N versions from the Claude Code changelog and determine what changes need to be made in this repo.
+You are a coordinator for the claude-code-voice-hooks project. Your job is to launch two research agents in parallel, wait for their results, merge findings, and present a unified report.
 
 **Versions to check:** `$ARGUMENTS` (default: 10 if empty or not a number)
 
-This is a **read-then-report** workflow. Fetch sources, read local files, compare, and produce a report. Only take action if the user approves.
+This is a **read-then-report** workflow. Launch agents, merge results, and produce a report. Only take action if the user approves.
 
 ---
 
-## Phase 0: Launch claude-code-guide Agent (in parallel with Phase 1 & 2)
+## Phase 0: Launch Both Agents in Parallel
 
-**Immediately** spawn a `claude-code-guide` agent using the Task tool (`subagent_type: "claude-code-guide"`) to run **in parallel** with your own Phase 1 and Phase 2 work. This agent has specialized knowledge about Claude Code features, hooks, and recent changes.
+**Immediately** spawn both agents using the Task tool **in the same message** (parallel launch):
 
-Give the agent this prompt:
+### Agent 1: changelog-tracker-agent
+
+Spawn using `subagent_type: "changelog-tracker-agent"`. Give it this prompt:
+
+> Research the claude-code-voice-hooks project for changelog drift. Check the last $ARGUMENTS versions (default: 10).
+>
+> Fetch these 3 external sources:
+> 1. Hooks Reference: https://code.claude.com/docs/en/hooks
+> 2. Hooks Guide: https://code.claude.com/docs/en/hooks-guide
+> 3. Changelog: https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
+>
+> Then read all local repository files (settings, hooks.py, config, README, HOOKS-README, install settings, presentation) and analyze differences. Return a structured findings report covering missing hooks, configuration drift, version mismatches, hook behavior changes, bug fixes, matcher accuracy, presentation staleness, and agent frontmatter hooks.
+
+### Agent 2: claude-code-guide
+
+Spawn using `subagent_type: "claude-code-guide"`. Give it this prompt:
 
 > Research the latest Claude Code hooks system. I need you to find:
 > 1. The complete list of all currently supported hook events (e.g. PreToolUse, PostToolUse, Stop, etc.) with their descriptions
@@ -30,89 +45,17 @@ Give the agent this prompt:
 >
 > Be thorough — search the web, fetch docs, and provide concrete version numbers and details for everything you find.
 
-This agent runs independently and will return its findings. You will merge its results with your own analysis in Phase 4.
+Both agents run independently and will return their findings.
 
 ---
 
-## Phase 1: Fetch External Data (in parallel)
+## Phase 1: Merge Findings & Generate Report
 
-Fetch all three sources using WebFetch simultaneously (run these **at the same time** as the Phase 0 agent):
+**Wait for both agents to complete.** Once you have:
+- **changelog-tracker-agent findings** — detailed repo analysis with local file reads, external doc fetches, and drift detection
+- **claude-code-guide findings** — independent research on latest Claude Code hooks, features, and changes
 
-1. **Hooks Reference** — Extract the complete list of officially supported hooks, matcher support, hook options, input schemas, decision control patterns, can-block status, and experimental features.
-2. **Hooks Guide** — Extract hook types (`command`, `prompt`, `agent`), matcher values with examples, hook location scopes, environment variables (`CLAUDE_PROJECT_DIR`, `CLAUDE_ENV_FILE`, `CLAUDE_PLUGIN_ROOT`, `CLAUDE_CODE_REMOTE`), and security considerations.
-3. **Changelog** — Extract the last N version entries with version numbers, dates, and all hook-related changes (new hooks, behavior changes, new input fields, bug fixes, breaking changes, new options).
-
----
-
-## Phase 2: Read Local Repository State (in parallel)
-
-Read ALL of the following:
-
-| File | What to check |
-|------|---------------|
-| `.claude/settings.json` | Hook configurations |
-| `.claude/hooks/scripts/hooks.py` | `HOOK_SOUND_MAP`, `AGENT_HOOK_SOUND_MAP`, docstring counts |
-| `.claude/hooks/config/hooks-config.json` | Disable toggles |
-| `.claude/hooks/HOOKS-README.md` | Documentation, hook table (Options column), matcher values, agent frontmatter section |
-| `README.md` | Badge versions, hook count, changelog table |
-| `install/settings-mac.json` | Mac settings |
-| `install/settings-linux.json` | Linux settings |
-| `install/settings-windows.json` | Windows settings |
-| `presentation/index.html` | Slides, version, hook count, lifecycle diagram, `totalSlides` |
-
-Also list directories in `.claude/hooks/sounds/` to verify sound folders exist for each hook.
-
----
-
-## Phase 3: Analysis
-
-Compare external data against local repo state. Check for:
-
-### Missing Hooks
-Compare official docs hook list against `HOOK_SOUND_MAP`. Flag any missing hooks with the version that introduced them.
-
-### Configuration Drift
-For each existing hook, verify it exists in ALL 4 settings files, `hooks-config.json`, `HOOK_SOUND_MAP`, sound folders (`.mp3` + `.wav`), `HOOKS-README.md`, and the presentation.
-
-### Version & Count Accuracy
-Verify the README badge version/count, `HOOKS-README.md` heading count, `hooks.py` docstring count, changelog table, and presentation version/count all match reality.
-
-### Hook Behavior Changes (HIGH PRIORITY)
-Identify from the changelog: new input fields (e.g. `last_assistant_message`), new matcher values, changed behavior/timing, new options, and deprecations. **New input fields are major changes** requiring updates to README changelog table, HOOKS-README Options column, and presentation slides.
-
-### Bug Fixes & Workarounds
-Check if known issues (e.g. SubagentStop vs Stop bug, GitHub Issue #19220) have been fixed. Flag removable workarounds.
-
-### Matcher Values & Can-Block Status
-Verify `HOOKS-README.md` and presentation correctly document matcher values and can-block status for each hook per the official docs.
-
-### Hook Options Table (HOOKS-README.md)
-Cross-reference the Options column in the four-column table against official docs. Any new input field, changed timeout, or added/removed `once` option must be reflected.
-
-### Hook Input Schemas
-Verify input schema documentation covers common fields (`session_id`, `transcript_path`, `cwd`, etc.) and hook-specific fields.
-
-### Hook Types & Environment Variables
-Check if `HOOKS-README.md` documents all three hook types and all environment variables from the official docs.
-
-### Removed/Deprecated Hooks
-Cross-reference repo hooks against official docs. Flag any hooks in the repo that no longer appear in official docs.
-
-### Agent/Skill Frontmatter Hooks
-This project assumes only **3 agent hooks**: PreToolUse, PostToolUse, Stop. Compare against official docs and flag discrepancies.
-
-### Presentation Accuracy
-Verify title slide version, hook counts, TOC, individual hook slides, lifecycle diagram, summary slide, and `totalSlides` variable.
-
----
-
-## Phase 4: Merge Findings & Generate Report
-
-**Before generating the report**, wait for the `claude-code-guide` agent from Phase 0 to complete. Once you have both:
-- **Your own analysis** (from Phases 1-3 using WebFetch + local file reads)
-- **Agent findings** (from the claude-code-guide agent's independent research)
-
-Cross-reference the two. The agent may surface things you missed (e.g. very recent changes, undocumented features, or context from web searches). Likewise, your local file analysis will catch repo-specific drift the agent can't see.
+Cross-reference the two. The changelog-tracker-agent provides repo-specific drift analysis, while the claude-code-guide agent may surface things it missed (e.g. very recent changes, undocumented features, or context from web searches). Flag any contradictions between the two for the user to resolve.
 
 Produce a structured report with these sections:
 
@@ -128,7 +71,7 @@ Produce a structured report with these sections:
 10. **Presentation Updates** — Staleness across all presentation elements
 11. **Hook Options Table** — Per-hook Options column accuracy
 12. **Agent Frontmatter Hooks** — 3-hook assumption verification
-13. **claude-code-guide Agent Findings** — Unique insights from the agent that weren't captured by your own analysis. If the agent found something you missed, add it here. If the agent confirms your findings, note the agreement. If there are contradictions, flag them for the user to resolve.
+13. **claude-code-guide Agent Findings** — Unique insights from the agent that weren't captured by the changelog-tracker-agent. If the agent found something the tracker missed, add it here. If the agent confirms findings, note the agreement. If there are contradictions, flag them for the user to resolve.
 
 End with a prioritized **Action Items** summary table:
 
@@ -151,7 +94,7 @@ Priority Actions:
 
 ---
 
-## Phase 5: Offer to Take Action
+## Phase 2: Offer to Take Action
 
 After presenting the report, ask the user:
 
@@ -171,23 +114,11 @@ When executing:
 
 ## Critical Rules
 
-1. **Fetch ALL 3 sources** — never skip any
-2. **Never guess** versions or dates — extract from fetched data
-3. **Read ALL local files** before analyzing
+1. **Launch BOTH agents in parallel** in a single message — never sequentially
+2. **Wait for both agents** before generating the report
+3. **Never guess** versions or dates — use data from the agents
 4. **New input fields are HIGH PRIORITY** — they require README, HOOKS-README, and presentation updates. Never dismiss them as "informational"
 5. **For new hooks, ALWAYS use `/add-new-hook`** — never manually add hooks
 6. **Cross-reference counts** — the same hook count must appear in: settings (x4), hooks.py, hooks-config.json, HOOKS-README.md, README.md badge, and presentation
 7. **Don't auto-execute** — always present the report first
 8. **Agent hooks assumption** — this project assumes only 3 agent hooks (PreToolUse, PostToolUse, Stop). Flag but don't auto-expand
-
----
-
-## Sources
-
-The following URLs are fetched during execution:
-
-| Source | URL |
-|--------|-----|
-| Hooks Reference | `https://code.claude.com/docs/en/hooks` |
-| Hooks Guide | `https://code.claude.com/docs/en/hooks-guide` |
-| Changelog | `https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md` |

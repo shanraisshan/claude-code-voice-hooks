@@ -7,16 +7,16 @@ Claude Code provides several hook events that run at different points in the wor
 | # | Hook | Description | Options |
 |:-:|------|-------------|---------|
 | 1 | `PreToolUse` | Runs before tool calls (can block them) | `async`, `timeout: 5000` |
-| 2 | `PermissionRequest` | Runs when Claude Code requests permission from the user | `async`, `timeout: 5000` |
+| 2 | `PermissionRequest` | Runs when Claude Code requests permission from the user | `async`, `timeout: 5000`, `permission_suggestions` |
 | 3 | `PostToolUse` | Runs after tool calls complete successfully | `async`, `timeout: 5000` |
 | 4 | `PostToolUseFailure` | Runs after tool calls fail | `async`, `timeout: 5000` |
 | 5 | `UserPromptSubmit` | Runs when the user submits a prompt, before Claude processes it | `async`, `timeout: 5000` |
 | 6 | `Notification` | Runs when Claude Code sends notifications | `async`, `timeout: 5000` |
 | 7 | `Stop` | Runs when Claude Code finishes responding | `async`, `timeout: 5000`, `last_assistant_message` |
 | 8 | `SubagentStart` | Runs when subagent tasks start | `async`, `timeout: 5000` |
-| 9 | `SubagentStop` | Runs when subagent tasks complete | `async`, `timeout: 5000`, `last_assistant_message` |
+| 9 | `SubagentStop` | Runs when subagent tasks complete | `async`, `timeout: 5000`, `last_assistant_message`, `agent_transcript_path` |
 | 10 | `PreCompact` | Runs before Claude Code is about to run a compact operation | `async`, `timeout: 5000`, `once` |
-| 11 | `SessionStart` | Runs when Claude Code starts a new session or resumes an existing session | `async`, `timeout: 5000`, `once` |
+| 11 | `SessionStart` | Runs when Claude Code starts a new session or resumes an existing session | `async`, `timeout: 5000`, `once`, `agent_type`, `model` |
 | 12 | `SessionEnd` | Runs when Claude Code session ends | `async`, `timeout: 5000`, `once` |
 | 13 | `Setup` | Runs when Claude Code runs the /setup command for project initialization | `async`, `timeout: 30000` |
 | 14 | `TeammateIdle` | Runs when a teammate agent becomes idle (experimental agent teams) | `async`, `timeout: 5000`, `teammate_name`, `team_name` |
@@ -82,6 +82,8 @@ Edit `.claude/settings.local.json` and set:
 ```
 
 **Note:** The `.claude/settings.local.json` file is git-ignored, so each user can configure their own hook preferences without affecting the team's shared settings in `.claude/settings.json`.
+
+> **Managed Settings:** If an administrator has configured hooks through managed policy settings, `disableAllHooks` set in user, project, or local settings cannot disable those managed hooks (fixed in v2.1.49).
 
 ### Disable Individual Hooks
 
@@ -221,6 +223,8 @@ The `once: true` option ensures a hook only runs once per session:
 
 This is useful for hooks like `SessionStart`, `SessionEnd`, and `PreCompact` that should only trigger once.
 
+> **Note:** The `once` option is for **skills only, not agents**. It works in settings-based hooks and skill frontmatter, but is not supported in agent frontmatter hooks.
+
 ### Hook Option: `async: true`
 
 Hooks can run in the background without blocking Claude Code's execution by adding `"async": true`:
@@ -310,6 +314,31 @@ Claude Code provides these environment variables to hook scripts:
 | `$CLAUDE_ENV_FILE` | SessionStart only | File path for persisting environment variables for subsequent Bash commands. Use append (`>>`) to preserve variables from other hooks |
 | `${CLAUDE_PLUGIN_ROOT}` | Plugin hooks | Plugin's root directory, for scripts bundled with a plugin |
 | `$CLAUDE_CODE_REMOTE` | All hooks | Set to `"true"` in remote web environments, not set in local CLI |
+| `$CLAUDE_SESSION_ID` | Skill hooks | Current session ID, available in skills with hooks |
+
+## Hooks Management Commands
+
+Claude Code provides built-in commands for managing hooks:
+
+- **`/hooks`** — Interactive hook management UI. View, add, and delete hooks without editing JSON files. Hooks are labeled by source: `[User]`, `[Project]`, `[Local]`, `[Plugin]`. You can also toggle `disableAllHooks` from this menu.
+- **`claude hooks reload`** — Reload hooks configuration without restarting the session. Useful after editing settings files (since v2.0.47).
+
+## MCP Tool Matchers
+
+For `PreToolUse`, `PostToolUse`, and `PermissionRequest` hooks, you can match MCP (Model Context Protocol) tools using the pattern `mcp__<server>__<tool>`:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "mcp__memory__.*",
+      "hooks": [{ "type": "command", "command": "echo 'MCP memory tool used'" }]
+    }]
+  }
+}
+```
+
+Full regex is supported: `mcp__memory__.*` (all tools from memory server), `mcp__.*__write.*` (any write tool from any server).
 
 ## Known Issues & Workarounds
 
@@ -336,3 +365,14 @@ if event_name == "SubagentStop":
 ```
 
 **Status:** The [official hooks reference](https://code.claude.com/docs/en/hooks#hooks-in-skills-and-agents) now documents this as expected behavior: *"For subagents, Stop hooks are automatically converted to SubagentStop since that is the event that fires when a subagent completes."* The workaround in `hooks.py` remains in place to correctly map the event name back for agent-specific sound playback.
+
+### PreToolUse Decision Control Deprecation
+
+The `PreToolUse` hook previously used top-level `decision` and `reason` fields for blocking tool calls. These are now **deprecated**. Use `hookSpecificOutput.permissionDecision` and `hookSpecificOutput.permissionDecisionReason` instead:
+
+| Deprecated | Current |
+|-----------|---------|
+| `"decision": "approve"` | `"hookSpecificOutput": { "permissionDecision": "allow" }` |
+| `"decision": "block"` | `"hookSpecificOutput": { "permissionDecision": "deny" }` |
+
+This does not affect this project since `hooks.py` uses async sound playback and does not use decision control.

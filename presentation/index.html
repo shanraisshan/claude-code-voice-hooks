@@ -713,28 +713,22 @@
                 <span style="margin-left: 16px; color: #666;">If context needs compaction</span>
             </div>
             <div class="lifecycle-step">
-                <span class="lifecycle-arrow">↓</span>
-                <span class="lifecycle-label">TeammateIdle</span>
-                <span style="margin-left: 16px; color: #666;">If teammate agent becomes idle</span>
-            </div>
-            <div class="lifecycle-step">
-                <span class="lifecycle-arrow">↓</span>
-                <span class="lifecycle-label">TaskCompleted</span>
-                <span style="margin-left: 16px; color: #666;">If background task completes</span>
-            </div>
-            <div class="lifecycle-step">
-                <span class="lifecycle-arrow">↓</span>
-                <span class="lifecycle-label">ConfigChange</span>
-                <span style="margin-left: 16px; color: #666;">If config file changes</span>
-            </div>
-            <div class="lifecycle-step">
                 <span class="lifecycle-arrow">→</span>
                 <span class="lifecycle-label highlight">SessionEnd</span>
                 <span style="margin-left: 16px; color: #666;">Session terminates</span>
             </div>
+            <div style="margin-top: 16px; padding: 12px 16px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+                <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #856404;">Async — Fire at any time during session</strong>
+                <div style="margin-top: 8px;">
+                    <span class="matcher-tag">Notification</span>
+                    <span class="matcher-tag">TeammateIdle</span>
+                    <span class="matcher-tag">TaskCompleted</span>
+                    <span class="matcher-tag">ConfigChange</span>
+                </div>
+            </div>
         </div>
 
-        <p style="margin-top: 24px;"><strong>Note:</strong> Notification, TeammateIdle, TaskCompleted, and ConfigChange hooks can fire asynchronously at any time during the session.</p>
+        <p style="margin-top: 24px;"><strong>Note:</strong> Notification, TeammateIdle, TaskCompleted, and ConfigChange hooks fire asynchronously at any point during the session — they are not part of the sequential flow above.</p>
     </div>
 
     <!-- Slide 5: SessionStart -->
@@ -764,6 +758,14 @@
             <span class="matcher-tag">resume</span>
             <span class="matcher-tag">clear</span>
             <span class="matcher-tag">compact</span>
+        </div>
+
+        <div class="info-grid" style="margin: 16px 0;">
+            <div class="info-card">
+                <h4>Input Fields</h4>
+                <p><code>model</code> — Model identifier (e.g., <code>claude-sonnet-4-6</code>)</p>
+                <p><code>agent_type</code> — Agent name if started with <code>--agent</code> flag (since v2.1.43)</p>
+            </div>
         </div>
 
         <h3>Use Cases</h3>
@@ -1228,7 +1230,7 @@
 
         <div class="trigger-box">
             <h4>When It Triggers</h4>
-            <p>When a subagent finishes responding. Can be blocked to force the subagent to continue working. Includes <code>last_assistant_message</code> field with the subagent's final response text (since v2.1.47).</p>
+            <p>When a subagent finishes responding. Can be blocked to force the subagent to continue working. Includes <code>last_assistant_message</code> field with the subagent's final response text (since v2.1.47) and <code>agent_transcript_path</code> with the subagent's own transcript path.</p>
         </div>
 
         <div class="how-to-trigger">

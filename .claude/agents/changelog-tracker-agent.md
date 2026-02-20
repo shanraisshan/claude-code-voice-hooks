@@ -1,7 +1,7 @@
 ---
 name: changelog-tracker-agent
 description: Research agent that fetches Claude Code docs, reads local repo files, and analyzes changelog drift for the voice hooks project
-model: sonnet
+model: opus
 color: blue
 hooks:
   PreToolUse:

@@ -65,7 +65,7 @@ These items exist in the [Claude Code Changelog](https://github.com/anthropics/c
 | Item | Changelog | What the changelog says | What the official docs say |
 |------|:---------:|------------------------|---------------------------|
 | `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | Added new `Setup` hook event triggered via `--init`, `--init-only`, or `--maintenance` CLI flags | Not mentioned — official docs list 15 hooks, `Setup` excluded |
-| Agent frontmatter hooks limited to 3 | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | Agents can define `PreToolUse`, `PostToolUse`, and `Stop` hooks in frontmatter | "All hook events are supported" in frontmatter |
+| Agent frontmatter hooks | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | Changelog mentions `PreToolUse`, `PostToolUse`, and `Stop` in frontmatter | Testing confirms **6 hooks** actually fire: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop (not all 16) |
 
 ## Links
 

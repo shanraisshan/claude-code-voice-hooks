@@ -32,7 +32,7 @@ The following items exist in the [Claude Code Changelog](https://github.com/anth
 | Item | Added In | Changelog Reference | Notes |
 |------|----------|-------------------|-------|
 | `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | "Added new Setup hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations" | Not listed in official hooks reference page (15 hooks listed, Setup excluded) |
-| Agent frontmatter hooks limited to 3 | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | "Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle" | Official docs now say "All hook events are supported" in frontmatter, but the changelog only mentions 3 hooks |
+| Agent frontmatter hooks | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | "Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle" | Changelog only mentions 3 hooks, but testing confirms **6 hooks** actually fire in agent sessions: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. Not all 16 hooks are supported. |
 
 ## Prerequisites
 
@@ -153,19 +153,25 @@ Claude Code 2.1.0 introduced support for agent-specific hooks defined in agent f
 
 ### Supported Agent Hooks
 
-Agent frontmatter hooks only support **3 hooks**:
+Agent frontmatter hooks support **6 hooks** (not all 16). The changelog originally mentioned only 3, but testing confirms 6 hooks actually fire in agent sessions:
 - `PreToolUse`: Runs before the agent uses a tool
 - `PostToolUse`: Runs after the agent completes a tool use
+- `PermissionRequest`: Runs when a tool requires user permission
+- `PostToolUseFailure`: Runs after a tool call fails
 - `Stop`: Runs when the agent finishes
+- `SubagentStop`: Runs when a subagent completes
 
-> **Note:** The [official hooks reference](https://code.claude.com/docs/en/hooks) now states "All hook events are supported" in frontmatter. However, the [v2.1.0 changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) only mentions these 3 hooks: *"Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle"*. This project follows the changelog specification. See [Not in Official Docs](#not-in-official-docs) for details.
+> **Note:** The [v2.1.0 changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) only mentions 3 hooks: *"Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle"*. However, testing with the `claude-code-voice-hook-agent` confirms that 6 hooks actually fire in agent sessions. The remaining 10 hooks (e.g., Notification, PreToolUseRejected, etc.) do not fire in agent contexts.
 
 ### Agent Sound Folders
 
 Agent-specific sounds are stored in separate folders:
 - `.claude/hooks/sounds/agent_pretooluse/`
 - `.claude/hooks/sounds/agent_posttooluse/`
+- `.claude/hooks/sounds/agent_permissionrequest/`
+- `.claude/hooks/sounds/agent_posttoolusefailure/`
 - `.claude/hooks/sounds/agent_stop/`
+- `.claude/hooks/sounds/agent_subagentstop/`
 
 ### Creating an Agent with Hooks
 

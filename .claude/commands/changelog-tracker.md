@@ -107,7 +107,7 @@ When executing:
 - **New input fields**: Update README.md changelog table, HOOKS-README.md Options column + description, and presentation slides
 - **Hook options changes**: Edit HOOKS-README.md Options column; if `once`/`timeout` changed, also update all 4 settings files
 - **Removed hooks**: Confirm with user before removing
-- **Agent hook docs**: Update HOOKS-README.md and presentation (this project assumes only 3 agent hooks)
+- **Agent hook docs**: Update HOOKS-README.md and presentation (this project supports 6 agent hooks, not all 16)
 - After all actions, re-run verification to confirm consistency
 
 ---
@@ -121,4 +121,4 @@ When executing:
 5. **For new hooks, ALWAYS use `/add-new-hook`** — never manually add hooks
 6. **Cross-reference counts** — the same hook count must appear in: settings (x4), hooks.py, hooks-config.json, HOOKS-README.md, README.md badge, and presentation
 7. **Don't auto-execute** — always present the report first
-8. **Agent hooks assumption** — this project assumes only 3 agent hooks (PreToolUse, PostToolUse, Stop). Flag but don't auto-expand
+8. **Agent hooks** — this project supports 6 agent hooks (PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop). Not all 16 hooks fire in agent sessions.

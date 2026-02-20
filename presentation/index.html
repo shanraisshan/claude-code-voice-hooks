@@ -1718,17 +1718,17 @@
 
         <div class="trigger-box">
             <h4>Supported Agent Hooks</h4>
-            <p>Agent frontmatter hooks support only <strong>3 hooks</strong>: PreToolUse, PostToolUse, and Stop.</p>
+            <p>Agent frontmatter hooks support <strong>6 of 16 hooks</strong>: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, and SubagentStop.</p>
         </div>
 
         <div class="how-to-trigger">
             <h4>How to Trigger</h4>
             <p>Run the demo agent included in this repository:</p>
             <div class="trigger-example">&gt; /agents claude-code-voice-hook-agent</div>
-            <p style="margin-top: 12px;">This agent fetches Dubai weather and triggers all 3 agent hooks.</p>
+            <p style="margin-top: 12px;">This agent fetches Dubai weather and triggers all 6 agent hooks.</p>
         </div>
 
-        <h3>The 3 Agent Hooks</h3>
+        <h3>The 6 Agent Hooks</h3>
         <div class="use-cases">
             <div class="use-case-item">
                 <span class="use-case-icon">🔔</span>
@@ -1745,10 +1745,31 @@
                 </div>
             </div>
             <div class="use-case-item">
+                <span class="use-case-icon">🔐</span>
+                <div class="use-case-text">
+                    <strong>PermissionRequest</strong>
+                    <span>Fires when a tool requires user permission</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">❌</span>
+                <div class="use-case-text">
+                    <strong>PostToolUseFailure</strong>
+                    <span>Fires after a tool call fails</span>
+                </div>
+            </div>
+            <div class="use-case-item">
                 <span class="use-case-icon">🏁</span>
                 <div class="use-case-text">
                     <strong>Stop</strong>
                     <span>Fires when the agent finishes its task and returns control</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔚</span>
+                <div class="use-case-text">
+                    <strong>SubagentStop</strong>
+                    <span>Fires when a subagent completes its work</span>
                 </div>
             </div>
         </div>

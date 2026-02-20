@@ -104,7 +104,7 @@ Check if `HOOKS-README.md` documents all three hook types and all environment va
 Cross-reference repo hooks against official docs. Flag any hooks in the repo that no longer appear in official docs.
 
 ### Agent/Skill Frontmatter Hooks
-This project assumes only **3 agent hooks**: PreToolUse, PostToolUse, Stop. Compare against official docs and flag discrepancies.
+This project supports **6 agent hooks** (not all 16): PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. The changelog originally mentioned only 3, but testing confirms 6 actually fire. Compare against official docs and flag discrepancies.
 
 ### Presentation Accuracy
 Verify title slide version, hook counts, TOC, individual hook slides, lifecycle diagram, summary slide, and `totalSlides` variable.
@@ -140,7 +140,7 @@ Be thorough and specific. Include version numbers, file paths, and line referenc
 3. **Read ALL local files** before analyzing
 4. **New input fields are HIGH PRIORITY** — flag them prominently
 5. **Cross-reference counts** — the same hook count must appear in: settings (x4), hooks.py, hooks-config.json, HOOKS-README.md, README.md badge, and presentation
-6. **Agent hooks assumption** — this project assumes only 3 agent hooks (PreToolUse, PostToolUse, Stop). Flag but don't auto-expand
+6. **Agent hooks** — this project supports 6 agent hooks (PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop). Not all 16 hooks fire in agent sessions.
 7. **Do NOT modify any files** — this is read-only research
 
 ---

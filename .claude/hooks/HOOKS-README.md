@@ -25,6 +25,15 @@ Claude Code provides several hook events that run at different points in the wor
 
 > **Note:** Hooks 14-15 (`TeammateIdle` and `TaskCompleted`) require the experimental agent teams feature. Set `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` when launching Claude Code to enable them.
 
+### Not in Official Docs
+
+The following items exist in the [Claude Code Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) but are **not listed** in the [Official Hooks Reference](https://code.claude.com/docs/en/hooks):
+
+| Item | Added In | Changelog Reference | Notes |
+|------|----------|-------------------|-------|
+| `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | "Added new Setup hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations" | Not listed in official hooks reference page (15 hooks listed, Setup excluded) |
+| Agent frontmatter hooks limited to 3 | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | "Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle" | Official docs now say "All hook events are supported" in frontmatter, but the changelog only mentions 3 hooks |
+
 ## Prerequisites
 
 Before using hooks, ensure you have **Python 3** installed on your system.
@@ -147,6 +156,8 @@ Agent frontmatter hooks only support **3 hooks**:
 - `PostToolUse`: Runs after the agent completes a tool use
 - `Stop`: Runs when the agent finishes
 
+> **Note:** The [official hooks reference](https://code.claude.com/docs/en/hooks) now states "All hook events are supported" in frontmatter. However, the [v2.1.0 changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) only mentions these 3 hooks: *"Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle"*. This project follows the changelog specification. See [Not in Official Docs](#not-in-official-docs) for details.
+
 ### Agent Sound Folders
 
 Agent-specific sounds are stored in separate folders:
@@ -246,6 +257,60 @@ The `statusMessage` field sets a custom spinner message displayed to the user wh
 
 This project sets `statusMessage` to the hook event name on all hooks, so the spinner briefly shows which hook is firing (e.g., "PreToolUse", "SessionStart", "Stop"). This is most visible for synchronous hooks; for async hooks the message flashes briefly before the hook runs in the background.
 
+## Hook Types
+
+Claude Code supports three hook handler types. This project uses `command` hooks for all sound playback.
+
+### `type: "command"` (used by this project)
+
+Runs a shell command. Receives JSON input via stdin, communicates results through exit codes and stdout.
+
+```json
+{
+  "type": "command",
+  "command": "python3 .claude/hooks/scripts/hooks.py",
+  "timeout": 5000,
+  "async": true
+}
+```
+
+### `type: "prompt"`
+
+Sends a prompt to a Claude model for single-turn evaluation. The model returns a yes/no decision as JSON (`{"ok": true/false, "reason": "..."}`). Useful for decisions that require judgment rather than deterministic rules.
+
+```json
+{
+  "type": "prompt",
+  "prompt": "Check if all tasks are complete. $ARGUMENTS",
+  "timeout": 30
+}
+```
+
+**Supported events:** PreToolUse, PostToolUse, PostToolUseFailure, PermissionRequest, UserPromptSubmit, Stop, SubagentStop, TaskCompleted. **Not supported:** TeammateIdle.
+
+### `type: "agent"`
+
+Spawns a subagent with multi-turn tool access (Read, Grep, Glob) to verify conditions before returning a decision. Same response format as prompt hooks. Useful when verification requires inspecting actual files or test output.
+
+```json
+{
+  "type": "agent",
+  "prompt": "Verify that all unit tests pass. $ARGUMENTS",
+  "timeout": 120
+}
+```
+
+## Environment Variables
+
+Claude Code provides these environment variables to hook scripts:
+
+| Variable | Availability | Description |
+|----------|-------------|-------------|
+| `$CLAUDE_PROJECT_DIR` | All hooks | Project root directory. Wrap in quotes for paths with spaces |
+| `$CLAUDE_ENV_FILE` | SessionStart only | File path for persisting environment variables for subsequent Bash commands. Use append (`>>`) to preserve variables from other hooks |
+| `${CLAUDE_PLUGIN_ROOT}` | Plugin hooks | Plugin's root directory, for scripts bundled with a plugin |
+| `$CLAUDE_CODE_REMOTE` | All hooks | Set to `"true"` in remote web environments, not set in local CLI |
+
 ## Known Issues & Workarounds
 
 ### Agent Stop Hook Bug (SubagentStop vs Stop)
@@ -270,4 +335,4 @@ if event_name == "SubagentStop":
     event_name = "Stop"
 ```
 
-**Status:** Awaiting fix from Anthropic. This workaround will be removed once the bug is resolved.
+**Status:** The [official hooks reference](https://code.claude.com/docs/en/hooks#hooks-in-skills-and-agents) now documents this as expected behavior: *"For subagents, Stop hooks are automatically converted to SubagentStop since that is the event that fires when a subagent completes."* The workaround in `hooks.py` remains in place to correctly map the event name back for agent-specific sound playback.

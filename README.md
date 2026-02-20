@@ -56,6 +56,15 @@ SessionStart:startup hook error
 | Jul 2, 2025 | 5 | Split `Stop` into `Stop` and `SubagentStop` | [v1.0.41](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1041) | |
 | Jun 30, 2025 | 4 | Initial release: `PreToolUse`, `PostToolUse`, `Stop`, `SessionEnd` | [v1.0.38](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1038) | |
 
+### Not in Official Docs
+
+These items exist in the [Claude Code Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) but are not listed in the [Official Hooks Reference](https://code.claude.com/docs/en/hooks):
+
+| Item | Changelog | What the changelog says | What the official docs say |
+|------|:---------:|------------------------|---------------------------|
+| `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | Added new `Setup` hook event triggered via `--init`, `--init-only`, or `--maintenance` CLI flags | Not mentioned — official docs list 15 hooks, `Setup` excluded |
+| Agent frontmatter hooks limited to 3 | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | Agents can define `PreToolUse`, `PostToolUse`, and `Stop` hooks in frontmatter | "All hook events are supported" in frontmatter |
+
 ## Links
 
 <p>

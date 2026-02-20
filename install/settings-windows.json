@@ -198,6 +198,19 @@
           }
         ]
       }
+    ],
+    "ConfigChange": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/hooks/scripts/hooks.py",
+            "timeout": 5000,
+            "async": true,
+            "statusMessage": "ConfigChange"
+          }
+        ]
+      }
     ]
   }
 }

@@ -14,5 +14,6 @@
   "disableSetupHook": false,
   "disableTeammateIdleHook": false,
   "disableTaskCompletedHook": false,
+  "disableConfigChangeHook": false,
   "disableLogging": true
 }

@@ -1,5 +1,5 @@
 # Claude Code Voice Hooks 🔊 Ding Dong
-[supports all 15 hooks](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-15-hooks)
+[![Hooks](https://img.shields.io/badge/supports%20all-16%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-16-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.49-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 
 <p align="center">
   <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">
@@ -42,6 +42,7 @@ SessionStart:startup hook error
 
 | Date | Hooks | Changes | Claude Code Version | Demo |
 |------|:-----:|---------|:-------------------:|:----:|
+| Feb 20, 2026 | 16 | Added `ConfigChange` | [v2.1.49](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2149) | |
 | Feb 6, 2026 | 15 | Added `TeammateIdle` and `TaskCompleted` | [v2.1.33](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2133) | |
 | — | 13 | Added `PostToolUseFailure` | — | [Demo 3](https://youtu.be/6_y3AtkgjqA) |
 | Jan 17, 2026 | 12 | Added `Setup` | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | |

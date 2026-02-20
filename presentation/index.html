@@ -540,7 +540,7 @@
         </div>
         <h1>Claude Code Voice Hooks</h1>
         <p class="subtitle">Explaining Claude Code Voice Hooks and Subagent Hooks</p>
-        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.33 | February 6, 2026</p>
+        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.49 | February 20, 2026</p>
     </div>
 
     <!-- Slide 2: Introduction -->
@@ -557,8 +557,8 @@
             <div class="use-case-item">
                 <span class="use-case-icon">🔢</span>
                 <div class="use-case-text">
-                    <strong>15 Hooks Explained</strong>
-                    <span>Claude Code currently supports 15 hooks (as of v2.1.33)</span>
+                    <strong>16 Hooks Explained</strong>
+                    <span>Claude Code currently supports 16 hooks (as of v2.1.49)</span>
                 </div>
             </div>
             <div class="use-case-item">
@@ -579,7 +579,7 @@
                 <span class="use-case-icon">🔊</span>
                 <div class="use-case-text">
                     <strong>Voice Notifications Demo</strong>
-                    <span>This repo integrates all 15 hooks with audio feedback</span>
+                    <span>This repo integrates all 16 hooks with audio feedback</span>
                 </div>
             </div>
         </div>
@@ -595,8 +595,8 @@
 
     <!-- Slide 3: Table of Contents -->
     <div class="slide" data-slide="3">
-        <h1>The 15 Hooks</h1>
-        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.33 | February 6, 2026 — More hooks may be added in future versions.</p>
+        <h1>The 16 Hooks</h1>
+        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.49 | February 20, 2026 — More hooks may be added in future versions.</p>
 
         <div class="toc-list">
             <div class="toc-item" onclick="goToSlide(5)">
@@ -659,6 +659,10 @@
                 <span class="toc-number">15</span>
                 <span class="toc-name">TaskCompleted</span>
             </div>
+            <div class="toc-item" onclick="goToSlide(20)">
+                <span class="toc-number">16</span>
+                <span class="toc-name">ConfigChange</span>
+            </div>
         </div>
     </div>
 
@@ -719,13 +723,18 @@
                 <span style="margin-left: 16px; color: #666;">If background task completes</span>
             </div>
             <div class="lifecycle-step">
+                <span class="lifecycle-arrow">↓</span>
+                <span class="lifecycle-label">ConfigChange</span>
+                <span style="margin-left: 16px; color: #666;">If config file changes</span>
+            </div>
+            <div class="lifecycle-step">
                 <span class="lifecycle-arrow">→</span>
                 <span class="lifecycle-label highlight">SessionEnd</span>
                 <span style="margin-left: 16px; color: #666;">Session terminates</span>
             </div>
         </div>
 
-        <p style="margin-top: 24px;"><strong>Note:</strong> Notification, TeammateIdle, and TaskCompleted hooks can fire asynchronously at any time during the session.</p>
+        <p style="margin-top: 24px;"><strong>Note:</strong> Notification, TeammateIdle, TaskCompleted, and ConfigChange hooks can fire asynchronously at any time during the session.</p>
     </div>
 
     <!-- Slide 5: SessionStart -->
@@ -1219,7 +1228,7 @@
 
         <div class="trigger-box">
             <h4>When It Triggers</h4>
-            <p>When a subagent finishes responding. Can be blocked to force the subagent to continue working.</p>
+            <p>When a subagent finishes responding. Can be blocked to force the subagent to continue working. Includes <code>last_assistant_message</code> field with the subagent's final response text (since v2.1.49).</p>
         </div>
 
         <div class="how-to-trigger">
@@ -1227,6 +1236,14 @@
             <p>Fires automatically when a subagent completes its task:</p>
             <div class="trigger-example">&gt; Explore the codebase and find where authentication is handled</div>
             <p style="margin-top: 12px;">After the Explore agent finishes searching, SubagentStop fires.</p>
+        </div>
+
+        <div class="matcher-values">
+            <strong>Agent Types:</strong>
+            <span class="matcher-tag">Bash</span>
+            <span class="matcher-tag">Explore</span>
+            <span class="matcher-tag">Plan</span>
+            <span class="matcher-tag">CustomAgentName</span>
         </div>
 
         <h3>Use Cases</h3>
@@ -1276,7 +1293,7 @@
 
         <div class="trigger-box">
             <h4>When It Triggers</h4>
-            <p>When Claude finishes responding and is ready to stop. Does NOT fire on user interrupts (Ctrl+C).</p>
+            <p>When Claude finishes responding and is ready to stop. Does NOT fire on user interrupts (Ctrl+C). Includes <code>last_assistant_message</code> field with Claude's final response text (since v2.1.49).</p>
         </div>
 
         <div class="how-to-trigger">
@@ -1311,10 +1328,10 @@
                 </div>
             </div>
             <div class="use-case-item">
-                <span class="use-case-icon">🔄</span>
+                <span class="use-case-icon">📝</span>
                 <div class="use-case-text">
-                    <strong>Force Continuation</strong>
-                    <span>Make Claude continue if conditions aren't met</span>
+                    <strong>Analyze Last Response</strong>
+                    <span>Use <code>last_assistant_message</code> to log or validate Claude's final output</span>
                 </div>
             </div>
         </div>
@@ -1413,6 +1430,7 @@
             <span class="matcher-tag">clear</span>
             <span class="matcher-tag">logout</span>
             <span class="matcher-tag">prompt_input_exit</span>
+            <span class="matcher-tag">bypass_permissions_disabled</span>
             <span class="matcher-tag">other</span>
         </div>
 
@@ -1515,7 +1533,7 @@
         <div class="hook-title">
             <span class="hook-number">14</span>
             <span class="hook-name">TeammateIdle</span>
-            <span class="cannot-block">Cannot Block</span>
+            <span class="can-block">Can Block</span>
         </div>
 
         <div class="trigger-box">
@@ -1572,7 +1590,7 @@
         <div class="hook-title">
             <span class="hook-number">15</span>
             <span class="hook-name">TaskCompleted</span>
-            <span class="cannot-block">Cannot Block</span>
+            <span class="can-block">Can Block</span>
         </div>
 
         <div class="trigger-box">
@@ -1624,8 +1642,75 @@
         </div>
     </div>
 
-    <!-- Slide 20: Agent Hooks -->
+    <!-- Slide 20: ConfigChange -->
     <div class="slide" data-slide="20">
+        <div class="hook-title">
+            <span class="hook-number">16</span>
+            <span class="hook-name">ConfigChange</span>
+            <span class="can-block">Can Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When a configuration file changes during a session. Detects changes to user settings, project settings, local settings, policy settings, and skills.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Modify any Claude Code configuration file while a session is active:</p>
+            <div class="trigger-example">Edit .claude/settings.json while Claude is running</div>
+            <div class="trigger-example" style="margin-top: 8px;">Change user settings via ~/.claude/settings.json</div>
+            <p style="margin-top: 12px;">The hook fires when Claude detects the config file has been modified.</p>
+        </div>
+
+        <div class="matcher-values">
+            <strong>Config Sources:</strong>
+            <span class="matcher-tag">user_settings</span>
+            <span class="matcher-tag">project_settings</span>
+            <span class="matcher-tag">local_settings</span>
+            <span class="matcher-tag">policy_settings</span>
+            <span class="matcher-tag">skills</span>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Config changed"</strong>
+                    <span>Audio notification when configuration is modified</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🛡️</span>
+                <div class="use-case-text">
+                    <strong>Audit Config Changes</strong>
+                    <span>Log and validate configuration modifications for security</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔄</span>
+                <div class="use-case-text">
+                    <strong>Auto-Reload Settings</strong>
+                    <span>Trigger reloads or re-initialization when config changes</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🚫</span>
+                <div class="use-case-text">
+                    <strong>Block Unsafe Changes</strong>
+                    <span>Prevent unauthorized config modifications (except policy_settings)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: configchange.wav — "Config changed"
+        </div>
+    </div>
+
+    <!-- Slide 21: Agent Hooks -->
+    <div class="slide" data-slide="21">
         <h1>Agent Hooks (Bonus)</h1>
         <p>Claude Code 2.1.0 introduced support for agent-specific hooks defined in agent frontmatter files. These hooks only run within the agent's lifecycle.</p>
 
@@ -1694,8 +1779,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 21: Configuration -->
-    <div class="slide" data-slide="21">
+    <!-- Slide 22: Configuration -->
+    <div class="slide" data-slide="22">
         <h1>Configuration</h1>
         <p>Hooks are configured in <code>.claude/settings.json</code> and can be individually enabled/disabled.</p>
 
@@ -1736,8 +1821,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 22: Summary -->
-    <div class="slide" data-slide="22">
+    <!-- Slide 23: Summary -->
+    <div class="slide" data-slide="23">
         <h1>Summary</h1>
 
         <div class="info-grid">
@@ -1747,6 +1832,7 @@ hooks:
                 <p><strong>SessionEnd</strong> — Last hook, cleanup</p>
                 <p><strong>PreCompact</strong> — Before context compression</p>
                 <p><strong>Setup</strong> — Project initialization</p>
+                <p><strong>ConfigChange</strong> — Config file modified</p>
             </div>
             <div class="info-card">
                 <h4>User Interaction</h4>
@@ -1778,6 +1864,9 @@ hooks:
             <span class="matcher-tag">PermissionRequest</span>
             <span class="matcher-tag">SubagentStop</span>
             <span class="matcher-tag">Stop</span>
+            <span class="matcher-tag">TeammateIdle</span>
+            <span class="matcher-tag">TaskCompleted</span>
+            <span class="matcher-tag">ConfigChange</span>
         </div>
 
         <div style="margin-top: 40px; padding: 24px; background: #f8f9fa; border-radius: 8px;">
@@ -1839,7 +1928,7 @@ hooks:
         <button class="nav-btn" id="nextBtn" onclick="nextSlide()">→</button>
     </div>
 
-    <div class="slide-counter" id="slideCounter">1 / 22</div>
+    <div class="slide-counter" id="slideCounter">1 / 23</div>
 
     <div class="keyboard-hint">
         <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> to navigate
@@ -1847,7 +1936,7 @@ hooks:
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 22;
+        const totalSlides = 23;
 
         function showSlide(n) {
             const slides = document.querySelectorAll('.slide');

@@ -20,7 +20,7 @@ hooks:
           timeout: 5000
           async: true
           statusMessage: PostToolUse
-    PermissionRequest:
+  PermissionRequest:
     - matcher: ".*"
       hooks:
         - type: command

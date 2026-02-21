@@ -62,3 +62,11 @@
 | 1 | MEDIUM | Documentation | Add `WorktreeCreate` and `WorktreeRemove` to "Not in Official Docs" table in HOOKS-README — they exist in changelog (v2.1.50) but are absent from official hooks reference | ✅ added both rows to table |
 | 2 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open; tracked there |
 | 3 | LOW | Workflow | Updated workflow-add-hook to include "Not in Official Docs" table step when adding changelog-only hooks | ✅ added instruction to HOOKS-README section |
+
+---
+
+## [2026-02-21 09:10 AM PKT] Claude Code v2.1.50
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open; tracked there |

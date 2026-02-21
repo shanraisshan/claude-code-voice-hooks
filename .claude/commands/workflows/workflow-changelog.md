@@ -19,7 +19,7 @@ This is a **read-then-report** workflow. Launch agents, merge results, and produ
 
 ### Agent 1: workflow-changelog-agent
 
-Spawn using `subagent_type: "workflows:workflow-changelog-agent"`. Give it this prompt:
+Spawn using `subagent_type: "workflow-changelog-agent"`. Give it this prompt:
 
 > Research the claude-code-voice-hooks project for changelog drift. Check the last $ARGUMENTS versions (default: 10).
 >

@@ -1,5 +1,5 @@
 # Claude Code Voice Hooks 🔊 Ding Dong
-[![Hooks](https://img.shields.io/badge/supports%20all-16%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-16-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.49-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
+[![Hooks](https://img.shields.io/badge/supports%20all-18%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-18-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.50%20(Feb%2021,%202026%206:41%20AM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 
 <p align="center">
   <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">
@@ -42,6 +42,7 @@ SessionStart:startup hook error
 
 | Date | Hooks | Changes | Claude Code Version | Demo |
 |------|:-----:|---------|:-------------------:|:----:|
+| Feb 21, 2026 | 18 | Added `WorktreeCreate` and `WorktreeRemove` | [v2.1.50](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2150) | |
 | Feb 20, 2026 | 16 | Added `ConfigChange` hook, `file_path` input field | [v2.1.49](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2149) | |
 | Feb 13, 2026 | 15 | Added `last_assistant_message` input field to `Stop` and `SubagentStop` | [v2.1.47](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2147) | |
 | Feb 10, 2026 | 15 | Added `agent_type` input field to `SessionStart` (when `--agent` flag used) | ~v2.1.43 (unconfirmed) | |

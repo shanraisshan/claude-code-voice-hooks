@@ -28,3 +28,15 @@
 | # | Priority | Type | Action | Status |
 |---|----------|------|--------|--------|
 | 1 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — already reported upstream [#27153](https://github.com/anthropics/claude-code/issues/27153); pending response |
+
+---
+
+## [2026-02-21 06:41 AM PKT] Claude Code v2.1.50
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | HIGH | New Hook | /add-new-hook WorktreeCreate — new in v2.1.50 for agent worktree isolation VCS setup | ✅ added — all 18 hooks consistent across files |
+| 2 | HIGH | New Hook | /add-new-hook WorktreeRemove — new in v2.1.50 for agent worktree isolation VCS teardown | ✅ added — all 18 hooks consistent across files |
+| 3 | MEDIUM | Version Update | Update all version badges from v2.1.49 → v2.1.50, hook count from 16 → 18 across README, HOOKS-README, presentation, hooks.py | ✅ updated — badge now shows v2.1.50 (Feb 21, 2026) |
+| 4 | LOW | Hook Options Table | Add `tool_response` to PostToolUse Options column in HOOKS-README | ✅ added to HOOKS-README |
+| 5 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream bug reported at [#27153](https://github.com/anthropics/claude-code/issues/27153); pending their fix |

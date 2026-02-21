@@ -540,7 +540,7 @@
         </div>
         <h1>Claude Code Voice Hooks</h1>
         <p class="subtitle">Explaining Claude Code Voice Hooks and Subagent Hooks</p>
-        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.49 | February 20, 2026</p>
+        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.50 | February 21, 2026</p>
     </div>
 
     <!-- Slide 2: Introduction -->
@@ -557,8 +557,8 @@
             <div class="use-case-item">
                 <span class="use-case-icon">🔢</span>
                 <div class="use-case-text">
-                    <strong>16 Hooks Explained</strong>
-                    <span>Claude Code currently supports 16 hooks (as of v2.1.49)</span>
+                    <strong>18 Hooks Explained</strong>
+                    <span>Claude Code currently supports 18 hooks (as of v2.1.50)</span>
                 </div>
             </div>
             <div class="use-case-item">
@@ -579,7 +579,7 @@
                 <span class="use-case-icon">🔊</span>
                 <div class="use-case-text">
                     <strong>Voice Notifications Demo</strong>
-                    <span>This repo integrates all 16 hooks with audio feedback</span>
+                    <span>This repo integrates all 18 hooks with audio feedback</span>
                 </div>
             </div>
         </div>
@@ -595,8 +595,8 @@
 
     <!-- Slide 3: Table of Contents -->
     <div class="slide" data-slide="3">
-        <h1>The 16 Hooks</h1>
-        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.49 | February 20, 2026 — More hooks may be added in future versions.</p>
+        <h1>The 18 Hooks</h1>
+        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.50 | February 21, 2026 — More hooks may be added in future versions.</p>
 
         <div class="toc-list">
             <div class="toc-item" onclick="goToSlide(5)">
@@ -663,6 +663,14 @@
                 <span class="toc-number">16</span>
                 <span class="toc-name">ConfigChange</span>
             </div>
+            <div class="toc-item" onclick="goToSlide(21)">
+                <span class="toc-number">17</span>
+                <span class="toc-name">WorktreeCreate</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(22)">
+                <span class="toc-number">18</span>
+                <span class="toc-name">WorktreeRemove</span>
+            </div>
         </div>
     </div>
 
@@ -724,6 +732,8 @@
                     <span class="matcher-tag">TeammateIdle</span>
                     <span class="matcher-tag">TaskCompleted</span>
                     <span class="matcher-tag">ConfigChange</span>
+                    <span class="matcher-tag">WorktreeCreate</span>
+                    <span class="matcher-tag">WorktreeRemove</span>
                 </div>
             </div>
         </div>
@@ -1725,14 +1735,126 @@
         </div>
     </div>
 
-    <!-- Slide 21: Agent Hooks -->
+    <!-- Slide 21: WorktreeCreate -->
     <div class="slide" data-slide="21">
+        <div class="hook-title">
+            <span class="hook-number">17</span>
+            <span class="hook-name">WorktreeCreate</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When agent worktree isolation creates worktrees, enabling custom VCS setup. This hook fires during the worktree creation process for agents that use <code>isolation: worktree</code> in their definitions (since v2.1.50).</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Use an agent configured with worktree isolation:</p>
+            <div class="trigger-example">claude --agent my-isolated-agent (with isolation: worktree)</div>
+            <p style="margin-top: 12px;">The hook fires when Claude creates a new git worktree for the agent's isolated workspace.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Worktree created"</strong>
+                    <span>Audio notification when a worktree is set up for an agent</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔧</span>
+                <div class="use-case-text">
+                    <strong>Custom VCS Setup</strong>
+                    <span>Run setup scripts (install deps, configure git hooks) in the new worktree</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📋</span>
+                <div class="use-case-text">
+                    <strong>Log Worktree Activity</strong>
+                    <span>Track which agents create worktrees and when</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔗</span>
+                <div class="use-case-text">
+                    <strong>Symlink Dependencies</strong>
+                    <span>Symlink node_modules or other large directories to save disk space</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: worktreecreate.wav — "Worktree created"
+        </div>
+    </div>
+
+    <!-- Slide 22: WorktreeRemove -->
+    <div class="slide" data-slide="22">
+        <div class="hook-title">
+            <span class="hook-number">18</span>
+            <span class="hook-name">WorktreeRemove</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When agent worktree isolation removes worktrees, enabling custom VCS teardown. This hook fires during the worktree removal process when agents with <code>isolation: worktree</code> finish their work (since v2.1.50).</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Triggered automatically when an isolated agent's worktree is cleaned up:</p>
+            <div class="trigger-example">Agent completes work and worktree is removed</div>
+            <p style="margin-top: 12px;">The hook fires when Claude removes a git worktree that was created for an agent's isolated workspace.</p>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Worktree removed"</strong>
+                    <span>Audio notification when a worktree is cleaned up</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🧹</span>
+                <div class="use-case-text">
+                    <strong>Custom VCS Teardown</strong>
+                    <span>Clean up temporary files, remove symlinks, or archive logs</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📋</span>
+                <div class="use-case-text">
+                    <strong>Log Cleanup Events</strong>
+                    <span>Track when worktrees are removed for auditing</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">💾</span>
+                <div class="use-case-text">
+                    <strong>Reclaim Disk Space</strong>
+                    <span>Trigger garbage collection or cache cleanup after worktree removal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: worktreeremove.wav — "Worktree removed"
+        </div>
+    </div>
+
+    <!-- Slide 23: Agent Hooks -->
+    <div class="slide" data-slide="23">
         <h1>Agent Hooks (Bonus)</h1>
         <p>Claude Code 2.1.0 introduced support for agent-specific hooks defined in agent frontmatter files. These hooks only run within the agent's lifecycle.</p>
 
         <div class="trigger-box">
             <h4>Supported Agent Hooks</h4>
-            <p>Agent frontmatter hooks support <strong>6 of 16 hooks</strong>: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, and SubagentStop.</p>
+            <p>Agent frontmatter hooks support <strong>6 of 18 hooks</strong>: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, and SubagentStop.</p>
         </div>
 
         <div class="how-to-trigger">
@@ -1830,8 +1952,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 22: Configuration -->
-    <div class="slide" data-slide="22">
+    <!-- Slide 24: Configuration -->
+    <div class="slide" data-slide="24">
         <h1>Configuration</h1>
         <p>Hooks are configured in <code>.claude/settings.json</code> and can be individually enabled/disabled.</p>
 
@@ -1872,8 +1994,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 23: Summary -->
-    <div class="slide" data-slide="23">
+    <!-- Slide 25: Summary -->
+    <div class="slide" data-slide="25">
         <h1>Summary</h1>
 
         <div class="info-grid">
@@ -1884,6 +2006,8 @@ hooks:
                 <p><strong>PreCompact</strong> — Before context compression</p>
                 <p><strong>Setup</strong> — Project initialization</p>
                 <p><strong>ConfigChange</strong> — Config file modified</p>
+                <p><strong>WorktreeCreate</strong> — Agent worktree created</p>
+                <p><strong>WorktreeRemove</strong> — Agent worktree removed</p>
             </div>
             <div class="info-card">
                 <h4>User Interaction</h4>
@@ -1979,7 +2103,7 @@ hooks:
         <button class="nav-btn" id="nextBtn" onclick="nextSlide()">→</button>
     </div>
 
-    <div class="slide-counter" id="slideCounter">1 / 23</div>
+    <div class="slide-counter" id="slideCounter">1 / 25</div>
 
     <div class="keyboard-hint">
         <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> to navigate
@@ -1987,7 +2111,7 @@ hooks:
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 23;
+        const totalSlides = 25;
 
         function showSlide(n) {
             const slides = document.querySelectorAll('.slide');

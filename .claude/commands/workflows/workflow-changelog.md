@@ -19,7 +19,7 @@ This is a **read-then-report** workflow. Launch agents, merge results, and produ
 
 ### Agent 1: workflow-changelog-agent
 
-Spawn using `subagent_type: "workflow-changelog-agent"`. Give it this prompt:
+Spawn using `subagent_type: "workflows:workflow-changelog-agent"`. Give it this prompt:
 
 > Research the claude-code-voice-hooks project for changelog drift. Check the last $ARGUMENTS versions (default: 10).
 >
@@ -73,7 +73,7 @@ Also compare the current findings against the previous changelog entries (from P
 
 Produce a structured report with these sections:
 
-1. **New Hooks to Add** — Missing hooks with version and `/add-new-hook` command
+1. **New Hooks to Add** — Missing hooks with version and `/workflows:workflow-add-hook` command
 2. **Configuration Drift** — Inconsistencies across files with specific fixes
 3. **Version & Count Mismatches** — Table showing current vs expected for each location
 4. **Documentation Updates** — Outdated docs with changelog version references
@@ -92,7 +92,7 @@ End with a prioritized **Action Items** summary table. Each item must include a 
 ```
 Priority Actions:
 #  | Type              | Action                                    | Status
-1  | New Hook          | /add-new-hook <Name>                      | NEW
+1  | New Hook          | /workflows:workflow-add-hook <Name>                      | NEW
 2  | New Input Field   | Document <field> added to <Hook> in v<X>  | NEW
 3  | Hook Options Table| Update Options column for <Hook>          | RECURRING (first seen: 2026-02-20)
 4  | Removed Hook      | Investigate <Name> removal                | NEW
@@ -140,12 +140,12 @@ Read the existing `workflow-changelog/workflow-changelog.md` file, then **append
 
 After presenting the report (and confirming the workflow-changelog/workflow-changelog.md was updated), ask the user:
 
-1. **Execute all actions** — Handle everything (new hooks via `/add-new-hook`, fixes, updates)
+1. **Execute all actions** — Handle everything (new hooks via `/workflows:workflow-add-hook`, fixes, updates)
 2. **Execute specific actions** — User picks which numbers to execute
 3. **Just save the report** — No changes
 
 When executing:
-- **New hooks**: Use `/add-new-hook <HookName>` (one at a time, in order)
+- **New hooks**: Use `/workflows:workflow-add-hook <HookName>` (one at a time, in order)
 - **New input fields**: Update README.md changelog table, HOOKS-README.md Options column + description, and presentation slides
 - **Hook options changes**: Edit HOOKS-README.md Options column; if `once`/`timeout` changed, also update all 4 settings files
 - **Removed hooks**: Confirm with user before removing
@@ -160,7 +160,7 @@ When executing:
 2. **Wait for both agents** before generating the report
 3. **Never guess** versions or dates — use data from the agents
 4. **New input fields are HIGH PRIORITY** — they require README, HOOKS-README, and presentation updates. Never dismiss them as "informational"
-5. **For new hooks, ALWAYS use `/add-new-hook`** — never manually add hooks
+5. **For new hooks, ALWAYS use `/workflows:workflow-add-hook`** — never manually add hooks
 6. **Cross-reference counts** — the same hook count must appear in: settings (x4), hooks.py, hooks-config.json, HOOKS-README.md, README.md badge, and presentation
 7. **Don't auto-execute** — always present the report first
 8. **Agent hooks** — this project supports 6 agent hooks (PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop). Not all 16 hooks fire in agent sessions.

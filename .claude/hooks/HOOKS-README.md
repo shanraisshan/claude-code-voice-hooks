@@ -34,6 +34,8 @@ The following items exist in the [Claude Code Changelog](https://github.com/anth
 | Item | Added In | Changelog Reference | Notes |
 |------|----------|-------------------|-------|
 | `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | "Added new Setup hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations" | Not listed in official hooks reference page (15 hooks listed, Setup excluded) |
+| `WorktreeCreate` hook | [v2.1.50](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2150) | "Added `WorktreeCreate` and `WorktreeRemove` hook events" | Not listed in official hooks reference page (15 hooks listed, WorktreeCreate excluded) |
+| `WorktreeRemove` hook | [v2.1.50](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2150) | "Added `WorktreeCreate` and `WorktreeRemove` hook events" | Not listed in official hooks reference page (15 hooks listed, WorktreeRemove excluded) |
 | Agent frontmatter hooks | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | "Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle" | Changelog only mentions 3 hooks, but testing confirms **6 hooks** actually fire in agent sessions: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. Not all 16 hooks are supported. |
 
 ## Prerequisites

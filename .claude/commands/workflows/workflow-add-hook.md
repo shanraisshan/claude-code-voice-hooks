@@ -90,6 +90,7 @@ Add `"disable<HookEventName>Hook": false` **before** the `"disableLogging"` line
 - Update heading count ("Official N Hooks")
 - Add the hook to the numbered list with description from docs
 - Update the shared config JSON block with new `disable<HookEventName>Hook` entry
+- **If the hook is NOT listed in the [Official Hooks Reference](https://code.claude.com/docs/en/hooks)** (i.e. it only appears in the changelog), add a row to the "Not in Official Docs" table with the hook name, version, changelog quote, and a note that it's excluded from the official reference page
 
 ### `README.md`
 
@@ -99,6 +100,14 @@ Add `"disable<HookEventName>Hook": false` **before** the `"disableLogging"` line
   ```
   | <today's date> | <N> | Added `<HookEventName>` | [v<version>](<changelog-link>) | |
   ```
+
+### `.claude/agents/claude-code-test-agent.md`
+
+- Add the new hook to the agent's frontmatter `hooks:` section using the same pattern as existing hooks (echo hook name + timestamp to `tests-agents-hook/agent-hook-fired.log`, `timeout: 5000`, `async: true`). Use `timeout: 30000` only for `Setup`.
+- Update the description line's hook count ("Tests all N Claude Code hooks")
+- Add the hook to the "All N Hooks Configured" list with a one-line description
+- Add the hook to the "Hook Trigger Summary" output format list
+- Update all "N" hook count references in the agent body
 
 ### `presentation/index.html`
 
@@ -129,6 +138,7 @@ hooks.py:         N mappings ✓/✗
 HOOKS-README:     N hooks ✓/✗
 README.md:        changelog ✓/✗
 presentation:     N slides ✓/✗
+test-agent:       N hooks ✓/✗
 ```
 
 ---

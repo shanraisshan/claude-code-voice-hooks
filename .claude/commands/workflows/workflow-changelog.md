@@ -136,9 +136,17 @@ Read the existing `workflow-changelog/workflow-changelog.md` file, then **append
 
 ---
 
+## Phase 2.6: Update README Badge Timestamp
+
+**This phase is MANDATORY — always execute it immediately after Phase 2.5, before presenting the report.**
+
+Update the `[![Version](...)]` badge on README.md line 2 with the current PKT time. Run `TZ=Asia/Karachi date "+%b %d, %Y %-I:%M %p PKT"` to get the time, URL-encode it (spaces → `%20`, commas → `%2C`), and replace the date portion in the badge. Also update the version number in the badge if it changed (use version from agent findings). This ensures the badge always reflects when the repo was last synced.
+
+---
+
 ## Phase 3: Offer to Take Action
 
-After presenting the report (and confirming the workflow-changelog/workflow-changelog.md was updated), ask the user:
+After presenting the report (and confirming both workflow-changelog/workflow-changelog.md and the README badge were updated), ask the user:
 
 1. **Execute all actions** — Handle everything (new hooks via `/workflows:workflow-add-hook`, fixes, updates)
 2. **Execute specific actions** — User picks which numbers to execute
@@ -150,7 +158,6 @@ When executing:
 - **Hook options changes**: Edit HOOKS-README.md Options column; if `once`/`timeout` changed, also update all 4 settings files
 - **Removed hooks**: Confirm with user before removing
 - **Agent hook docs**: Update HOOKS-README.md and presentation (this project supports 6 agent hooks, not all 16)
-- **README badge timestamp**: After executing any actions, update the `[![Version](...)]` badge on README.md line 2 with the current PKT time. Run `TZ=Asia/Karachi date "+%b %d, %Y %-I:%M %p PKT"` to get the time, URL-encode it (spaces → `%20`, commas → `%2C`), and replace the date portion in the badge. This ensures the badge always reflects when the repo was last synced.
 - After all actions, re-run verification to confirm consistency
 
 ---

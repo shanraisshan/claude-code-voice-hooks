@@ -1,5 +1,5 @@
 # Claude Code Voice Hooks
-[![Hooks](https://img.shields.io/badge/supports%20all-18%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-18-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.50%20(Feb%2021,%202026%208:04%20AM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
+[![Hooks](https://img.shields.io/badge/supports%20all-18%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-18-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.50%20(Feb%2021%2C%202026%208:21%20AM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 
 <p align="center">
   <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">
@@ -39,6 +39,7 @@ SessionStart:startup hook error
 ```
 
 ## Changelog
+new hook addition changelogs only
 
 | Date | Hooks | Changes | Claude Code Version | Demo |
 |------|:-----:|---------|:-------------------:|:----:|
@@ -57,14 +58,7 @@ SessionStart:startup hook error
 | Jul 2, 2025 | 5 | Split `Stop` into `Stop` and `SubagentStop` | [v1.0.41](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1041) | |
 | Jun 30, 2025 | 4 | Initial release: `PreToolUse`, `PostToolUse`, `Stop`, `SessionEnd` | [v1.0.38](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#1038) | |
 
-### Not in Official Docs
-
-These items exist in the [Claude Code Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) but are not listed in the [Official Hooks Reference](https://code.claude.com/docs/en/hooks):
-
-| Item | Changelog | What the changelog says | What the official docs say |
-|------|:---------:|------------------------|---------------------------|
-| `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | Added new `Setup` hook event triggered via `--init`, `--init-only`, or `--maintenance` CLI flags | Not mentioned — official docs list 15 hooks, `Setup` excluded |
-| Agent frontmatter hooks | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | Changelog mentions `PreToolUse`, `PostToolUse`, and `Stop` in frontmatter | Testing confirms **6 hooks** actually fire: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. Official docs now say "all supported" — re-testing recommended. |
+### [Not in Official Docs](.claude/hooks/HOOKS-README.md#not-in-official-docs)
 
 ## Links
 

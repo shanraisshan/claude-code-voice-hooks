@@ -8,39 +8,39 @@ hooks:
     - matcher: ".*"
       hooks:
         - type: command
-          command: "python3 .claude/hooks/scripts/hooks.py --agent=voice-hook-agent"
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py  --agent=voice-hook-agent
           timeout: 5000
           async: true
   PostToolUse:
     - matcher: ".*"
       hooks:
         - type: command
-          command: "python3 .claude/hooks/scripts/hooks.py --agent=voice-hook-agent"
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py  --agent=voice-hook-agent
           timeout: 5000
           async: true
   PermissionRequest:
     - matcher: ".*"
       hooks:
         - type: command
-          command: "python3 .claude/hooks/scripts/hooks.py --agent=voice-hook-agent"
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py  --agent=voice-hook-agent
           timeout: 5000
           async: true
   PostToolUseFailure:
     - hooks:
         - type: command
-          command: "python3 .claude/hooks/scripts/hooks.py --agent=voice-hook-agent"
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py  --agent=voice-hook-agent
           timeout: 5000
           async: true
   Stop:
     - hooks:
         - type: command
-          command: "python3 .claude/hooks/scripts/hooks.py --agent=voice-hook-agent"
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py  --agent=voice-hook-agent
           timeout: 5000
           async: true
   SubagentStop:
     - hooks:
         - type: command
-          command: "python3 .claude/hooks/scripts/hooks.py --agent=voice-hook-agent"
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py  --agent=voice-hook-agent"
           timeout: 5000
           async: true
 ---

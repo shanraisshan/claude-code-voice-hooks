@@ -20,6 +20,19 @@ hooks:
           timeout: 5000
           async: true
           statusMessage: PostToolUse
+    PermissionRequest:
+    - matcher: ".*"
+      hooks:
+        - type: command
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=workflow-changelog-agent
+          timeout: 5000
+          async: true
+  PostToolUseFailure:
+    - hooks:
+        - type: command
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=workflow-changelog-agent
+          timeout: 5000
+          async: true
   Stop:
     - hooks:
         - type: command
@@ -27,6 +40,13 @@ hooks:
           timeout: 5000
           async: true
           statusMessage: Stop
+  SubagentStop:
+    - hooks:
+        - type: command
+          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=workflow-changelog-agent
+          timeout: 5000
+          async: true
+          statusMessage: SubagentStop        
 ---
 
 # Workflow Changelog Research Agent

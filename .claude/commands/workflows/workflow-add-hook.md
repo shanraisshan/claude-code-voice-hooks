@@ -93,6 +93,7 @@ Add `"disable<HookEventName>Hook": false` **before** the `"disableLogging"` line
 
 ### `README.md`
 
+- Update the **Version badge** timestamp to the current PKT time. Run `TZ=Asia/Karachi date "+%b %d, %Y %-I:%M %p PKT"` to get it, then URL-encode and replace the date in the `[![Version](...)]` badge on line 2. Also update the version number in the badge if it changed.
 - Update "supports all N hooks" count
 - Add a new changelog table row at the TOP:
   ```
@@ -105,9 +106,9 @@ Add `"disable<HookEventName>Hook": false` **before** the `"disableLogging"` line
 2. **Slide 2:** Update hook counts ("N Hooks Explained", "all N hooks")
 3. **Slide 3 (TOC):** Update title count, add new TOC item with correct `goToSlide(X)`
 4. **Slide 4 (Lifecycle):** Add hook in appropriate lifecycle position
-5. **New slide:** Create using the same HTML structure as existing hook slides — include hook number, can-block status, trigger description, how-to-trigger, matcher values (if applicable), use cases, and sound demo
+5. **New slide:** Create using the same HTML structure as existing hook slides — include hook number, **can-block/cannot-block badge** (`<span class="can-block">Can Block</span>` or `<span class="cannot-block">Cannot Block</span>` in the `hook-title` div), trigger description, how-to-trigger, matcher values (if applicable), use cases, and sound demo. **Every hook slide MUST have a can-block badge — never omit it.**
 6. **Shift slides:** Increment `data-slide` numbers and TOC `goToSlide(X)` references for all subsequent slides
-7. **Summary slide:** Add hook to appropriate category card
+7. **Summary slide:** Add hook to appropriate category card. **If the hook can block**, also add it to the "Hooks That Can Block Execution" `matcher-values` div at the bottom of the summary slide.
 8. **JavaScript:** Update `const totalSlides = N`
 
 ## Step 5: Verify

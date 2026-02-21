@@ -680,6 +680,12 @@
         <p>Hooks fire at specific points in Claude's workflow. Here's the execution order:</p>
 
         <div class="lifecycle-diagram">
+            <div style="margin-bottom: 12px; padding: 12px 16px; background: #e8f4f8; border-left: 4px solid #17a2b8; border-radius: 4px;">
+                <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #0c5460;">Separate trigger — <code>claude --init</code> / <code>--maintenance</code></strong>
+                <div style="margin-top: 8px;">
+                    <span class="matcher-tag">Setup</span>
+                </div>
+            </div>
             <div class="lifecycle-step">
                 <span class="lifecycle-arrow">→</span>
                 <span class="lifecycle-label highlight">SessionStart</span>
@@ -738,7 +744,7 @@
             </div>
         </div>
 
-        <p style="margin-top: 24px;"><strong>Note:</strong> Notification, TeammateIdle, TaskCompleted, and ConfigChange hooks fire asynchronously at any point during the session — they are not part of the sequential flow above.</p>
+        <p style="margin-top: 24px;"><strong>Note:</strong> Setup fires separately via <code>--init</code>/<code>--maintenance</code> CLI flags. Notification, TeammateIdle, TaskCompleted, ConfigChange, WorktreeCreate, and WorktreeRemove hooks fire asynchronously at any point during the session — they are not part of the sequential flow above.</p>
     </div>
 
     <!-- Slide 5: SessionStart -->
@@ -1740,6 +1746,7 @@
         <div class="hook-title">
             <span class="hook-number">17</span>
             <span class="hook-name">WorktreeCreate</span>
+            <span class="cannot-block">Cannot Block</span>
         </div>
 
         <div class="trigger-box">
@@ -1796,6 +1803,7 @@
         <div class="hook-title">
             <span class="hook-number">18</span>
             <span class="hook-name">WorktreeRemove</span>
+            <span class="cannot-block">Cannot Block</span>
         </div>
 
         <div class="trigger-box">

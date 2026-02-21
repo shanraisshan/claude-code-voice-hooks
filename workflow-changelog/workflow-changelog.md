@@ -40,3 +40,15 @@
 | 3 | MEDIUM | Version Update | Update all version badges from v2.1.49 → v2.1.50, hook count from 16 → 18 across README, HOOKS-README, presentation, hooks.py | ✅ updated — badge now shows v2.1.50 (Feb 21, 2026) |
 | 4 | LOW | Hook Options Table | Add `tool_response` to PostToolUse Options column in HOOKS-README | ✅ added to HOOKS-README |
 | 5 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream bug reported at [#27153](https://github.com/anthropics/claude-code/issues/27153); pending their fix |
+
+---
+
+## [2026-02-21 07:57 AM PKT] Claude Code v2.1.50
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | MEDIUM | Presentation | Add can-block/cannot-block badge to WorktreeCreate and WorktreeRemove slides — all other 16 hook slides had this badge | ✅ added "Cannot Block" badge to both slides |
+| 2 | LOW | Documentation | README.md changelog table missing v2.1.47 `last_assistant_message` — no action needed, table is for new hook additions only | ✖️ not applicable — editorial choice |
+| 3 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream bug reported; pending their fix |
+| 4 | LOW | Presentation | Setup hook not shown in lifecycle diagram — fires separately via --init/--maintenance | ✅ added Setup to lifecycle diagram with separate trigger section |
+| 5 | LOW | Workflow | Updated workflow-add-hook to require can-block badge on every new hook slide and update summary can-block list | ✅ added explicit instructions to workflow |

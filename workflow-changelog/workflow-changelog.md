@@ -70,3 +70,16 @@
 | # | Priority | Type | Action | Status |
 |---|----------|------|--------|--------|
 | 1 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open; tracked there |
+
+---
+
+## [2026-02-22 02:30 PM PKT] Claude Code v2.1.50
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | HIGH | Can-Block Fix | WorktreeCreate can-block status wrong in presentation — should be "Can Block" not "Cannot Block"; also missing from summary can-block list | ✅ fixed — changed to "Can Block" + added to summary list |
+| 2 | HIGH | Doc Fix | HOOKS-README "Not in Official Docs" table stale — WorktreeCreate and WorktreeRemove ARE now in official docs (17 hooks listed, not 15) | ✅ fixed — removed stale rows, updated count to 17 |
+| 3 | MEDIUM | New Input Field | WorktreeCreate missing `name` input field in HOOKS-README Options column | ✅ added `name` to Options column |
+| 4 | MEDIUM | New Input Field | WorktreeRemove missing `worktree_path` input field in HOOKS-README Options column | ✅ added `worktree_path` to Options column |
+| 5 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open; tracked there |
+

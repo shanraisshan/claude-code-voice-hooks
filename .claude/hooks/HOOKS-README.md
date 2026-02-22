@@ -22,8 +22,8 @@ Claude Code provides several hook events that run at different points in the wor
 | 14 | `TeammateIdle` | Runs when a teammate agent becomes idle (experimental agent teams) | `async`, `timeout: 5000`, `teammate_name`, `team_name` |
 | 15 | `TaskCompleted` | Runs when a background task completes (experimental agent teams) | `async`, `timeout: 5000`, `task_id`, `task_subject`, `task_description`, `teammate_name`, `team_name` |
 | 16 | `ConfigChange` | Runs when a configuration file changes during a session | `async`, `timeout: 5000`, `file_path`, `source` |
-| 17 | `WorktreeCreate` | Runs when agent worktree isolation creates worktrees for custom VCS setup | `async`, `timeout: 5000` |
-| 18 | `WorktreeRemove` | Runs when agent worktree isolation removes worktrees for custom VCS teardown | `async`, `timeout: 5000` |
+| 17 | `WorktreeCreate` | Runs when agent worktree isolation creates worktrees for custom VCS setup | `async`, `timeout: 5000`, `name` |
+| 18 | `WorktreeRemove` | Runs when agent worktree isolation removes worktrees for custom VCS teardown | `async`, `timeout: 5000`, `worktree_path` |
 
 > **Note:** Hooks 14-15 (`TeammateIdle` and `TaskCompleted`) require the experimental agent teams feature. Set `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` when launching Claude Code to enable them.
 
@@ -33,9 +33,7 @@ The following items exist in the [Claude Code Changelog](https://github.com/anth
 
 | Item | Added In | Changelog Reference | Notes |
 |------|----------|-------------------|-------|
-| `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | "Added new Setup hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations" | Not listed in official hooks reference page (15 hooks listed, Setup excluded) |
-| `WorktreeCreate` hook | [v2.1.50](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2150) | "Added `WorktreeCreate` and `WorktreeRemove` hook events" | Not listed in official hooks reference page (15 hooks listed, WorktreeCreate excluded) |
-| `WorktreeRemove` hook | [v2.1.50](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2150) | "Added `WorktreeCreate` and `WorktreeRemove` hook events" | Not listed in official hooks reference page (15 hooks listed, WorktreeRemove excluded) |
+| `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | "Added new Setup hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations" | Not listed in official hooks reference page (17 hooks listed, Setup excluded) |
 | Agent frontmatter hooks | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | "Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle" | Changelog only mentions 3 hooks, but testing confirms **6 hooks** actually fire in agent sessions: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. Not all 16 hooks are supported. |
 
 ## Prerequisites

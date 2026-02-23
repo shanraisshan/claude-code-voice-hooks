@@ -83,3 +83,14 @@
 | 4 | MEDIUM | New Input Field | WorktreeRemove missing `worktree_path` input field in HOOKS-README Options column | ✅ added `worktree_path` to Options column |
 | 5 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open; tracked there |
 
+---
+
+## [2026-02-23 01:08 PM PKT] Claude Code v2.1.50
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | MEDIUM | Documentation | HOOKS-README heading says "Official 18 Hooks" but only 17 are in official docs (Setup is unofficial) — heading wording misleading | ⚠️ NEEDS INVESTIGATION |
+| 2 | MEDIUM | Matcher/Schema | HOOKS-README missing per-hook matcher values for SessionEnd, Notification, SubagentStart, SubagentStop, PreCompact, ConfigChange | ⚠️ NEEDS INVESTIGATION |
+| 3 | LOW | Version Mismatch | TeammateIdle/TaskCompleted version — README says v2.1.33, CHANGELOG.md fetch suggests v2.1.45; needs verification | ⚠️ NEEDS INVESTIGATION |
+| 4 | LOW | Documentation | Common input fields (session_id, transcript_path, cwd, permission_mode, hook_event_name) not in dedicated HOOKS-README section | ⚠️ NEEDS INVESTIGATION |
+| 5 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ⚠️ NEEDS INVESTIGATION |

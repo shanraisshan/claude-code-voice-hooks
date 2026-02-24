@@ -4,22 +4,6 @@ description: Research agent that fetches Claude Code docs, reads local repo file
 model: opus
 color: blue
 hooks:
-  PreToolUse:
-    - matcher: ".*"
-      hooks:
-        - type: command
-          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=workflow-changelog-agent
-          timeout: 5000
-          async: true
-          statusMessage: PreToolUse
-  PostToolUse:
-    - matcher: ".*"
-      hooks:
-        - type: command
-          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=workflow-changelog-agent
-          timeout: 5000
-          async: true
-          statusMessage: PostToolUse
   PermissionRequest:
     - matcher: ".*"
       hooks:
@@ -32,21 +16,7 @@ hooks:
         - type: command
           command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=workflow-changelog-agent
           timeout: 5000
-          async: true
-  Stop:
-    - hooks:
-        - type: command
-          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=workflow-changelog-agent
-          timeout: 5000
-          async: true
-          statusMessage: Stop
-  SubagentStop:
-    - hooks:
-        - type: command
-          command: python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py --agent=workflow-changelog-agent
-          timeout: 5000
-          async: true
-          statusMessage: SubagentStop        
+          async: true      
 ---
 
 # Workflow Changelog Research Agent

@@ -451,6 +451,7 @@ Different hooks use different output schemas for blocking or controlling executi
 | PostToolUse, Stop, SubagentStop, ConfigChange | Top-level `decision` | `block` |
 | TeammateIdle, TaskCompleted | Exit code 2 only | No JSON decision control |
 | UserPromptSubmit | Can modify `prompt` field | Returns modified prompt via stdout |
+| WorktreeCreate | Non-zero exit + stdout path | Non-zero exit fails creation; stdout provides worktree path |
 
 ### Universal JSON Output Fields
 

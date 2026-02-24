@@ -12,28 +12,69 @@ Rules accumulate over time. Each workflow-changelog run MUST execute ALL rules a
 | `field-level` | Verify every individual field is accounted for | "Does each hook's Options column list every input field from docs?" |
 | `cross-file` | Same value must match across multiple files | "Does hook count match across settings x4, hooks.py, config, README, HOOKS-README, presentation?" |
 
-## Rules
+---
+
+## 1. HOOKS-README Documentation
+
+Rules that verify HOOKS-README content against official docs.
 
 | # | Category | Check | Depth | Compare Against | Added | Origin |
 |---|----------|-------|-------|-----------------|-------|--------|
-| 1 | Hook Options | For each hook, verify every input field listed in official docs appears in HOOKS-README Options column | field-level | hooks-reference page | 2026-02-20 | Notification fields (`notification_type`, `message`, `title`) were missing |
-| 2 | Matcher Values | For each hook with a matcher, compare HOOKS-README per-hook matcher reference values against official docs values word-by-word | content-match | hooks-reference page | 2026-02-24 | SubagentStart said "Agent name string" instead of specific values (Bash, Explore, Plan, custom) |
-| 3 | Version Badges | Compare version string across README badge, presentation title (line 543), presentation slide 2 (line 561), presentation slide 3 (line 599) | cross-file | changelog latest version | 2026-02-21 | Version staleness found in multiple locations on every run |
-| 4 | Can-Block Status | For each hook, verify can-block/cannot-block badge in presentation matches official docs can-block table | content-match | hooks-reference page | 2026-02-22 | WorktreeCreate had "Cannot Block" but should have been "Can Block" |
-| 5 | Not-in-Docs Table | For each hook listed in HOOKS-README "Not in Official Docs" table, verify it is actually absent from official docs; remove if now present | presence-check | hooks-reference page | 2026-02-22 | WorktreeCreate/WorktreeRemove were listed as "not in docs" but had been added |
-| 6 | Hook Count | Verify hook count is identical across: settings.json, settings-mac.json, settings-linux.json, settings-windows.json, hooks.py HOOK_SOUND_MAP, hooks-config.json, HOOKS-README heading, README badge, presentation | cross-file | all listed files | 2026-02-21 | Count went from 16 to 18 but not all files were updated |
-| 7 | Command-Only Events | Verify HOOKS-README prompt/agent hook exclusion list includes ALL command-only events (not just a subset) | content-match | hooks-reference page | 2026-02-24 | List only mentioned TeammateIdle, omitted 8 other command-only events |
-| 8 | Common Input Fields | Verify HOOKS-README common input fields section lists all fields from official docs (session_id, transcript_path, cwd, permission_mode, hook_event_name) | field-level | hooks-reference page | 2026-02-23 | Section was missing entirely |
-| 9 | Presentation Slides | Verify totalSlides variable matches actual slide count, and each hook has a dedicated slide | cross-file | presentation index.html | 2026-02-21 | Slide count consistency after adding new hooks |
-| 10 | Environment Variables | Verify HOOKS-README env vars section lists all standard hook env vars from official docs | field-level | hooks-guide page | 2026-02-20 | Potential env var gaps flagged by external sources |
-| 11 | Hook Name Spelling | Verify all 18 hook names are spelled identically (exact PascalCase) across: settings.json hooks keys, settings-mac/linux/windows hooks keys, hooks.py HOOK_SOUND_MAP keys, hooks-config.json toggle names (disable[Name]Hook pattern), HOOKS-README table, presentation slide hook-name spans, presentation TOC items, lifecycle diagram | cross-file | all listed files | 2026-02-24 | Rule 6 only checks count — a misspelled hook would pass count check but break functionality |
-| 12 | Sound Folder Existence | For each entry in HOOK_SOUND_MAP and AGENT_HOOK_SOUND_MAP, verify corresponding folder exists under .claude/hooks/sounds/ and contains at least one .mp3 and one .wav file | presence-check | hooks.py maps vs filesystem | 2026-02-24 | Sound folders could be missing after manual edits; workflow-add-hook creates them but no verification existed |
-| 13 | Agent Hook Consistency | Verify the 6 agent hooks are consistent across: AGENT_HOOK_SOUND_MAP in hooks.py (6 entries), agent sound folders (6 folders), HOOKS-README agent hooks section (6 listed), presentation agent slide (says "6 of N hooks") | cross-file | hooks.py, filesystem, HOOKS-README, presentation | 2026-02-24 | Agent hook count/names never had a cross-file consistency rule |
-| 14 | Can-Block Summary Slide | Verify the presentation summary slide listing of blocking hooks matches the set of individual hook slides that have "Can Block" badge | cross-file | presentation individual slides vs summary slide | 2026-02-24 | WorktreeCreate was wrong on individual slide AND missing from summary — two independent errors, Rule 4 only checks individual slides vs docs |
-| 15 | Lifecycle Diagram Completeness | Verify all hooks appear somewhere in the presentation lifecycle diagram (sequential flow, async section, or separate trigger section). Count hooks in diagram must equal total hook count | presence-check | presentation lifecycle diagram vs hook list | 2026-02-24 | Setup was missing from lifecycle diagram (caught 2026-02-21) but no rule was added to prevent recurrence |
-| 16 | Settings Hook Structure | For each hook across all 4 settings files, verify: timeout value (5000 for all except Setup which is 30000), async is true, `once` flag only on PreCompact/SessionStart/SessionEnd, statusMessage matches hook name | field-level | settings.json vs settings-mac/linux/windows | 2026-02-24 | Wrong timeout or missing once flag would cause behavioral bugs not caught by name/count checks |
-| 17 | Hook Type Classification Totals | Verify that (command-only event count) + (prompt/agent supported count) = total hook count. If they don't sum correctly, a hook is missing from one of the two lists | content-match | HOOKS-README hook types section | 2026-02-24 | Setup was omitted from both lists (9 command-only + 8 prompt/agent = 17, but total is 18) |
-| 18 | Presentation vs HOOKS-README Matcher Values | For hooks that show matcher values on presentation slides, verify those values match what HOOKS-README per-hook matcher reference table says | cross-file | presentation slides vs HOOKS-README | 2026-02-24 | Rule 2 checks HOOKS-README vs official docs, but presentation could drift independently from HOOKS-README |
-| 19 | hooks-config.json Toggle Pattern | Verify each hook has exactly one toggle key in hooks-config.json following the pattern `disable[ExactHookName]Hook`, and no extra/orphaned toggles exist | presence-check | hooks-config.json vs hook name list | 2026-02-24 | A renamed or removed hook could leave orphaned toggle keys or miss new ones |
-| 20 | Source Credibility Guard | Only flag items as drift if confirmed by official sources (hooks-reference page, hooks-guide page, GitHub changelog). Third-party blog sources may be outdated or wrong — use them for leads only, verify against official docs before flagging | content-match | official docs only | 2026-02-24 | Past runs produced false positives: OpenInEditor hook (2026-02-20), CLAUDE_HOOK_* env vars (2026-02-20), Windows relative path (2026-02-24) — all sourced from blogs, not official docs |
-| 21 | README Changelog Table | Verify latest row in README.md changelog table has current hook count and latest version. Hook count across rows should be monotonically non-decreasing | content-match | README.md changelog table vs current state | 2026-02-24 | Changelog table could show stale count or version after updates to other files |
+| 1A | Hook Options | For each hook, verify every input field listed in official docs appears in HOOKS-README Options column | field-level | hooks-reference page | 2026-02-20 | Notification fields (`notification_type`, `message`, `title`) were missing |
+| 1B | Matcher Values | For each hook with a matcher, compare HOOKS-README per-hook matcher reference values against official docs values word-by-word | content-match | hooks-reference page | 2026-02-24 | SubagentStart said "Agent name string" instead of specific values (Bash, Explore, Plan, custom) |
+| 1C | Not-in-Docs Table | For each hook listed in HOOKS-README "Not in Official Docs" table, verify it is actually absent from official docs; remove if now present | presence-check | hooks-reference page | 2026-02-22 | WorktreeCreate/WorktreeRemove were listed as "not in docs" but had been added |
+| 1D | Command-Only Events | Verify HOOKS-README prompt/agent hook exclusion list includes ALL command-only events (not just a subset) | content-match | hooks-reference page | 2026-02-24 | List only mentioned TeammateIdle, omitted 8 other command-only events |
+| 1E | Common Input Fields | Verify HOOKS-README common input fields section lists all fields from official docs (session_id, transcript_path, cwd, permission_mode, hook_event_name) | field-level | hooks-reference page | 2026-02-23 | Section was missing entirely |
+| 1F | Environment Variables | Verify HOOKS-README env vars section lists all standard hook env vars from official docs | field-level | hooks-guide page | 2026-02-20 | Potential env var gaps flagged by external sources |
+| 1G | Hook Type Classification Totals | Verify that (command-only event count) + (prompt/agent supported count) = total hook count. If they don't sum correctly, a hook is missing from one of the two lists | content-match | HOOKS-README hook types section | 2026-02-24 | Setup was omitted from both lists (9 command-only + 8 prompt/agent = 17, but total is 18) |
+| 1H | Decision Control Table Completeness | For each hook that can-block per official docs, verify it has an entry in the HOOKS-README Decision Control Patterns table (lines 446+). Check both JSON-based decision hooks AND exit-code-only/stdout-based hooks | presence-check | hooks-reference page can-block list vs HOOKS-README Decision Control Patterns table | 2026-02-24 | WorktreeCreate was can-block in official docs and on presentation slide (fixed 2026-02-22) but was never added to the HOOKS-README Decision Control table — Rule 2A only checks presentation badges, not the HOOKS-README table |
+
+---
+
+## 2. Presentation
+
+Rules that verify presentation slides accuracy and completeness.
+
+| # | Category | Check | Depth | Compare Against | Added | Origin |
+|---|----------|-------|-------|-----------------|-------|--------|
+| 2A | Can-Block Status | For each hook, verify can-block/cannot-block badge in presentation matches official docs can-block table | content-match | hooks-reference page | 2026-02-22 | WorktreeCreate had "Cannot Block" but should have been "Can Block" |
+| 2B | Presentation Slides | Verify totalSlides variable matches actual slide count, and each hook has a dedicated slide | cross-file | presentation index.html | 2026-02-21 | Slide count consistency after adding new hooks |
+| 2C | Can-Block Summary Slide | Verify the presentation summary slide listing of blocking hooks matches the set of individual hook slides that have "Can Block" badge | cross-file | presentation individual slides vs summary slide | 2026-02-24 | WorktreeCreate was wrong on individual slide AND missing from summary — two independent errors, Rule 2A only checks individual slides vs docs |
+| 2D | Lifecycle Diagram Completeness | Verify all hooks appear somewhere in the presentation lifecycle diagram (sequential flow, async section, or separate trigger section). Count hooks in diagram must equal total hook count | presence-check | presentation lifecycle diagram vs hook list | 2026-02-24 | Setup was missing from lifecycle diagram (caught 2026-02-21) but no rule was added to prevent recurrence |
+| 2E | Presentation vs HOOKS-README Matcher Values | For hooks that show matcher values on presentation slides, verify those values match what HOOKS-README per-hook matcher reference table says | cross-file | presentation slides vs HOOKS-README | 2026-02-24 | Rule 1B checks HOOKS-README vs official docs, but presentation could drift independently from HOOKS-README |
+
+---
+
+## 3. Cross-File Consistency
+
+Rules that verify the same value matches across multiple repo files.
+
+| # | Category | Check | Depth | Compare Against | Added | Origin |
+|---|----------|-------|-------|-----------------|-------|--------|
+| 3A | Version Badges | Compare version string across README badge, presentation title (line 543), presentation slide 2 (line 561), presentation slide 3 (line 599) | cross-file | changelog latest version | 2026-02-21 | Version staleness found in multiple locations on every run |
+| 3B | Hook Count | Verify hook count is identical across: settings.json, settings-mac.json, settings-linux.json, settings-windows.json, hooks.py HOOK_SOUND_MAP, hooks-config.json, HOOKS-README heading, README badge, presentation | cross-file | all listed files | 2026-02-21 | Count went from 16 to 18 but not all files were updated |
+| 3C | Hook Name Spelling | Verify all 18 hook names are spelled identically (exact PascalCase) across: settings.json hooks keys, settings-mac/linux/windows hooks keys, hooks.py HOOK_SOUND_MAP keys, hooks-config.json toggle names (disable[Name]Hook pattern), HOOKS-README table, presentation slide hook-name spans, presentation TOC items, lifecycle diagram | cross-file | all listed files | 2026-02-24 | Rule 3B only checks count — a misspelled hook would pass count check but break functionality |
+| 3D | Agent Hook Consistency | Verify the 6 agent hooks are consistent across: AGENT_HOOK_SOUND_MAP in hooks.py (6 entries), agent sound folders (6 folders), HOOKS-README agent hooks section (6 listed), presentation agent slide (says "6 of N hooks") | cross-file | hooks.py, filesystem, HOOKS-README, presentation | 2026-02-24 | Agent hook count/names never had a cross-file consistency rule |
+
+---
+
+## 4. Settings & Config
+
+Rules that verify settings files, config, and filesystem assets.
+
+| # | Category | Check | Depth | Compare Against | Added | Origin |
+|---|----------|-------|-------|-----------------|-------|--------|
+| 4A | Sound Folder Existence | For each entry in HOOK_SOUND_MAP and AGENT_HOOK_SOUND_MAP, verify corresponding folder exists under .claude/hooks/sounds/ and contains at least one .mp3 and one .wav file | presence-check | hooks.py maps vs filesystem | 2026-02-24 | Sound folders could be missing after manual edits; workflow-add-hook creates them but no verification existed |
+| 4B | Settings Hook Structure | For each hook across all 4 settings files, verify: timeout value (5000 for all except Setup which is 30000), async is true, `once` flag only on PreCompact/SessionStart/SessionEnd, statusMessage matches hook name | field-level | settings.json vs settings-mac/linux/windows | 2026-02-24 | Wrong timeout or missing once flag would cause behavioral bugs not caught by name/count checks |
+| 4C | hooks-config.json Toggle Pattern | Verify each hook has exactly one toggle key in hooks-config.json following the pattern `disable[ExactHookName]Hook`, and no extra/orphaned toggles exist | presence-check | hooks-config.json vs hook name list | 2026-02-24 | A renamed or removed hook could leave orphaned toggle keys or miss new ones |
+| 4D | README Changelog Table | Verify latest row in README.md changelog table has current hook count and latest version. Hook count across rows should be monotonically non-decreasing | content-match | README.md changelog table vs current state | 2026-02-24 | Changelog table could show stale count or version after updates to other files |
+
+---
+
+## 5. Process
+
+Meta-rules about the workflow verification process itself.
+
+| # | Category | Check | Depth | Compare Against | Added | Origin |
+|---|----------|-------|-------|-----------------|-------|--------|
+| 5A | Source Credibility Guard | Only flag items as drift if confirmed by official sources (hooks-reference page, hooks-guide page, GitHub changelog). Third-party blog sources may be outdated or wrong — use them for leads only, verify against official docs before flagging | content-match | official docs only | 2026-02-24 | Past runs produced false positives: OpenInEditor hook (2026-02-20), CLAUDE_HOOK_* env vars (2026-02-20), Windows relative path (2026-02-24) — all sourced from blogs, not official docs |

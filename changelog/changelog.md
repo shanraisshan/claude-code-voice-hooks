@@ -124,3 +124,12 @@
 |---|----------|------|--------|--------|
 | 1 | LOW | Matcher/Schema | Specify SubagentStart/SubagentStop matcher values (Bash, Explore, Plan, custom) in HOOKS-README — currently says "Agent name string" | ✅ COMPLETE (updated to specific values) |
 | 2 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |
+
+---
+
+## [2026-02-24 03:37 PM PKT] Claude Code v2.1.52
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | LOW | Matcher/Schema | Add WorktreeCreate to HOOKS-README Decision Control Patterns table (stdout path + non-zero exit fails creation) | ✅ COMPLETE (added row to Decision Control Patterns table in HOOKS-README) |
+| 2 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |

@@ -28,7 +28,7 @@ Create a git commit with an auto-generated message. The first line is a summary,
    date "+%d-%b-%y %I:%M %p"
    ```
 
-3. **Read `workflow-changelog/workflow-changelog.md`** to get the latest entry's priority actions table. Use the items in that table as the list of changes. If the command name is not `workflows:workflow-changelog`, fall back to reviewing the conversation to identify actions.
+3. **Read `changelog/changelog.md`** to get the latest entry's priority actions table. Use the items in that table as the list of changes. If the command name is not `workflows:workflow-changelog`, fall back to reviewing the conversation to identify actions.
 
 4. **Run `git status --short`** to see which files were changed.
 

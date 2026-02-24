@@ -51,13 +51,13 @@ Both agents run independently and will return their findings.
 
 ## Phase 0.5: Read Verification Checklist
 
-**While agents are running**, read `workflow-changelog/verification-checklist.md`. This file contains accumulated verification rules — each rule specifies what to check, at what depth, and against which source. Every rule MUST be executed during Phase 2. The checklist is the project's regression test suite for drift detection.
+**While agents are running**, read `changelog/verification-checklist.md`. This file contains accumulated verification rules — each rule specifies what to check, at what depth, and against which source. Every rule MUST be executed during Phase 2. The checklist is the project's regression test suite for drift detection.
 
 ---
 
 ## Phase 1: Read Previous Changelog Entries
 
-**Before merging findings**, read the file `workflow-changelog/workflow-changelog.md` to get the last 10 changelog entries. Each entry is separated by `---`. Parse the priority actions from those previous entries so you can compare them against the current findings. This lets you identify:
+**Before merging findings**, read the file `changelog/changelog.md` to get the last 10 changelog entries. Each entry is separated by `---`. Parse the priority actions from those previous entries so you can compare them against the current findings. This lets you identify:
 - **Recurring items** — issues that appeared before and are still unresolved
 - **Newly resolved items** — issues from previous runs that are now fixed
 - **New items** — issues that appear for the first time in this run
@@ -72,7 +72,7 @@ Both agents run independently and will return their findings.
 
 Cross-reference the two. The workflow-changelog-agent provides repo-specific drift analysis, while the claude-code-guide agent may surface things it missed (e.g. very recent changes, undocumented features, or context from web searches). Flag any contradictions between the two for the user to resolve.
 
-**Execute the verification checklist:** For every rule in `workflow-changelog/verification-checklist.md`, perform the check at the specified depth using the agent findings as source data. Include a **Verification Log** section in the report showing each rule's result:
+**Execute the verification checklist:** For every rule in `changelog/verification-checklist.md`, perform the check at the specified depth using the agent findings as source data. Include a **Verification Log** section in the report showing each rule's result:
 
 ```
 Verification Log:
@@ -82,7 +82,7 @@ Rule # | Category         | Depth         | Result | Notes
 ...
 ```
 
-**Update the checklist if needed:** If a finding reveals a new type of drift that no existing checklist rule covers (or covers at insufficient depth), append a new rule to `workflow-changelog/verification-checklist.md`. The rule must include: category, what to check, depth level, what source to compare against, date added, and the origin (what error prompted this rule). Do NOT add rules for one-off issues that won't recur.
+**Update the checklist if needed:** If a finding reveals a new type of drift that no existing checklist rule covers (or covers at insufficient depth), append a new rule to `changelog/verification-checklist.md`. The rule must include: category, what to check, depth level, what source to compare against, date added, and the origin (what error prompted this rule). Do NOT add rules for one-off issues that won't recur.
 
 Also compare the current findings against the previous changelog entries (from Phase 1). For each priority action, mark it as:
 - `NEW` — first time this issue appears
@@ -128,11 +128,11 @@ Also include a **Resolved Since Last Run** section listing any items from the pr
 
 ---
 
-## Phase 2.5: Append Summary to workflow-changelog/workflow-changelog.md
+## Phase 2.5: Append Summary to changelog/changelog.md
 
 **This phase is MANDATORY — always execute it before presenting the report to the user.**
 
-Read the existing `workflow-changelog/workflow-changelog.md` file, then **append** (do NOT overwrite) a new entry at the end. The entry format must be exactly:
+Read the existing `changelog/changelog.md` file, then **append** (do NOT overwrite) a new entry at the end. The entry format must be exactly:
 
 ```markdown
 ---
@@ -158,7 +158,7 @@ The `(reason)` is mandatory and must briefly explain what was done or why. Examp
 **Rules for appending:**
 - Always append — never overwrite or replace previous entries
 - The date and time is when the command is executed in Pakistan Standard Time (PKT, UTC+5); get it by running `TZ=Asia/Karachi date "+%Y-%m-%d %I:%M %p PKT"`. The version comes from agent findings
-- If `workflow-changelog/workflow-changelog.md` doesn't exist or is empty, create it with the Status Legend table (see top of file) then the first entry
+- If `changelog/changelog.md` doesn't exist or is empty, create it with the Status Legend table (see top of file) then the first entry
 - Each entry is separated by `---`
 - **Only include items with HIGH, MEDIUM, or LOW priority** — omit NONE priority items (things that need no action)
 
@@ -185,7 +185,7 @@ This is a standard maintenance step, NOT an issue to report. When the latest Cla
 
 ## Phase 3: Offer to Take Action
 
-After presenting the report (and confirming both workflow-changelog/workflow-changelog.md and the README badge were updated), ask the user:
+After presenting the report (and confirming both changelog/changelog.md and the README badge were updated), ask the user:
 
 1. **Execute all actions** — Handle everything (new hooks via `/workflows:workflow-add-hook`, fixes, updates)
 2. **Execute specific actions** — User picks which numbers to execute
@@ -211,7 +211,7 @@ When executing:
 6. **Cross-reference counts** — the same hook count must appear in: settings (x4), hooks.py, hooks-config.json, HOOKS-README.md, README.md badge, and presentation
 7. **Don't auto-execute** — always present the report first
 8. **Agent hooks** — this project supports 6 agent hooks (PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop). Not all 16 hooks fire in agent sessions.
-9. **ALWAYS append to workflow-changelog/workflow-changelog.md** — Phase 2.5 is mandatory. Never skip it. Never overwrite previous entries.
-10. **Compare with previous runs** — read the last 10 entries from workflow-changelog/workflow-changelog.md and mark each action item as NEW, RECURRING, or RESOLVED.
-11. **ALWAYS execute the verification checklist** — read `workflow-changelog/verification-checklist.md` and execute every rule. Include a Verification Log in the report. Append new rules when a new type of drift is discovered that no existing rule covers.
+9. **ALWAYS append to changelog/changelog.md** — Phase 2.5 is mandatory. Never skip it. Never overwrite previous entries.
+10. **Compare with previous runs** — read the last 10 entries from changelog/changelog.md and mark each action item as NEW, RECURRING, or RESOLVED.
+11. **ALWAYS execute the verification checklist** — read `changelog/verification-checklist.md` and execute every rule. Include a Verification Log in the report. Append new rules when a new type of drift is discovered that no existing rule covers.
 12. **Checklist rules are append-only** — never remove or weaken existing rules. Only add new rules or upgrade depth levels.

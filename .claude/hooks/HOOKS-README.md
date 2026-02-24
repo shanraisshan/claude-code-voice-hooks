@@ -398,8 +398,8 @@ Matchers filter which events trigger a hook. Not all hooks support matchers — 
 | `PostToolUse` | `tool_name` | Same as PreToolUse | `"matcher": "Write"` |
 | `PostToolUseFailure` | `tool_name` | Same as PreToolUse | `"matcher": "Bash"` |
 | `Notification` | `notification_type` | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog` | `"matcher": "permission_prompt"` |
-| `SubagentStart` | `agent_type` | Agent name string | `"matcher": "my-agent"` |
-| `SubagentStop` | `agent_type` | Agent name string | `"matcher": "my-agent"` |
+| `SubagentStart` | `agent_type` | `Bash`, `Explore`, `Plan`, or custom agent name | `"matcher": "Bash"` |
+| `SubagentStop` | `agent_type` | `Bash`, `Explore`, `Plan`, or custom agent name | `"matcher": "Bash"` |
 | `SessionStart` | `source` | `startup`, `resume`, `clear`, `compact` | `"matcher": "startup"` |
 | `SessionEnd` | `reason` | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` | `"matcher": "logout"` |
 | `PreCompact` | `trigger` | `manual`, `auto` | `"matcher": "auto"` |

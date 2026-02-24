@@ -49,6 +49,12 @@ Both agents run independently and will return their findings.
 
 ---
 
+## Phase 0.5: Read Verification Checklist
+
+**While agents are running**, read `workflow-changelog/verification-checklist.md`. This file contains accumulated verification rules — each rule specifies what to check, at what depth, and against which source. Every rule MUST be executed during Phase 2. The checklist is the project's regression test suite for drift detection.
+
+---
+
 ## Phase 1: Read Previous Changelog Entries
 
 **Before merging findings**, read the file `workflow-changelog/workflow-changelog.md` to get the last 10 changelog entries. Each entry is separated by `---`. Parse the priority actions from those previous entries so you can compare them against the current findings. This lets you identify:
@@ -65,6 +71,18 @@ Both agents run independently and will return their findings.
 - **claude-code-guide findings** — independent research on latest Claude Code hooks, features, and changes
 
 Cross-reference the two. The workflow-changelog-agent provides repo-specific drift analysis, while the claude-code-guide agent may surface things it missed (e.g. very recent changes, undocumented features, or context from web searches). Flag any contradictions between the two for the user to resolve.
+
+**Execute the verification checklist:** For every rule in `workflow-changelog/verification-checklist.md`, perform the check at the specified depth using the agent findings as source data. Include a **Verification Log** section in the report showing each rule's result:
+
+```
+Verification Log:
+Rule # | Category         | Depth         | Result | Notes
+1      | Hook Options     | field-level   | PASS   | All fields match
+2      | Matcher Values   | content-match | FAIL   | SubagentStart values differ
+...
+```
+
+**Update the checklist if needed:** If a finding reveals a new type of drift that no existing checklist rule covers (or covers at insufficient depth), append a new rule to `workflow-changelog/verification-checklist.md`. The rule must include: category, what to check, depth level, what source to compare against, date added, and the origin (what error prompted this rule). Do NOT add rules for one-off issues that won't recur.
 
 Also compare the current findings against the previous changelog entries (from Phase 1). For each priority action, mark it as:
 - `NEW` — first time this issue appears
@@ -123,24 +141,45 @@ Read the existing `workflow-changelog/workflow-changelog.md` file, then **append
 
 | # | Priority | Type | Action | Status |
 |---|----------|------|--------|--------|
-| 1 | HIGH/MED/LOW | <type> | <action description> | NEW/RECURRING/RESOLVED |
+| 1 | HIGH/MED/LOW | <type> | <action description> | <status> |
 | ... | ... | ... | ... | ... |
 ```
+
+**Status format — MUST use one of these three formats:**
+- `✅ COMPLETE (reason)` — action was taken and resolved successfully
+- `❌ INVALID (reason)` — finding was incorrect, not applicable, or intentional
+- `✋ ON HOLD (reason)` — action deferred, waiting on external dependency or user decision
+
+The `(reason)` is mandatory and must briefly explain what was done or why. Examples:
+- `✅ COMPLETE (added to HOOKS-README)`
+- `❌ INVALID (false positive — not in official docs)`
+- `✋ ON HOLD (upstream issue #27153 still open)`
 
 **Rules for appending:**
 - Always append — never overwrite or replace previous entries
 - The date and time is when the command is executed in Pakistan Standard Time (PKT, UTC+5); get it by running `TZ=Asia/Karachi date "+%Y-%m-%d %I:%M %p PKT"`. The version comes from agent findings
-- If `workflow-changelog/workflow-changelog.md` doesn't exist or is empty, create it with `# Workflow Changelog History` then the first entry
+- If `workflow-changelog/workflow-changelog.md` doesn't exist or is empty, create it with the Status Legend table (see top of file) then the first entry
 - Each entry is separated by `---`
 - **Only include items with HIGH, MEDIUM, or LOW priority** — omit NONE priority items (things that need no action)
 
 ---
 
-## Phase 2.6: Update README Badge Timestamp
+## Phase 2.6: Update Version Across README and Presentation
 
 **This phase is MANDATORY — always execute it immediately after Phase 2.5, before presenting the report.**
 
-Update the `[![Version](...)]` badge on README.md line 2 with the current PKT time. Run `TZ=Asia/Karachi date "+%b %d, %Y %-I:%M %p PKT"` to get the time, URL-encode it (spaces → `%20`, commas → `%2C`), and replace the date portion in the badge. Also update the version number in the badge if it changed (use version from agent findings). This ensures the badge always reflects when the repo was last synced.
+This is a standard maintenance step, NOT an issue to report. When the latest Claude Code version differs from the repo's version, update it automatically in all locations:
+
+1. **README.md badge (line 2):** Update version number and PKT timestamp. Run `TZ=Asia/Karachi date "+%b %d, %Y %-I:%M %p PKT"` to get the time, URL-encode it (spaces → `%20`, commas → `%2C`), and replace both the version and date portions in the badge.
+
+2. **Presentation version references:** Update all three locations in `presentation/index.html`:
+   - Title slide (search for version pattern near line 543)
+   - Slide 2 introduction (search for version pattern near line 561)
+   - Slide 3 TOC (search for version pattern near line 599)
+
+   Also update the date on the title slide and slide 3 if present.
+
+**Do NOT log version updates as action items in the changelog or report.** Version syncing is a routine part of every run, not a finding. Only log it if the update fails or requires manual intervention.
 
 ---
 
@@ -174,3 +213,5 @@ When executing:
 8. **Agent hooks** — this project supports 6 agent hooks (PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop). Not all 16 hooks fire in agent sessions.
 9. **ALWAYS append to workflow-changelog/workflow-changelog.md** — Phase 2.5 is mandatory. Never skip it. Never overwrite previous entries.
 10. **Compare with previous runs** — read the last 10 entries from workflow-changelog/workflow-changelog.md and mark each action item as NEW, RECURRING, or RESOLVED.
+11. **ALWAYS execute the verification checklist** — read `workflow-changelog/verification-checklist.md` and execute every rule. Include a Verification Log in the report. Append new rules when a new type of drift is discovered that no existing rule covers.
+12. **Checklist rules are append-only** — never remove or weaken existing rules. Only add new rules or upgrade depth levels.

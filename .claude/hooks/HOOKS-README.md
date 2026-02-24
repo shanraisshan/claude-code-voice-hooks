@@ -323,7 +323,7 @@ Sends a prompt to a Claude model for single-turn evaluation. The model returns a
 }
 ```
 
-**Supported events:** PreToolUse, PostToolUse, PostToolUseFailure, PermissionRequest, UserPromptSubmit, Stop, SubagentStop, TaskCompleted. **Not supported:** TeammateIdle.
+**Supported events:** PreToolUse, PostToolUse, PostToolUseFailure, PermissionRequest, UserPromptSubmit, Stop, SubagentStop, TaskCompleted. **Command-only events (not supported for prompt/agent types):** ConfigChange, Notification, PreCompact, SessionEnd, SessionStart, SubagentStart, TeammateIdle, WorktreeCreate, WorktreeRemove.
 
 ### `type: "agent"`
 
@@ -349,6 +349,20 @@ Claude Code provides these environment variables to hook scripts:
 | `$CLAUDE_CODE_REMOTE` | All hooks | Set to `"true"` in remote web environments, not set in local CLI |
 | `session_id` (via stdin JSON) | All hooks | Current session ID, received as part of the JSON input on stdin (not an environment variable) |
 
+### Common Input Fields (stdin JSON)
+
+Every hook receives a JSON object on stdin containing these common fields, in addition to any hook-specific fields listed in the Options column above:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `hook_event_name` | string | Name of the hook event that fired (e.g., `"PreToolUse"`, `"Stop"`) |
+| `session_id` | string | Current session identifier |
+| `transcript_path` | string | Path to the conversation transcript JSON file |
+| `cwd` | string | Current working directory |
+| `permission_mode` | string | Current permission mode: `default`, `plan`, `acceptEdits`, `dontAsk`, or `bypassPermissions` |
+
+> **Note:** Hook-specific fields (e.g., `tool_name` for PreToolUse, `last_assistant_message` for Stop) are listed in the Options column of the [Hook Events Overview](#hook-events-overview---official-18-hooks) table above.
+
 ## Hooks Management Commands
 
 Claude Code provides built-in commands for managing hooks:
@@ -372,6 +386,31 @@ For `PreToolUse`, `PostToolUse`, and `PermissionRequest` hooks, you can match MC
 ```
 
 Full regex is supported: `mcp__memory__.*` (all tools from memory server), `mcp__.*__write.*` (any write tool from any server).
+
+### Per-Hook Matcher Reference
+
+Matchers filter which events trigger a hook. Not all hooks support matchers — hooks without matcher support always fire.
+
+| Hook | Matcher Field | Possible Values | Example |
+|------|--------------|-----------------|---------|
+| `PreToolUse` | `tool_name` | Any tool name: `Bash`, `Read`, `Edit`, `Write`, `Glob`, `Grep`, `mcp__*` | `"matcher": "Bash"` |
+| `PermissionRequest` | `tool_name` | Same as PreToolUse | `"matcher": "mcp__memory__.*"` |
+| `PostToolUse` | `tool_name` | Same as PreToolUse | `"matcher": "Write"` |
+| `PostToolUseFailure` | `tool_name` | Same as PreToolUse | `"matcher": "Bash"` |
+| `Notification` | `notification_type` | `permission_prompt`, `idle_prompt`, `auth_success`, `elicitation_dialog` | `"matcher": "permission_prompt"` |
+| `SubagentStart` | `agent_type` | Agent name string | `"matcher": "my-agent"` |
+| `SubagentStop` | `agent_type` | Agent name string | `"matcher": "my-agent"` |
+| `SessionStart` | `source` | `startup`, `resume`, `clear`, `compact` | `"matcher": "startup"` |
+| `SessionEnd` | `reason` | `clear`, `logout`, `prompt_input_exit`, `bypass_permissions_disabled`, `other` | `"matcher": "logout"` |
+| `PreCompact` | `trigger` | `manual`, `auto` | `"matcher": "auto"` |
+| `ConfigChange` | `source` | `user_settings`, `project_settings`, `local_settings`, `policy_settings`, `skills` | `"matcher": "project_settings"` |
+| `UserPromptSubmit` | — | No matcher support | Always fires |
+| `Stop` | — | No matcher support | Always fires |
+| `TeammateIdle` | — | No matcher support | Always fires |
+| `TaskCompleted` | — | No matcher support | Always fires |
+| `WorktreeCreate` | — | No matcher support | Always fires |
+| `WorktreeRemove` | — | No matcher support | Always fires |
+| `Setup` | — | No matcher support | Always fires |
 
 ## Known Issues & Workarounds
 

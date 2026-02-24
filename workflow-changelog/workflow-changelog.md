@@ -9,8 +9,8 @@
 | 1 | HIGH | Doc Fix | `agent_type` version attribution — README said v2.1.43, changelog disagrees | ✅ marked as ~v2.1.43 (unconfirmed) |
 | 2 | MEDIUM | Agent Hook Docs | Agent frontmatter hooks — official docs say "all supported" vs repo's 6 | ✅ added update note to HOOKS-README and README |
 | 3 | LOW | Hook Options Table | `notification_type`, `message`, `title` missing from Notification Options column | ✅ added to HOOKS-README |
-| 4 | LOW | Hook Types/Env | Additional `CLAUDE_HOOK_*` env vars from blog sources | ✖️ false positive — not in official docs |
-| 5 | LOW | New Hook | `OpenInEditor` hook existence | ✖️ false positive — does not exist in official docs |
+| 4 | LOW | Hook Types/Env | Additional `CLAUDE_HOOK_*` env vars from blog sources | ❌ false positive — not in official docs |
+| 5 | LOW | New Hook | `OpenInEditor` hook existence | ❌ false positive — does not exist in official docs |
 
 ---
 
@@ -48,7 +48,7 @@
 | # | Priority | Type | Action | Status |
 |---|----------|------|--------|--------|
 | 1 | MEDIUM | Presentation | Add can-block/cannot-block badge to WorktreeCreate and WorktreeRemove slides — all other 16 hook slides had this badge | ✅ added "Cannot Block" badge to both slides |
-| 2 | LOW | Documentation | README.md changelog table missing v2.1.47 `last_assistant_message` — no action needed, table is for new hook additions only | ✖️ not applicable — editorial choice |
+| 2 | LOW | Documentation | README.md changelog table missing v2.1.47 `last_assistant_message` — no action needed, table is for new hook additions only | ❌ not applicable — editorial choice |
 | 3 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✅ RESOLVED — upstream bug reported; pending their fix |
 | 4 | LOW | Presentation | Setup hook not shown in lifecycle diagram — fires separately via --init/--maintenance | ✅ added Setup to lifecycle diagram with separate trigger section |
 | 5 | LOW | Workflow | Updated workflow-add-hook to require can-block badge on every new hook slide and update summary can-block list | ✅ added explicit instructions to workflow |
@@ -89,8 +89,23 @@
 
 | # | Priority | Type | Action | Status |
 |---|----------|------|--------|--------|
-| 1 | MEDIUM | Documentation | HOOKS-README heading says "Official 18 Hooks" but only 17 are in official docs (Setup is unofficial) — heading wording misleading | ⚠️ NEEDS INVESTIGATION |
-| 2 | MEDIUM | Matcher/Schema | HOOKS-README missing per-hook matcher values for SessionEnd, Notification, SubagentStart, SubagentStop, PreCompact, ConfigChange | ⚠️ NEEDS INVESTIGATION |
-| 3 | LOW | Version Mismatch | TeammateIdle/TaskCompleted version — README says v2.1.33, CHANGELOG.md fetch suggests v2.1.45; needs verification | ⚠️ NEEDS INVESTIGATION |
-| 4 | LOW | Documentation | Common input fields (session_id, transcript_path, cwd, permission_mode, hook_event_name) not in dedicated HOOKS-README section | ⚠️ NEEDS INVESTIGATION |
-| 5 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ⚠️ NEEDS INVESTIGATION |
+| 1 | MEDIUM | Documentation | HOOKS-README heading says "Official 18 Hooks" but only 17 are in official docs (Setup is unofficial) — heading wording misleading | ❌ INVALID — intentional wording |
+| 2 | MEDIUM | Matcher/Schema | HOOKS-README missing per-hook matcher values for SessionEnd, Notification, SubagentStart, SubagentStop, PreCompact, ConfigChange | ✅ RESOLVED (2026-02-24) — added Per-Hook Matcher Reference table |
+| 3 | LOW | Version Mismatch | TeammateIdle/TaskCompleted version — README says v2.1.33, CHANGELOG.md fetch suggests v2.1.45; needs verification | ✅ RESOLVED (2026-02-24) — v2.1.33 confirmed correct |
+| 4 | LOW | Documentation | Common input fields (session_id, transcript_path, cwd, permission_mode, hook_event_name) not in dedicated HOOKS-README section | ✅ RESOLVED (2026-02-24) — added Common Input Fields section |
+| 5 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✋ ON HOLD |
+
+---
+
+## [2026-02-24 10:02 AM PKT] Claude Code v2.1.51
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | HIGH | Version Update | Update all version badges from v2.1.50 → v2.1.51 across README, presentation (v2.1.51 is a security fix for statusLine/fileSuggestion hooks) | ✅ |
+| 2 | ~~MEDIUM~~ | ~~Documentation~~ | ~~HOOKS-README heading says "Official 18 Hooks" but only 17 are in official docs (Setup is unofficial) — heading wording misleading~~ | ❌ INVALID |
+| 3 | MEDIUM | Matcher/Schema | HOOKS-README missing per-hook matcher values for SessionEnd, Notification, SubagentStart, SubagentStop, PreCompact, ConfigChange | ✅ |
+| 4 | MEDIUM | Hook Types/Env | HOOKS-README prompt/agent hook exclusion list only mentions TeammateIdle — should list all 9 command-only events | ✅ |
+| 5 | ~~MEDIUM~~ | ~~Config Drift~~ | ~~Windows settings use relative path — windows hooks won't work regardless~~ | ❌ INVALID |
+| 6 | LOW | Version Mismatch | TeammateIdle/TaskCompleted version — README says v2.1.33, CHANGELOG.md fetch suggests v2.1.45; needs verification | ✅ researched and fixed |
+| 7 | LOW | Documentation | Common input fields (session_id, transcript_path, cwd, permission_mode, hook_event_name) not in dedicated HOOKS-README section | ✅ |
+| 8 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✋ ON HOLD |

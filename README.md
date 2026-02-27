@@ -1,5 +1,5 @@
 # Claude Code Voice Hooks
-[![Hooks](https://img.shields.io/badge/supports%20all-18%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-18-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.59%20(Feb%2026%2C%202026%2010:21%20AM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
+[![Hooks](https://img.shields.io/badge/supports%20all-18%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-18-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.62%20(Feb%2027%2C%202026%2010:08%20AM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 
 <p align="center">
   <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">

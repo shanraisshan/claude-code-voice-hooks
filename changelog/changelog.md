@@ -157,3 +157,12 @@
 | # | Priority | Type | Action | Status |
 |---|----------|------|--------|--------|
 | 1 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |
+
+---
+
+## [2026-02-27 10:08 AM PKT] Claude Code v2.1.62
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | LOW | Hook Type Classification | Add Setup to command-only event list in HOOKS-README line 326 (Rule 1G: 9 + 8 = 17 ≠ 18) | ✅ COMPLETE (added Setup to command-only list — now 10 + 8 = 18) |
+| 2 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |

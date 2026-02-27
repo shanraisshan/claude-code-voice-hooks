@@ -69,3 +69,8 @@ new hook addition changelogs only
   <a href="https://x.com/shanraisshan/status/1987817251966513620"><img src="!/pill-x.svg" alt="X" height="36"></a>&nbsp;
   <a href="https://medium.com/@shanraisshan/claude-code-just-got-a-voice-%25EF%25B8%258F-51008157305b"><img src="!/pill-medium.svg" alt="Medium" height="36"></a>
 </p>
+
+## Other CLI Voice Hooks
+
+- [Claude Code Voice Hooks](https://github.com/shanraisshan/claude-code-voice-hooks)
+- [Codex CLI Voice Hooks](https://github.com/shanraisshan/codex-cli-voice-hooks)

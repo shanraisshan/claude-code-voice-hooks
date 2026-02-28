@@ -296,7 +296,7 @@ This project sets `statusMessage` to the hook event name on all hooks, so the sp
 
 ## Hook Types
 
-Claude Code supports three hook handler types. This project uses `command` hooks for all sound playback.
+Claude Code supports four hook handler types. This project uses `command` hooks for all sound playback.
 
 ### `type: "command"` (used by this project)
 
@@ -336,6 +336,24 @@ Spawns a subagent with multi-turn tool access (Read, Grep, Glob) to verify condi
   "timeout": 120
 }
 ```
+
+### `type: "http"` (since v2.1.63)
+
+POSTs JSON to a URL and receives a JSON response, instead of running a shell command. Useful for integrating with external services or webhooks. HTTP hooks are routed through the sandbox network proxy when sandboxing is enabled.
+
+```json
+{
+  "type": "http",
+  "url": "http://localhost:8080/hooks/pre-tool-use",
+  "timeout": 30,
+  "headers": {
+    "Authorization": "Bearer $MY_TOKEN"
+  },
+  "allowedEnvVars": ["MY_TOKEN"]
+}
+```
+
+**Not supported for:** SessionStart, Setup events. Headers support environment variable interpolation with `$VAR_NAME`, but only for variables explicitly listed in `allowedEnvVars`.
 
 ## Environment Variables
 

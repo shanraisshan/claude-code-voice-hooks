@@ -166,3 +166,13 @@
 |---|----------|------|--------|--------|
 | 1 | LOW | Hook Type Classification | Add Setup to command-only event list in HOOKS-README line 326 (Rule 1G: 9 + 8 = 17 ≠ 18) | ✅ COMPLETE (added Setup to command-only list — now 10 + 8 = 18) |
 | 2 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |
+
+---
+
+## [2026-02-28 11:39 AM PKT] Claude Code v2.1.63
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | HIGH | Can-Block Fix | PostToolUse can-block status wrong in presentation — should be "Can Block" not "Cannot Block"; also missing from summary can-block list (Rules 2A + 2C) | ✅ COMPLETE (changed badge to "Can Block" + added PostToolUse to summary list) |
+| 2 | LOW | Documentation | HTTP hook type (`type: "http"`) added in v2.1.63 — not documented in HOOKS-README Hook Types section | ✅ COMPLETE (added `type: "http"` section to HOOKS-README, updated count to "four hook handler types") |
+| 3 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves — official docs say "all supported" vs repo's tested 6 | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |

@@ -540,7 +540,7 @@
         </div>
         <h1>Claude Code Voice Hooks</h1>
         <p class="subtitle">Explaining Claude Code Voice Hooks and Subagent Hooks</p>
-        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.62 | February 27, 2026</p>
+        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.63 | February 28, 2026</p>
     </div>
 
     <!-- Slide 2: Introduction -->
@@ -558,7 +558,7 @@
                 <span class="use-case-icon">🔢</span>
                 <div class="use-case-text">
                     <strong>18 Hooks Explained</strong>
-                    <span>Claude Code currently supports 18 hooks (as of v2.1.62)</span>
+                    <span>Claude Code currently supports 18 hooks (as of v2.1.63)</span>
                 </div>
             </div>
             <div class="use-case-item">
@@ -596,7 +596,7 @@
     <!-- Slide 3: Table of Contents -->
     <div class="slide" data-slide="3">
         <h1>The 18 Hooks</h1>
-        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.62 | February 27, 2026 — More hooks may be added in future versions.</p>
+        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.63 | February 28, 2026 — More hooks may be added in future versions.</p>
 
         <div class="toc-list">
             <div class="toc-item" onclick="goToSlide(5)">
@@ -942,7 +942,7 @@
         <div class="hook-title">
             <span class="hook-number">4</span>
             <span class="hook-name">PostToolUse</span>
-            <span class="cannot-block">Cannot Block</span>
+            <span class="can-block">Can Block</span>
         </div>
 
         <div class="trigger-box">
@@ -2044,6 +2044,7 @@ hooks:
         <div class="matcher-values">
             <span class="matcher-tag">UserPromptSubmit</span>
             <span class="matcher-tag">PreToolUse</span>
+            <span class="matcher-tag">PostToolUse</span>
             <span class="matcher-tag">PermissionRequest</span>
             <span class="matcher-tag">SubagentStop</span>
             <span class="matcher-tag">Stop</span>

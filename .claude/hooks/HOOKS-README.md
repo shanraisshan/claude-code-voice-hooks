@@ -355,7 +355,7 @@ POSTs JSON to a URL and receives a JSON response, instead of running a shell com
 }
 ```
 
-**Not supported for:** SessionStart, Setup events. Headers support environment variable interpolation with `$VAR_NAME`, but only for variables explicitly listed in `allowedEnvVars`.
+**Not supported for:** ConfigChange, InstructionsLoaded, Notification, PreCompact, SessionEnd, SessionStart, Setup, SubagentStart, TeammateIdle, WorktreeCreate, WorktreeRemove (command-only events). Headers support environment variable interpolation with `$VAR_NAME`, but only for variables explicitly listed in `allowedEnvVars`.
 
 ## Environment Variables
 

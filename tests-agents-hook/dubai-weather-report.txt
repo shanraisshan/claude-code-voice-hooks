@@ -1,0 +1,21 @@
+Dubai Weather Report - March 12, 2026
+========================================
+
+Current Conditions:
+- Temperature: 78F (24C)
+- RealFeel: 80F
+- Humidity: 67-68%
+- Wind: NNE at 10-20 mph (16.9 km/h)
+- Conditions: Cloudy morning, partly cloudy afternoon, hazy
+
+Tonight:
+- Low: 71F
+- Conditions: Generally clear and hazy
+
+Summary: Pleasant spring day in Dubai with mild temperatures, some cloud
+cover, and hazy conditions typical for the season.
+
+Sources:
+- AccuWeather: https://www.accuweather.com/en/ae/dubai/323091/current-weather/323091
+- Weather Underground: https://www.wunderground.com/weather/ae/dubai
+- Time and Date: https://www.timeanddate.com/weather/united-arab-emirates/dubai

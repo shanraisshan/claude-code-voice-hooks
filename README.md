@@ -1,5 +1,5 @@
 # Claude Code Voice Hooks
-[![Hooks](https://img.shields.io/badge/supports%20all-19%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-19-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.73%20(Mar%2012%2C%202026%2012:47%20AM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
+[![Hooks](https://img.shields.io/badge/supports%20all-19%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-voice-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-19-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.74%20(Mar%2012%2C%202026%2012:22%20PM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 
 <p align="center">
   <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">
@@ -71,6 +71,10 @@ new hook addition changelogs only
 
 - [Claude Code Voice Hooks](https://github.com/shanraisshan/claude-code-voice-hooks)
 - [Codex CLI Voice Hooks](https://github.com/shanraisshan/codex-cli-voice-hooks)
+
+## Developed by
+
+This project is **100% autopilot** — fully managed by [Claude Code](https://docs.anthropic.com/en/docs/claude-code) with zero human coding. Run `/workflows:workflow-changelog` to scan for new hooks and drift, then `/workflows:workflow-add-hook <HookName>` to add any recommended hook across all files in one command.
 
 ---
 

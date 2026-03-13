@@ -3,6 +3,18 @@ name: claude-code-voice-hook-agent
 description: Plays agent-specific sounds for the 6 hooks that actually fire in agent sessions
 model: opus
 color: red
+allowedTools:
+  - "Bash(*)"
+  - "Read"
+  - "Write"
+  - "Edit"
+  - "Glob"
+  - "Grep"
+  - "WebFetch(*)"
+  - "WebSearch(*)"
+  - "Agent"
+  - "NotebookEdit"
+  - "mcp__*"
 hooks:
   PreToolUse:
     - matcher: ".*"

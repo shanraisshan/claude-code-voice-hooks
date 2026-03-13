@@ -3,6 +3,18 @@ name: claude-code-test-agent
 description: Tests all 19 Claude Code hooks by logging each event to tests-agents-hook/agent-hook-fired.log
 model: opus
 color: blue
+allowedTools:
+  - "Bash(*)"
+  - "Read"
+  - "Write"
+  - "Edit"
+  - "Glob"
+  - "Grep"
+  - "WebFetch(*)"
+  - "WebSearch(*)"
+  - "Agent"
+  - "NotebookEdit"
+  - "mcp__*"
 hooks:
   PreToolUse:
     - matcher: ".*"

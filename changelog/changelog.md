@@ -243,3 +243,12 @@
 | 1 | MEDIUM | New Env Var | Add `CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS` to HOOKS-README env vars table — SessionEnd hooks now respect configured timeout (v2.1.74 fix) | ✅ COMPLETE (added to HOOKS-README env vars table) |
 | 2 | LOW | Schema Discovery | Elicitation/ElicitationResult hidden hooks in schema — monitor | ✋ ON HOLD (recurring since 2026-03-04; waiting for official documentation) |
 | 3 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |
+
+---
+
+## [2026-03-14 12:56 AM PKT] Claude Code v2.1.75
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | LOW | Schema Discovery | Elicitation/ElicitationResult hidden hooks in schema — monitor | ✋ ON HOLD (recurring since 2026-03-04; waiting for official documentation) |
+| 2 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |

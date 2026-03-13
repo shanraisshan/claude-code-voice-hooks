@@ -3,6 +3,18 @@ name: workflow-changelog-agent
 description: Research agent that fetches Claude Code docs, reads local repo files, and analyzes changelog drift for the voice hooks project
 model: opus
 color: blue
+allowedTools:
+  - "Bash(*)"
+  - "Read"
+  - "Write"
+  - "Edit"
+  - "Glob"
+  - "Grep"
+  - "WebFetch(*)"
+  - "WebSearch(*)"
+  - "Agent"
+  - "NotebookEdit"
+  - "mcp__*"
 hooks:
   PermissionRequest:
     - matcher: ".*"

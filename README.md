@@ -81,6 +81,3 @@ new hook addition changelogs only
 | /workflows:workflow-changelog | Scan for new hooks and drift across all files |
 | /workflows:workflow-add-hook <HookName>* | Add any recommended hook across all files in one command |
 
----
-
-<table width="100%"><tr><td align="left"><a href="https://github.com/shanraisshan/claude-code-best-practice">← Back to Claude Code Best Practice</a></td><td align="right"><img src="!/claude-jumping.svg" alt="Claude jumping" width="60" height="54"></td></tr></table>

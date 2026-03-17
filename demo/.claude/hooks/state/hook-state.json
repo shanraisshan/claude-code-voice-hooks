@@ -6,9 +6,9 @@
       "fire_count": 0
     },
     "UserPromptSubmit": {
-      "active": true,
-      "last_fired": 1773733091.512605,
-      "fire_count": 2
+      "active": false,
+      "last_fired": null,
+      "fire_count": 0
     },
     "PreToolUse": {
       "active": false,
@@ -36,9 +36,9 @@
       "fire_count": 0
     },
     "Stop": {
-      "active": true,
-      "last_fired": 1773733094.451018,
-      "fire_count": 2
+      "active": false,
+      "last_fired": null,
+      "fire_count": 0
     },
     "SubagentStart": {
       "active": false,
@@ -111,5 +111,5 @@
       "fire_count": 0
     }
   },
-  "last_updated": 1773733094.451019
+  "last_updated": null
 }

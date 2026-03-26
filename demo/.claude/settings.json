@@ -302,6 +302,33 @@
           }
         ]
       }
+    ],
+    "CwdChanged": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/demo-hooks.py",
+            "timeout": 5000,
+            "async": true,
+            "statusMessage": "CwdChanged"
+          }
+        ]
+      }
+    ],
+    "FileChanged": [
+      {
+        "matcher": ".envrc|.env|.env.local",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/demo-hooks.py",
+            "timeout": 5000,
+            "async": true,
+            "statusMessage": "FileChanged"
+          }
+        ]
+      }
     ]
   }
 }

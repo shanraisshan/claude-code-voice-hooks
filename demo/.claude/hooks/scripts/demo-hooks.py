@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Demo Hook Handler - plays sounds AND updates lifecycle visualization state.
-Handles all 23 Claude Code hooks.
+Handles all 25 Claude Code hooks.
 """
 
 import json
@@ -37,6 +37,8 @@ HOOK_SOUND_MAP = {
     "Elicitation": "elicitation",
     "ElicitationResult": "elicitationresult",
     "StopFailure": "stopfailure",
+    "CwdChanged": "cwdchanged",
+    "FileChanged": "filechanged",
 }
 
 ALL_HOOKS = list(HOOK_SOUND_MAP.keys())

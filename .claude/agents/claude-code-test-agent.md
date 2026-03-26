@@ -1,6 +1,6 @@
 ---
 name: claude-code-test-agent
-description: Tests all 23 Claude Code hooks by logging each event to tests-agents-hook/agent-hook-fired.log
+description: Tests all 25 Claude Code hooks by logging each event to tests-agents-hook/agent-hook-fired.log
 model: opus
 color: blue
 allowedTools:
@@ -160,9 +160,21 @@ hooks:
           command: "echo \"StopFailure $(date '+%H:%M:%S')\" >> tests-agents-hook/agent-hook-fired.log"
           timeout: 5000
           async: true
+  CwdChanged:
+    - hooks:
+        - type: command
+          command: "echo \"CwdChanged $(date '+%H:%M:%S')\" >> tests-agents-hook/agent-hook-fired.log"
+          timeout: 5000
+          async: true
+  FileChanged:
+    - hooks:
+        - type: command
+          command: "echo \"FileChanged $(date '+%H:%M:%S')\" >> tests-agents-hook/agent-hook-fired.log"
+          timeout: 5000
+          async: true
 ---
 
-You are the claude-code-test-agent. Your goal is to trigger as many of the 23 configured hooks as possible and report which ones actually fired. Follow ALL steps below in order.
+You are the claude-code-test-agent. Your goal is to trigger as many of the 25 configured hooks as possible and report which ones actually fired. Follow ALL steps below in order.
 
 ## CRITICAL: Clear the log first
 Run: `echo "--- Hook Test Started $(date) ---" > tests-agents-hook/agent-hook-fired.log`
@@ -190,7 +202,7 @@ Fetch https://wttr.in/Dubai?format=3 to get a compact weather summary.
 ### Step 7: Run final log check
 Run: `cat tests-agents-hook/agent-hook-fired.log` and include the full log contents in your response.
 
-## All 23 Hooks Configured
+## All 25 Hooks Configured
 - **PreToolUse** — fires before every tool call
 - **PostToolUse** — fires after every successful tool call
 - **PermissionRequest** — fires when a tool needs user permission
@@ -214,13 +226,15 @@ Run: `cat tests-agents-hook/agent-hook-fired.log` and include the full log conte
 - **Elicitation** — fires when an MCP server requests user input during a tool call
 - **ElicitationResult** — fires after a user responds to an MCP elicitation
 - **StopFailure** — fires when the turn ends due to an API error (rate limit, auth failure)
+- **CwdChanged** — fires when the working directory changes during a session
+- **FileChanged** — fires when files change during a session
 
 ## Output Format
 
 After completing all steps, provide:
 
 1. **Hook Trigger Summary:**
-   List each of the 23 hooks and whether it fired (from the log file):
+   List each of the 25 hooks and whether it fired (from the log file):
    - PreToolUse: [fired/not fired + count]
    - PostToolUse: [fired/not fired + count]
    - PermissionRequest: [fired/not fired + count]
@@ -244,5 +258,7 @@ After completing all steps, provide:
    - Elicitation: [fired/not fired]
    - ElicitationResult: [fired/not fired]
    - StopFailure: [fired/not fired]
+   - CwdChanged: [fired/not fired]
+   - FileChanged: [fired/not fired]
 
 2. **Notes:** Explain which hooks fired and which cannot be triggered from within an agent and why.

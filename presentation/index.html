@@ -541,7 +541,7 @@
         </div>
         <h1>Claude Code Hooks</h1>
         <p class="subtitle">Explaining Claude Code Hooks and Subagent Hooks</p>
-        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.81 | March 23, 2026</p>
+        <p style="margin-top: 60px; font-size: 0.95rem; color: #888;">As of Claude Code v2.1.83 | March 25, 2026</p>
     </div>
 
     <!-- Slide 2: Introduction -->
@@ -558,8 +558,8 @@
             <div class="use-case-item">
                 <span class="use-case-icon">🔢</span>
                 <div class="use-case-text">
-                    <strong>23 Hooks Explained</strong>
-                    <span>Claude Code currently supports 23 hooks (as of v2.1.81)</span>
+                    <strong>25 Hooks Explained</strong>
+                    <span>Claude Code currently supports 23 hooks (as of v2.1.83)</span>
                 </div>
             </div>
             <div class="use-case-item">
@@ -580,7 +580,7 @@
                 <span class="use-case-icon">🔊</span>
                 <div class="use-case-text">
                     <strong>Voice Notifications Demo</strong>
-                    <span>This repo integrates all 23 hooks with audio feedback</span>
+                    <span>This repo integrates all 25 hooks with audio feedback</span>
                 </div>
             </div>
         </div>
@@ -596,8 +596,8 @@
 
     <!-- Slide 3: Table of Contents -->
     <div class="slide" data-slide="3">
-        <h1>The 23 Hooks</h1>
-        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.81 | March 23, 2026 — More hooks may be added in future versions.</p>
+        <h1>The 25 Hooks</h1>
+        <p style="margin-top: -30px; margin-bottom: 24px; font-size: 1rem; color: #666;">Claude Code v2.1.83 | March 25, 2026 — More hooks may be added in future versions.</p>
 
         <div class="toc-list">
             <div class="toc-item" onclick="goToSlide(5)">
@@ -692,6 +692,14 @@
                 <span class="toc-number">23</span>
                 <span class="toc-name">StopFailure</span>
             </div>
+            <div class="toc-item" onclick="goToSlide(28)">
+                <span class="toc-number">24</span>
+                <span class="toc-name">CwdChanged</span>
+            </div>
+            <div class="toc-item" onclick="goToSlide(29)">
+                <span class="toc-number">25</span>
+                <span class="toc-name">FileChanged</span>
+            </div>
         </div>
     </div>
 
@@ -774,7 +782,7 @@
             </div>
         </div>
 
-        <p style="margin-top: 24px;"><strong>Note:</strong> Setup fires separately via <code>--init</code>/<code>--maintenance</code> CLI flags. Notification, TeammateIdle, TaskCompleted, ConfigChange, WorktreeCreate, WorktreeRemove, InstructionsLoaded, Elicitation, ElicitationResult, and StopFailure hooks fire asynchronously at any point during the session — they are not part of the sequential flow above.</p>
+        <p style="margin-top: 24px;"><strong>Note:</strong> Setup fires separately via <code>--init</code>/<code>--maintenance</code> CLI flags. Notification, TeammateIdle, TaskCompleted, ConfigChange, WorktreeCreate, WorktreeRemove, InstructionsLoaded, Elicitation, ElicitationResult, StopFailure, CwdChanged, and FileChanged hooks fire asynchronously at any point during the session — they are not part of the sequential flow above.</p>
     </div>
 
     <!-- Slide 5: SessionStart -->
@@ -2163,14 +2171,112 @@
         </div>
     </div>
 
-    <!-- Slide 28: Agent Hooks -->
+    <!-- Slide 28: CwdChanged -->
     <div class="slide" data-slide="28">
+        <div class="hook-title">
+            <span class="hook-number">24</span>
+            <span class="hook-name">CwdChanged</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When the working directory changes during a session. Designed for reactive environment management — for example, automatically loading environment variables via direnv when Claude navigates to a different project directory. Introduced in v2.1.83.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>Claude changes the current working directory during a session:</p>
+            <div class="trigger-example">Claude navigates to new directory → CwdChanged hook fires</div>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "Directory changed"</strong>
+                    <span>Audio alert when Claude moves to a different directory</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🌍</span>
+                <div class="use-case-text">
+                    <strong>Environment Reload</strong>
+                    <span>Automatically reload .env files or direnv when changing directories</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📂</span>
+                <div class="use-case-text">
+                    <strong>Context Awareness</strong>
+                    <span>Load project-specific rules or configurations based on current directory</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: cwdchanged.wav — "Directory changed"
+        </div>
+    </div>
+
+    <!-- Slide 29: FileChanged -->
+    <div class="slide" data-slide="29">
+        <div class="hook-title">
+            <span class="hook-number">25</span>
+            <span class="hook-name">FileChanged</span>
+            <span class="cannot-block">Cannot Block</span>
+        </div>
+
+        <div class="trigger-box">
+            <h4>When It Triggers</h4>
+            <p>When files change during a session. Designed for reactive environment management — for example, automatically reloading configuration when a <code>.env</code> file is modified by an external process. Introduced in v2.1.83 alongside CwdChanged.</p>
+        </div>
+
+        <div class="how-to-trigger">
+            <h4>How to Trigger</h4>
+            <p>A watched file changes during a Claude Code session:</p>
+            <div class="trigger-example">File modified externally → FileChanged hook fires</div>
+        </div>
+
+        <h3>Use Cases</h3>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <span class="use-case-icon">🔊</span>
+                <div class="use-case-text">
+                    <strong>Voice: "File changed"</strong>
+                    <span>Audio alert when a watched file is modified</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">🔄</span>
+                <div class="use-case-text">
+                    <strong>Hot Reload</strong>
+                    <span>Automatically reload environment variables or config when files change</span>
+                </div>
+            </div>
+            <div class="use-case-item">
+                <span class="use-case-icon">📝</span>
+                <div class="use-case-text">
+                    <strong>Change Logging</strong>
+                    <span>Track file modifications for audit or debugging purposes</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sound-demo">
+            🔊 Sound: filechanged.wav — "File changed"
+        </div>
+    </div>
+
+    <!-- Slide 30: Agent Hooks -->
+    <div class="slide" data-slide="30">
         <h1>Agent Hooks (Bonus)</h1>
         <p>Claude Code 2.1.0 introduced support for agent-specific hooks defined in agent frontmatter files. These hooks only run within the agent's lifecycle.</p>
 
         <div class="trigger-box">
             <h4>Supported Agent Hooks</h4>
-            <p>Agent frontmatter hooks support <strong>6 of 23 hooks</strong>: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, and SubagentStop.</p>
+            <p>Agent frontmatter hooks support <strong>6 of 25 hooks</strong>: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, and SubagentStop.</p>
         </div>
 
         <div class="how-to-trigger">
@@ -2268,8 +2374,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 29: Configuration -->
-    <div class="slide" data-slide="29">
+    <!-- Slide 31: Configuration -->
+    <div class="slide" data-slide="31">
         <h1>Configuration</h1>
         <p>Hooks are configured in <code>.claude/settings.json</code> and can be individually enabled/disabled.</p>
 
@@ -2310,8 +2416,8 @@ hooks:
         </div>
     </div>
 
-    <!-- Slide 30: Summary -->
-    <div class="slide" data-slide="30">
+    <!-- Slide 32: Summary -->
+    <div class="slide" data-slide="32">
         <h1>Summary</h1>
 
         <div class="info-grid">
@@ -2329,6 +2435,8 @@ hooks:
                 <p><strong>Elicitation</strong> — MCP server requests input</p>
                 <p><strong>ElicitationResult</strong> — User responds to MCP</p>
                 <p><strong>StopFailure</strong> — Turn ends due to API error</p>
+                <p><strong>CwdChanged</strong> — Working directory changes</p>
+                <p><strong>FileChanged</strong> — Files change during session</p>
             </div>
             <div class="info-card">
                 <h4>User Interaction</h4>
@@ -2429,7 +2537,7 @@ hooks:
         <button class="nav-btn" id="nextBtn" onclick="nextSlide()">→</button>
     </div>
 
-    <div class="slide-counter" id="slideCounter">1 / 30</div>
+    <div class="slide-counter" id="slideCounter">1 / 32</div>
 
     <div class="keyboard-hint">
         <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> to navigate
@@ -2437,7 +2545,7 @@ hooks:
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 30;
+        const totalSlides = 32;
 
         function showSlide(n) {
             const slides = document.querySelectorAll('.slide');

@@ -1,7 +1,7 @@
 # HOOKS-README
 contains all the details, scripts, and instructions for the hooks
 
-## Hook Events Overview - [Official 23 Hooks](https://code.claude.com/docs/en/hooks)
+## Hook Events Overview - [Official 25 Hooks](https://code.claude.com/docs/en/hooks)
 Claude Code provides several hook events that run at different points in the workflow:
 
 | # | Hook | Description | Options |
@@ -29,6 +29,8 @@ Claude Code provides several hook events that run at different points in the wor
 | 21 | `Elicitation` | Runs when an MCP server requests user input during a tool call | `async`, `timeout: 5000`, `mcp_server_name`, `message`, `mode`, `url`, `elicitation_id`, `requested_schema` |
 | 22 | `ElicitationResult` | Runs after a user responds to an MCP elicitation, before the response is sent back to the server | `async`, `timeout: 5000`, `mcp_server_name`, `user_response`, `message`, `elicitation_id` |
 | 23 | `StopFailure` | Runs when the turn ends due to an API error (rate limit, auth failure, etc.) | `async`, `timeout: 5000`, `error`, `error_details`, `last_assistant_message` |
+| 24 | `CwdChanged` | Runs when the working directory changes during a session (reactive env management, e.g. direnv) | `async`, `timeout: 5000` |
+| 25 | `FileChanged` | Runs when watched files change during a session (reactive env management, e.g. direnv). **Requires `matcher` with pipe-separated basenames** (e.g. `.envrc\|.env`) to specify which files to watch | `async`, `timeout: 5000`, `file_path`, `event` |
 
 > **Note:** Hooks 15-16 (`TeammateIdle` and `TaskCompleted`) require the experimental agent teams feature. Set `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` when launching Claude Code to enable them.
 
@@ -38,8 +40,9 @@ The following items exist in the [Claude Code Changelog](https://github.com/anth
 
 | Item | Added In | Changelog Reference | Notes |
 |------|----------|-------------------|-------|
-| `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | "Added new Setup hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations" | Not listed in official hooks reference page (21 hooks listed, Setup and StopFailure excluded) |
-| `StopFailure` hook | [v2.1.78](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2178) | "Added `StopFailure` hook event that fires when the turn ends due to an API error (rate limit, auth failure, etc.)" | Not listed in official hooks reference page. Present in v2.1.78 schema `propertyNames` enum |
+| `Setup` hook | [v2.1.10](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2110) | "Added new Setup hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations" | Not listed in official hooks reference page (22 hooks listed, Setup excluded). StopFailure was added to official docs as of v2.1.83 |
+| `CwdChanged` hook | [v2.1.83](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2183) | "Added `CwdChanged` and `FileChanged` hook events for reactive environment management (e.g., direnv)" | Not listed in official hooks reference page. Present in v2.1.83 schema `propertyNames` enum |
+| `FileChanged` hook | [v2.1.83](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2183) | "Added `CwdChanged` and `FileChanged` hook events for reactive environment management (e.g., direnv)" | Not listed in official hooks reference page. Present in v2.1.83 schema `propertyNames` enum |
 | Agent frontmatter hooks | [v2.1.0](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#210) | "Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle" | Changelog only mentions 3 hooks, but testing confirms **6 hooks** actually fire in agent sessions: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. Not all 16 hooks are supported. |
 
 ## Prerequisites
@@ -135,7 +138,9 @@ Edit `.claude/hooks/config/hooks-config.json` for team-wide defaults:
   "disableConfigChangeHook": false,
   "disableWorktreeCreateHook": false,
   "disableWorktreeRemoveHook": false,
-  "disableInstructionsLoadedHook": false
+  "disableInstructionsLoadedHook": false,
+  "disableCwdChangedHook": false,
+  "disableFileChangedHook": false
 }
 ```
 
@@ -348,7 +353,7 @@ Sends a prompt to a Claude model for single-turn evaluation. The model returns a
 }
 ```
 
-**Supported events:** PreToolUse, PostToolUse, PostToolUseFailure, PermissionRequest, UserPromptSubmit, Stop, SubagentStop, TaskCompleted. **Command-only events (not supported for prompt/agent types):** ConfigChange, Elicitation, ElicitationResult, InstructionsLoaded, Notification, PostCompact, PreCompact, SessionEnd, SessionStart, Setup, StopFailure, SubagentStart, TeammateIdle, WorktreeCreate, WorktreeRemove.
+**Supported events:** PreToolUse, PostToolUse, PostToolUseFailure, PermissionRequest, UserPromptSubmit, Stop, SubagentStop, TaskCompleted. **Command-only events (not supported for prompt/agent types):** ConfigChange, CwdChanged, Elicitation, ElicitationResult, FileChanged, InstructionsLoaded, Notification, PostCompact, PreCompact, SessionEnd, SessionStart, Setup, StopFailure, SubagentStart, TeammateIdle, WorktreeCreate, WorktreeRemove.
 
 ### `type: "agent"`
 
@@ -378,7 +383,7 @@ POSTs JSON to a URL and receives a JSON response, instead of running a shell com
 }
 ```
 
-**Not supported for:** ConfigChange, Elicitation, ElicitationResult, InstructionsLoaded, Notification, PostCompact, PreCompact, SessionEnd, SessionStart, Setup, StopFailure, SubagentStart, TeammateIdle, WorktreeCreate, WorktreeRemove (command-only events). Headers support environment variable interpolation with `$VAR_NAME`, but only for variables explicitly listed in `allowedEnvVars`.
+**Not supported for:** ConfigChange, CwdChanged, Elicitation, ElicitationResult, FileChanged, InstructionsLoaded, Notification, PostCompact, PreCompact, SessionEnd, SessionStart, Setup, StopFailure, SubagentStart, TeammateIdle, WorktreeCreate, WorktreeRemove (command-only events). Headers support environment variable interpolation with `$VAR_NAME`, but only for variables explicitly listed in `allowedEnvVars`.
 
 ## Environment Variables
 

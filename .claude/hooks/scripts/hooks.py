@@ -3,7 +3,7 @@
 Claude Code Hook Handler
 =============================================
 This script handles events from Claude Code and plays sounds for different hook events.
-Supports all 23 Claude Code hooks: https://code.claude.com/docs/en/hooks
+Supports all 25 Claude Code hooks: https://code.claude.com/docs/en/hooks
 
 Special handling for git commits: plays pretooluse-git-committing.mp3
 
@@ -51,7 +51,9 @@ HOOK_SOUND_MAP = {
     "InstructionsLoaded": "instructionsloaded",
     "Elicitation": "elicitation",
     "ElicitationResult": "elicitationresult",
-    "StopFailure": "stopfailure"
+    "StopFailure": "stopfailure",
+    "CwdChanged": "cwdchanged",
+    "FileChanged": "filechanged"
 }
 
 # ===== AGENT HOOK EVENT TO SOUND FOLDER MAPPING =====

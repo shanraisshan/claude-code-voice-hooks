@@ -1,5 +1,5 @@
 # Claude Code Hooks
-[![Hooks](https://img.shields.io/badge/supports%20all-23%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-23-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.81%20(Mar%2023%2C%202026%209:51%20PM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) [![Stars](https://img.shields.io/github/stars/shanraisshan/claude-code-hooks?style=flat&label=%E2%98%85&labelColor=555&color=white)](https://github.com/shanraisshan/claude-code-hooks)
+[![Hooks](https://img.shields.io/badge/supports%20all-25%20hooks-white?style=flat&labelColor=555)](https://github.com/shanraisshan/claude-code-hooks/blob/main/.claude/hooks/HOOKS-README.md#hook-events-overview---official-25-hooks) [![Version](https://img.shields.io/badge/updated%20with%20Claude%20Code-v2.1.83%20(Mar%2025%2C%202026%209:53%20PM%20PKT)-white?style=flat&labelColor=555)](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) [![Stars](https://img.shields.io/github/stars/shanraisshan/claude-code-hooks?style=flat&label=%E2%98%85&labelColor=555&color=white)](https://github.com/shanraisshan/claude-code-hooks)
 
 <p align="center">
   <img src="!/claude-speaking.svg" alt="Claude Code mascot speaking" width="168" height="108">
@@ -48,6 +48,7 @@ new hook addition changelogs only
 
 | Date | Hooks | Changes | Claude Code Version | Demo |
 |------|:-----:|---------|:-------------------:|:----:|
+| Mar 25, 2026 | 25 | Added `CwdChanged`, `FileChanged` | [v2.1.83](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2183) | |
 | Mar 18, 2026 | 23 | Added `StopFailure` | [v2.1.78](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2178) | |
 | Mar 14, 2026 | 22 | Added `PostCompact`, `Elicitation`, `ElicitationResult` | [v2.1.76](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2176) | |
 | Mar 5, 2026 | 19 | Added `InstructionsLoaded` | [v2.1.69](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2169) | |

@@ -1,6 +1,6 @@
 # Claude Code Hooks
 
-Sound notification system for all 23 Claude Code hooks. Plays sound effects when hook events fire.
+Sound notification system for all 25 Claude Code hooks. Plays sound effects when hook events fire.
 
 ## Project Structure
 
@@ -22,7 +22,7 @@ install/
   settings-mac.json          # python3 + ${CLAUDE_PROJECT_DIR}
   settings-linux.json        # python3 + ${CLAUDE_PROJECT_DIR}
   settings-windows.json      # python + relative path
-presentation/index.html      # 30-slide presentation (totalSlides = 30)
+presentation/index.html      # 32-slide presentation (totalSlides = 32)
 changelog/
   changelog.md               # Accumulated workflow-changelog run history
   verification-checklist.md  # 82+ regression rules across 6 categories
@@ -30,7 +30,7 @@ changelog/
 
 ## Critical: Hook Count Consistency
 
-The hook count (currently **23**) MUST match across ALL of these locations:
+The hook count (currently **25**) MUST match across ALL of these locations:
 - `.claude/settings.json` hook entries
 - `install/settings-mac.json`, `settings-linux.json`, `settings-windows.json`
 - `hooks.py` HOOK_SOUND_MAP keys + docstring count
@@ -47,7 +47,7 @@ When adding a hook, use `/workflows:workflow-add-hook` — it updates all 14 fil
 
 ## Agent Hooks
 
-Only **6 of 23** hooks fire in agent sessions: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. These are mapped in `AGENT_HOOK_SOUND_MAP` in hooks.py.
+Only **6 of 25** hooks fire in agent sessions: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. These are mapped in `AGENT_HOOK_SOUND_MAP` in hooks.py.
 
 ## Workflows
 
@@ -71,4 +71,4 @@ Persistent memory file: `~/.claude/projects/-Users-shayanraees-Documents-Github-
 
 ## Schema Note
 
-`.claude/settings.json` is validated against Claude Code's bundled JSON schema. The schema's `propertyNames` enum may contain hidden/undocumented hooks not yet in the changelog. The workflow-changelog agent checks for these. As of v2.1.81, all 23 schema hooks are implemented in the repo. No hidden/undocumented hooks remain.
+`.claude/settings.json` is validated against Claude Code's bundled JSON schema. The schema's `propertyNames` enum may contain hidden/undocumented hooks not yet in the changelog. The workflow-changelog agent checks for these. As of v2.1.83, the schema has 25 hooks. All 25 schema hooks are implemented in the repo. No hidden/undocumented hooks remain.

@@ -322,3 +322,14 @@
 | 1 | MEDIUM | Not-in-Docs Table | Remove StopFailure from Not-in-Docs table; update Setup note from "21 hooks listed" to "22 hooks listed, Setup excluded" | ✋ ON HOLD (user decision: keep StopFailure in Not-in-Docs table like Setup) |
 | 2 | LOW | Hook Options Table | Remove `mode` from ElicitationResult Options column — not in official docs for this hook (only for Elicitation) | ✅ COMPLETE (removed `mode` from ElicitationResult Options) |
 | 3 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |
+
+---
+
+## [2026-03-25 09:43 PM PKT] Claude Code v2.1.83
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | HIGH | New Hook | `/workflows:workflow-add-hook CwdChanged` — v2.1.83, fires when working directory changes (reactive env management) | ✅ COMPLETE (added to all files — 25 hooks consistent across repo) |
+| 2 | HIGH | New Hook | `/workflows:workflow-add-hook FileChanged` — v2.1.83, fires when files change | ✅ COMPLETE (added to all files — 25 hooks consistent across repo) |
+| 3 | MEDIUM | Not-in-Docs Table | Update StopFailure entry — now confirmed in official docs by both agents; update Setup note "21 hooks" → "22 hooks listed, Setup excluded" | ✅ COMPLETE (removed StopFailure row, updated Setup note to "22 hooks listed, Setup excluded") |
+| 4 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |

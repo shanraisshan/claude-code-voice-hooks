@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workflows vs No Workflows</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -24,10 +25,18 @@
             padding: 40px;
         }
 
-        .title-logo {
-            width: 280px;
-            height: 180px;
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
             margin-bottom: 40px;
+        }
+
+        .title-logo {
+            width: 160px;
+            height: 100px;
+            flex-shrink: 0;
         }
 
         .title-logo svg {
@@ -35,45 +44,75 @@
             height: 100%;
         }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #1a1a1a;
+        .pixel-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 2.8rem;
+            color: #E07C4C;
+            line-height: 1.4;
+            text-align: left;
         }
 
         .subtitle {
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             color: #555;
-            margin-bottom: 50px;
+            margin-bottom: 16px;
             font-weight: 600;
         }
 
+        .project-line {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+
         .subtitle .workflows {
-            color: #22c55e;
+            display: inline-block;
+            color: #16a34a;
             font-weight: 700;
-            background: linear-gradient(90deg, #22c55e 0%, #86efac 50%, #22c55e 100%);
+            background: linear-gradient(90deg, #16a34a 0%, #4ade80 50%, #16a34a 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer-seq 5s ease-in-out infinite;
+            animation: shimmer-seq 10s ease-in-out infinite;
         }
 
         .subtitle .no-workflows {
-            color: #ef4444;
+            display: inline-block;
+            color: #dc2626;
             font-weight: 700;
-            background: linear-gradient(90deg, #ef4444 0%, #fca5a5 50%, #ef4444 100%);
+            background: linear-gradient(90deg, #dc2626 0%, #f87171 50%, #dc2626 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer-seq 5s ease-in-out infinite 2.5s;
+            animation: shimmer-seq 10s ease-in-out infinite 5s;
+        }
+
+        .subtitle .label {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 400;
+            -webkit-text-fill-color: #16a34a;
+            margin-top: 4px;
+        }
+
+        .subtitle .label-red {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 400;
+            -webkit-text-fill-color: #dc2626;
+            margin-top: 4px;
+        }
+
+        .subtitle .vs-text {
+            vertical-align: top;
         }
 
         @keyframes shimmer-seq {
             0% { background-position: 200% 0; }
-            40% { background-position: -200% 0; }
+            20% { background-position: -200% 0; }
             100% { background-position: -200% 0; }
         }
 
@@ -85,8 +124,9 @@
     </style>
 </head>
 <body>
+    <div class="header-row">
     <div class="title-logo">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 90" width="280" height="180">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 90" width="160" height="100">
             <style>
                 .tl-claude-body { animation: tl-bob 0.8s ease-in-out infinite; transform-origin: center bottom; }
                 .tl-shadow { animation: tl-shadow-pulse 0.8s ease-in-out infinite; }
@@ -131,8 +171,10 @@
             </g>
         </svg>
     </div>
-    <h1>Claude Code Hooks</h1>
-    <p class="subtitle"><span class="workflows">WORKFLOWS</span> vs <span class="no-workflows">NO-WORKFLOWS</span></p>
+    <div class="pixel-title">CLAUDE<br>CODE</div>
+    </div>
+    <p class="subtitle"><span class="workflows">WORKFLOWS<span class="label">(agentic engineering)</span></span> <span class="vs-text">vs</span> <span class="no-workflows">NO-WORKFLOWS<span class="label-red">(vibe coding)</span></span></p>
+    <p class="project-line">Explained using live project <strong>Claude Code Hooks</strong></p>
     <p class="footer">As of Claude Code v2.1.83 | March 25, 2026</p>
 </body>
 </html>

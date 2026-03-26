@@ -6,26 +6,26 @@ Sound notification system for all 25 Claude Code hooks. Plays sound effects when
 
 ```
 .claude/
-  settings.json              # Active hook config (schema-validated by Claude Code)
+  settings.json
   hooks/
-    scripts/hooks.py         # Main hook handler — HOOK_SOUND_MAP + AGENT_HOOK_SOUND_MAP
-    config/hooks-config.json # Per-hook disable toggles (disableXxxHook pattern)
-    sounds/<hookname>/       # Sound files — each hook needs .mp3 + .wav
-    HOOKS-README.md          # Full hook documentation (23 hooks)
+    scripts/hooks.py
+    config/hooks-config.json
+    sounds/<hookname>/
+    HOOKS-README.md
   agents/
-    workflows/workflow-changelog-agent.md  # Research agent for drift detection
-    claude-code-test-agent.md              # Tests all 23 hooks
+    workflows/workflow-changelog-agent.md
+    claude-code-test-agent.md
   commands/workflows/
-    workflow-changelog.md    # Coordinator: launches agents, merges findings, reports drift
-    workflow-add-hook.md     # Adds a new hook across all 14 files (incl. demo)
+    workflow-changelog.md
+    workflow-add-hook.md
 install/
-  settings-mac.json          # python3 + ${CLAUDE_PROJECT_DIR}
-  settings-linux.json        # python3 + ${CLAUDE_PROJECT_DIR}
-  settings-windows.json      # python + relative path
-presentation/index.html      # 32-slide presentation (totalSlides = 32)
+  settings-mac.json
+  settings-linux.json
+  settings-windows.json
+presentation/index.html
 changelog/
-  changelog.md               # Accumulated workflow-changelog run history
-  verification-checklist.md  # 82+ regression rules across 6 categories
+  changelog.md
+  verification-checklist.md
 ```
 
 ## Critical: Hook Count Consistency

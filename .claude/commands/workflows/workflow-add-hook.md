@@ -169,7 +169,7 @@ Every hook MUST appear in at least one prompt card with a **real trigger prompt*
 ### `presentation/index.html`
 
 1. **Title slide:** Update version and date
-2. **Slide 2:** Update hook counts ("N Hooks Explained", "all N hooks")
+2. **Slide 2:** Update hook counts ("N Hooks Explained", "all N hooks", and "currently supports N hooks (as of vX.X.XX)" in the use-case span)
 3. **Slide 3 (TOC):** Update title count, add new TOC item with correct `goToSlide(X)`
 4. **Slide 4 (Lifecycle):** Add hook in appropriate lifecycle position
 5. **New slide:** Create using the same HTML structure as existing hook slides — include hook number, **can-block/cannot-block badge** (`<span class="can-block">Can Block</span>` or `<span class="cannot-block">Cannot Block</span>` in the `hook-title` div), trigger description, how-to-trigger, matcher values (if applicable), use cases, and sound demo. **Every hook slide MUST have a can-block badge — never omit it.**

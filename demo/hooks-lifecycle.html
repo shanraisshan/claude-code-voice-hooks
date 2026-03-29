@@ -105,8 +105,8 @@
   <!-- LEFT PANEL (white/light theme) -->
   <div class="left-panel">
     <div class="prompts-grid">
-      <div class="prompt-card" data-card-hooks="Setup,SessionStart,InstructionsLoaded">
-        <div class="prompt-header"><span class="prompt-step">1. Start Claude</span><div class="prompt-hooks"><span class="hook-tag">Setup</span><span class="hook-tag">SessionStart</span><span class="hook-tag">InstructionsLoaded</span></div></div>
+      <div class="prompt-card" data-card-hooks="SessionStart,InstructionsLoaded">
+        <div class="prompt-header"><span class="prompt-step">1. Start Claude</span><div class="prompt-hooks"><span class="hook-tag">SessionStart</span><span class="hook-tag">InstructionsLoaded</span></div></div>
         <div class="prompt-code"><div class="prompt-line"><span class="prompt-line-text"><span class="prefix">$</span> cd demo && claude</span><button class="copy-btn" onclick="copyLine(this)" title="Copy"></button></div></div>
       </div>
       <div class="prompt-card" data-card-hooks="UserPromptSubmit,PreToolUse,PermissionRequest,PostToolUse,Stop">

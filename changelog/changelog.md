@@ -459,3 +459,14 @@
 | 10 | MEDIUM | Hook Options Table | WorktreeRemove: remove `worktree_name`, add `removal_reason` (per official docs) | ✅ COMPLETE (replaced field in Options column) |
 | 11 | MEDIUM | Hook Options Table | FileChanged: update `change_type` → `changed_reason` (per official docs) | ✅ COMPLETE (renamed in Options column) |
 | 12 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |
+
+---
+
+## [2026-04-19 12:50 PM PKT] Claude Code v2.1.114
+
+| # | Priority | Type | Action | Status |
+|---|----------|------|--------|--------|
+| 1 | MEDIUM | Documentation | Document v2.1.110 `PreToolUse` `additionalContext` no-drop-on-failure fix in HOOKS-README bug-fix notes | ✅ COMPLETE (added subsection in Known Issues & Workarounds) |
+| 2 | MEDIUM | Documentation | Document v2.1.110/v2.1.102 `PermissionRequest` `updatedInput` deny-rule re-check clarification | ✅ COMPLETE (added subsection in Known Issues & Workarounds) |
+| 3 | MEDIUM | Documentation | Document v2.1.111 Windows `CLAUDE_ENV_FILE` + SessionStart env fix | ✅ COMPLETE (added Windows-fix note to CLAUDE_ENV_FILE row in env vars table) |
+| 4 | LOW | Agent Hook Docs | Re-test agent frontmatter hooks when upstream #27153 resolves | ✋ ON HOLD (recurring since 2026-02-20; upstream issue [#27153](https://github.com/anthropics/claude-code/issues/27153) still open) |
